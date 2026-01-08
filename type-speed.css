@@ -178,12 +178,6 @@ footer {
   column-gap: 10px;
   transition: .15s;
 }
-.restart:hover {
-  background-color: hsla(0, 0%, 15%, 0.8);
-}
-.restart:focus {
-  background-color: hsla(0, 0%, 21%, 0.6);
-}
 
 .start-button {
   background-color: hsl(214, 100%, 55%);
@@ -202,11 +196,11 @@ footer {
   display: none;
 }
   
-.start-button:hover {
+.start-button:hover, .restart:hover {
   background-color: hsl(210, 100%, 65%);
   opacity: 1;
 }
-.start-button:focus {
+.start-button:focus, .restart:focus {
   outline: 1px solid hsl(210, 100%, 65%);
   border: 2px solid hsl(0, 0%, 7%);
   opacity: 1;
@@ -290,11 +284,11 @@ footer {
   }
   .drop-down-time {
     right: 20px;
-    top: 10.2em;
+    top: 11.4em;
     z-index: 4;
   }
   .drop-down-mode {
-    top: 10.2em;
+    top: 11.4em;
     z-index: 4;
   }
   .easy-time-select {

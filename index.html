@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./typing-speed-test-main/assets/images/favicon-32x32.png">
   <link font-family="Sora" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="type-speed.css">
 
@@ -17,101 +17,10 @@
 </head>
 <body>
   <header>
-    <div class="type-top-header type-header">
-      <div>
-        <img src="typing-speed-test-main/assets/images/logo-large.svg" alt="Logo large" class="typing-logo-large">
-        <img src="typing-speed-test-main/assets/images/logo-small.svg" alt="Logo small" class="typing-logo-small">
-      </div>
-      <div class="personal-best-container">
-        <img src="typing-speed-test-main/assets/images/icon-personal-best.svg" alt="Icon personal best" class="cup">
-        <span class="personal-best information">Personal best: <span class="personal-best-value">92 WPM</span></span>
-        <span class="personal-best information personal-best-2">Best: <span class="personal-best-value">92 WPM</span></span>
-      </div>
-    </div>
-    <div class="type-bottom-header type-header">
-      <div class="wpm-content content">
-        <span class="wpm-count information info">
-          <span>WPM: </span>
-          <span class="wpm-value">46</span>
-        </span>
-        <span class="accuracy-info information info">
-          <span>Accuracy: </span>
-          <span class="accuracy-value">94%</span>
-        </span>
-        <span class="information info">
-          <span>Time: </span>
-          <span class="time-value">0:46</span>
-        </span>
-      </div>
-      <div class="dif-mode-content content">
-        <span class="information info">
-          <span>Difficulty: </span>
-          <button class="general-button active easy">Easy</button> 
-          <button class="general-button">Medium</button> 
-          <button class="general-button">Hard</button>
-        </span>
-        <span class="information info mode-info">
-          <span>Mode: </span>
-          <button class="general-button active timed">Timed (60s)</button> 
-          <button class="general-button">Passage</button>
-        </span>
-      </div>
-      <div class="dif-mode-content-small">
-        <div class="easy-time-select">
-          <div class="list js-list-mode">
-            <span class="js-mode-value">Easy</span>
-            <img src="typing-speed-test-main/assets/images/icon-down-arrow.svg">
-          </div>
-          <div class="list js-list-time">
-            <span class="js-time-value">Time (60s)</span>
-            <img src="typing-speed-test-main/assets/images/icon-down-arrow.svg">
-          </div>
-        </div>
-        <div class="drop-down drop-down-mode js-drop-down-mode">
-          <div class="js-easy-mode">
-            <input type="radio" name="mode" id="easy" checked>
-            <label for="easy">Easy</label>
-          </div>
-          <div class="medium js-medium-mode">
-            <input type="radio" name="mode" id="medium">
-            <label for="medium">Medium</label>
-          </div>
-          <div class="js-hard-mode">
-            <input type="radio" name="mode" id="hard">
-            <label for="hard">Hard</label>
-          </div>
-        </div>
-        <div class="drop-down drop-down-time js-drop-down-time">
-          <div class="js-time-sec">
-            <input type="radio" name="time" id="sec" checked>
-            <label for="sec">Time (60s)</label>
-          </div>
-          <div class="medium passage js-time-passage">
-            <input type="radio" name="time" id="passage">
-            <label for="passage">Passage</label>
-          </div>
-        </div>
-      </div>
-    </div>
   </header>
   <main>
     <!-- <input type="text" class="input">
     <button class="click">Click me</button> -->
-    <div class="start-message js-start-message">
-      <button class="general-button start-button js-start-button">Start Typing Test</button>
-      <p>Or click the test and start typing</p>
-    </div>
-    <div class="typing-container">
-      <p class="text-to-type js-text-to-type">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-      <textarea class="text-area"></textarea>
-    </div>
   </main>
   <footer>
     <button class="general-button restart js-restart-button">
@@ -120,16 +29,6 @@
         alt="Restart icon" class="restart-image">
     </button>
   </footer>
-  <script src="type-speed.js">
-    /*
-      document.querySelector('.click').addEventListener('click', () => {
-        let hello = document.querySelector('.input').value
-        // let helloNew = hello.length
-        console.log(hello)
-        let helloNew = hello.split(' ')
-        console.log(helloNew.length)
-      })
-    */
-  </script>
+  <script type="module" src="src/type-speed.js"></script>
 </body>
 </html>
