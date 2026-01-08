@@ -17,11 +17,11 @@ function homeScreenHTML() {
       <div class="wpm-content content">
         <span class="wpm-count information info">
           <span>WPM: </span>
-          <span class="wpm-value">46</span>
+          <span class="wpm-value">0</span>
         </span>
         <span class="accuracy-info information info">
           <span>Accuracy: </span>
-          <span class="accuracy-value">94%</span>
+          <span class="accuracy-value">0.0%</span>
         </span>
         <span class="information info">
           <span>Time: </span>
@@ -198,6 +198,7 @@ function clearScreen() {
     document.querySelector('.js-restart-button').style.display = 'flex'
     document.querySelector('.js-text-to-type').style.filter = 'blur(0px)'
     timeSetup()
+    document.querySelector('.text-area').focus();
   }, 400);
 }
 
@@ -234,11 +235,13 @@ document.querySelector('.js-time-passage').addEventListener('click', () => {
 
 let timerStarted = false;
 let timerInterval;
+let timeLeft = 60;
 
 function timeSetup() {
   let timeValue = document.querySelector('.js-time-value').innerHTML
   if (timeValue === 'Time (60s)') {
     timerStarted = false;
+    timeLeft = 60;
     document.querySelector('.text-area').addEventListener('input', handleTyping);
     setupRestart();
   } else if (timeValue === 'Passage') {
@@ -255,11 +258,10 @@ function handleTyping() {
 }
 
 function startTimer() {
-  let time = 60;
   timerInterval = setInterval(() => {
-    time--;
-    document.querySelector('.time-value').innerHTML = `00:${time < 10 ? '0' + time : time}`;
-    if (time === 0) {
+    timeLeft--;
+    document.querySelector('.time-value').innerHTML = `00:${timeLeft < 10 ? '0' + timeLeft : timeLeft}`;
+    if (timeLeft === 0) {
       clearInterval(timerInterval);
       // end the game logic here
     }
@@ -270,6 +272,7 @@ function setupRestart() {
   document.querySelector('.js-restart-button').addEventListener('click', () => {
     clearInterval(timerInterval);
     timerStarted = false;
+    timeLeft = 60;
     document.querySelector('.time-value').innerHTML = '01:00';
     document.querySelector('.text-area').value = '';
     if(document.querySelector('.js-hard-mode').classList.contains('active')) {
@@ -282,4 +285,44 @@ function setupRestart() {
   })
 }
 
+function accuracyCalculation() {
+  // Calculate accuracy logic here
+  const textArea = document.querySelector('.text-area');
+  const textToType = document.querySelector('.text-to-type');
+  const typedText = textArea.value;
+  const originalText = textToType.textContent;
+  let correctChars = 0;
+  let inCorrectChars = 0;
+  for (let i = 0; i < typedText.length; i++) {
+    if (typedText[i] === originalText[i]) {
+      correctChars++;
+    }else {
+      inCorrectChars++;
+    }
+  }
 
+  const accuracy = (correctChars / originalText.length * 100);
+  document.querySelector('.accuracy-value').innerHTML = `${accuracy.toFixed(1)}%`;
+}
+document.querySelector('.text-area').addEventListener('input', accuracyCalculation);
+function wordPerMinuteCalculation() {
+  // Calculate WPM logic here
+  const textArea = document.querySelector('.text-area');
+  const textToType = document.querySelector('.text-to-type');
+  const typedText = textArea.value;
+  const originalText = textToType.textContent;
+  let correctChars = 0;
+  for (let i = 0; i < typedText.length; i++) {
+    if (typedText[i] === originalText[i]) {
+      correctChars++;
+    }
+  }
+  if (timerStarted && correctChars > 0) {
+    const elapsedMinutes = (60 - timeLeft) / 60;
+    const wpm = (correctChars / 5) / elapsedMinutes;
+    document.querySelector('.wpm-value').innerHTML = Math.round(wpm);
+  } else {
+    document.querySelector('.wpm-value').innerHTML = '0';
+  }
+}
+document.querySelector('.text-area').addEventListener('input', wordPerMinuteCalculation);
