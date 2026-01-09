@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      padding: 20px;
+    }
+
+    #text {
+      font-size: 20px;
+      padding: 2px;
+    }
+    .correct {
+      color: green;
+    }
+    .wrong {
+      color: red;
+    }
+    .pending {
+      color: grey;
+    }
+  </style>
+</head>
+<body>
+
+  <p id="text"></p>
+
+  <input class="container" type="text" id="input" autofocus placeholder="Start typing...">
+  <script>
+    const targetText = 'Hello world!';
+    const textContainer = document.getElementById('text')
+    const input = document.getElementById('input');
+
+    function renderText(userInput = '') {
+      textContainer.innerHTML = '';
+
+      for (let i = 0; i < targetText.length; i++) {
+        const span = document.createElement('span');
+        
+        if(i < userInput.length) {
+          if(userInput[i] === targetText[i]) {
+            span.className = 'correct'
+          }else {
+            span.className = 'wrong'
+          }
+        }else {
+          span.className = 'pending'
+        }
+        span.textContent = targetText[i];
+        textContainer.appendChild(span)
+      }
+    }
+    renderText();
+
+    input.addEventListener('input', () => {
+      renderText(input.value)
+    })
+  </script>
+</body>
+</html>

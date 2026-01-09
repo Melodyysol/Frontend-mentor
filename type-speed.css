@@ -153,7 +153,7 @@ main {
   caret-color: hsl(214, 100%, 55%);
   border: none;
   border-radius: 10px;
-  color: hsl(0, 0%, 85%);
+  color: hsl(140, 63%, 57%);
   resize: none;
   outline: none;
   padding: 24px 0px;
@@ -205,25 +205,13 @@ footer {
   border: 2px solid hsl(0, 0%, 7%);
   opacity: 1;
 }
-/* .input {
-  width: 100%;
-  margin-top: 30px;
-  padding: 15px;
-  font-size: 20px;
-  border: none;
-  border-radius: 10px;
-  background-color: hsl(0, 0%, 15%);
-  color: hsl(0, 0%, 85%);
-}
-.input:focus {
-  outline: 2px solid hsl(214, 100%, 55%);
-}
+
 .correct {
-  color: hsl(120, 100%, 75%);
+  color: hsl(140, 63%, 57%)
 }
 .incorrect {
   color: hsl(354, 63%, 57%);
-} */
+}
 
 @media (max-width: 375px) {
   body {

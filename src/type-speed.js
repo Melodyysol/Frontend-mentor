@@ -1,7 +1,6 @@
 import data from './data/data.js';
 import { topScreenHTML } from './share/home-header.js';
 
-let homeHTML = ''
 let headerHTML = ''
 let mainHTML = ''
 
@@ -88,14 +87,7 @@ mainHTML = `
     <p>Or click the test and start typing</p>
   </div>
   <div class="typing-container">
-    <p class="text-to-type js-text-to-type">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-      aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
+    <p class="text-to-type js-text-to-type"></p>
     <textarea class="text-area"></textarea>
   </div>
 `
@@ -236,6 +228,7 @@ document.querySelector('.js-time-passage').addEventListener('click', () => {
 let timerStarted = false;
 let timerInterval;
 let timeLeft = 60;
+let startTime;
 
 function timeSetup() {
   let timeValue = document.querySelector('.js-time-value').innerHTML
@@ -258,6 +251,7 @@ function handleTyping() {
 }
 
 function startTimer() {
+  startTime = Date.now();
   timerInterval = setInterval(() => {
     timeLeft--;
     document.querySelector('.time-value').innerHTML = `00:${timeLeft < 10 ? '0' + timeLeft : timeLeft}`;
@@ -282,6 +276,8 @@ function setupRestart() {
     }else {
       shuffleMode('easy')
     }
+    resetCalculations();
+    document.querySelector('.text-area').focus();
   })
 }
 
@@ -289,7 +285,7 @@ function accuracyCalculation() {
   // Calculate accuracy logic here
   const textArea = document.querySelector('.text-area');
   const textToType = document.querySelector('.text-to-type');
-  const typedText = textArea.value;
+  let typedText = textArea.value;
   const originalText = textToType.textContent;
   let correctChars = 0;
   let inCorrectChars = 0;
@@ -298,10 +294,14 @@ function accuracyCalculation() {
       correctChars++;
     }else {
       inCorrectChars++;
+      /*
+      typedText = typedText.substring(0, i) + originalText[i] + typedText.substring(i + 1);
+      textArea.value = typedText;
+      */
     }
   }
 
-  const accuracy = (correctChars / originalText.length * 100);
+  const accuracy = (((correctChars / originalText.length)) * 100);
   document.querySelector('.accuracy-value').innerHTML = `${accuracy.toFixed(1)}%`;
 }
 document.querySelector('.text-area').addEventListener('input', accuracyCalculation);
@@ -318,7 +318,8 @@ function wordPerMinuteCalculation() {
     }
   }
   if (timerStarted && correctChars > 0) {
-    const elapsedMinutes = (60 - timeLeft) / 60;
+    const elapsedMs = Date.now() - startTime;
+    const elapsedMinutes = elapsedMs / 60000;
     const wpm = (correctChars / 5) / elapsedMinutes;
     document.querySelector('.wpm-value').innerHTML = Math.round(wpm);
   } else {
@@ -326,3 +327,35 @@ function wordPerMinuteCalculation() {
   }
 }
 document.querySelector('.text-area').addEventListener('input', wordPerMinuteCalculation);
+
+function resetCalculations() {
+  document.querySelector('.wpm-value').innerHTML = '0';
+  document.querySelector('.accuracy-value').innerHTML = '0.0%';
+}
+
+function textColorCorrection() {
+  // Implement text color correction logic here
+  const textArea = document.querySelector('.text-area');
+  const textToType = document.querySelector('.text-to-type');
+  let typedText = textArea.value;
+  const originalText = textToType.textContent;
+  for (let i = 0; i < typedText.length; i++) {
+    if (typedText[i] === originalText[i]) {
+      console.log('true')
+    }else {
+      let span = document.createElement('span')
+      span.innerHTML = originalText[i]
+      span.classList.add('incorrect')
+      typedText = typedText.substring(0, i) + span.innerHTML + typedText.substring(i + 1);
+      textArea.value = typedText;
+    }
+  }
+}
+document.querySelector('.text-area').addEventListener('input', textColorCorrection)
+
+function endTyping() {
+  if(timeLeft === 0) {
+    alert('Your time has been exhausted')
+  }
+}
+endTyping()
