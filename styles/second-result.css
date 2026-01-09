@@ -94,7 +94,7 @@ main {
   color: hsl(354, 63%, 57%);
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   main {
     margin-top: 4em;
   }
