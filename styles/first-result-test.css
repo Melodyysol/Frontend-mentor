@@ -107,7 +107,7 @@ main {
   border: 2px solid hsl(0, 0%, 7%);
 }
 
-@media (max-width: 420px) {
+@media (max-width: 500px) {
   .star-one img, .star-two img {
     width: 30px;
   }

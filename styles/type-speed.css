@@ -169,7 +169,7 @@ footer {
   opacity: 1;
 }
 
-@media (max-width: 420px) {
+@media (max-width: 500px) {
   .content {
     column-gap: 24px;
     justify-content: center;
