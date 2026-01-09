@@ -4,41 +4,22 @@ header {
 main {
   display: flex;
   justify-content: center;
-  margin-top: 4em;
+  margin-top: 1em;
   position: relative;
 }
-.star-one, .star-two {
+.pattern-confetti {
   position: absolute;
+  bottom: -18em;
 }
-.star-one {
-  left: 4em;
-  top: 4em;
-}
-.star-two {
-  bottom: 0;
-  right: 0;
+.pattern-confetti img {
+  width: 100%;
 }
 
 .middle-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 20px;
-}
-.completed-icon, .completed-icon-container {
-  border-radius: 50%;
-  background-color: hsla(140, 63%, 57%, .1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 80px;
-  border: none;
-}
-.completed-icon {
-  width: 70%;
-  height: 70%;
-  background-color: hsla(140, 63%, 57%, .2);
+  row-gap: 10px;
 }
 .completed-icon img {
   width: 70%;
@@ -106,18 +87,22 @@ main {
   outline: 2px solid hsl(214, 100%, 55%);
   border: 2px solid hsl(0, 0%, 7%);
 }
+.correct {
+  color: hsl(140, 63%, 57%);
+}
+.incorrect {
+  color: hsl(354, 63%, 57%);
+}
 
 @media (max-width: 420px) {
-  .star-one img, .star-two img {
-    width: 30px;
+  main {
+    margin-top: 4em;
   }
-  .star-one {
-    left: 1em;
-    top: 2em;
+  .middle-section {
+    row-gap: 20px;
   }
-  .star-two {
+  .pattern-confetti {
     bottom: -5em;
-    right: 5em;
   }
   .base-encourage h1 {
     font-size: 24px;
@@ -129,12 +114,14 @@ main {
   .wpm-info {
     flex-direction: column;
     align-items: flex-start;
-    row-gap: 10px;
-    column-gap: 0;
+    row-gap: 20px;
     width: 80%;
   }
   .wpm-info div {
     min-height: 75px;
     width: 100%;
+  }
+  .start-over {
+    margin-top: 3em;
   }
 }

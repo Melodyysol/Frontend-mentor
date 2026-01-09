@@ -169,14 +169,7 @@ footer {
   opacity: 1;
 }
 
-.correct {
-  color: hsl(140, 63%, 57%)
-}
-.incorrect {
-  color: hsl(354, 63%, 57%);
-}
-
-@media (max-width: 375px) {
+@media (max-width: 420px) {
   .content {
     column-gap: 24px;
     justify-content: center;
