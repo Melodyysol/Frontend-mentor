@@ -37,7 +37,7 @@ header {
   font-weight: 100;
 }
 
-@media (max-width: 420px) {
+@media (max-width: 500px) {
   body {
     padding: 0;
   }
