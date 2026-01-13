@@ -367,35 +367,21 @@ let referenceText = document.querySelector('.js-text-to-type').innerText;
 
   // Restart
   restartBtn.addEventListener('click', () => {
-    typedData = [];
-    startTime = null;
-    finished = false;
-    clearInterval(timer);
+    // typedData = [];
+    // startTime = null;
+    // finished = false;
+    // clearInterval(timer);
 
-    remainingTime = TEST_DURATION;
-    timeEl.textContent = remainingTime;
+    // remainingTime = TEST_DURATION;
+    // timeEl.textContent = remainingTime;
 
-    input.innerHTML = "";
-    input.focus();
+    // input.innerHTML = "";
+    // input.focus();
 
-    wpmEl.textContent = 0;
-    accEl.textContent = '0.0%';
+    // wpmEl.textContent = 0;
+    // accEl.textContent = '0.0%';
 
-    if(document.querySelector('.js-hard-mode').classList.contains('active')) {
-      shuffleMode('hard')
-    }else if(document.querySelector('.js-medium-mode').classList.contains('active')) {
-      shuffleMode('medium')
-    }else {
-      shuffleMode('easy')
-    }
-
-    if(document.querySelector('.js-mode-value').textContent === 'Hard') {
-      shuffleMode('hard')
-    }else if(document.querySelector('.js-mode-value').textContent === 'Medium') {
-      shuffleMode('medium')
-    }else {
-      shuffleMode('easy')
-    }
+    window.location.reload();
   });
 
   // Cursor utilities
