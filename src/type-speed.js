@@ -11,6 +11,7 @@ let shuffleHard  = data.hard.sort(() => Math.random() - 0.5);
 let correctChars = 0;
 let inCorrectChars = 0;
 let typedData = []
+const invalidKeys = 'Shift, Control, Alt, Meta, CapsLock, Tab, Escape, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Enter, Backspace, Delete, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12';
 
 homeScreenHTML()
 function homeScreenHTML() {
@@ -92,7 +93,7 @@ mainHTML = `
   </div>
   <div class="typing-container">
     <p class="text-to-type js-text-to-type"></p>
-    <div contenteditable="true" class="text-area" spellcheck="false" autocorrect="off" autocapitalize="off"></div>
+    <div contenteditable="plaintext-only" class="text-area" spellcheck="false" autocorrect="off" autocapitalize="off"></div>
   </div>
 `
 document.querySelector('main').innerHTML = mainHTML
@@ -427,3 +428,29 @@ let referenceText = document.querySelector('.js-text-to-type').innerText;
     sel.removeAllRanges();
     sel.addRange(range);
   }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      input.focus();
+    }
+    if (e.key === 'Escape') {
+      input.blur();
+    }
+
+    if (e.location === 0 && !invalidKeys.includes(e.key)) {
+      input.focus();
+    }
+  });
+
+  input.addEventListener('click', (e) => {
+    e.preventDefault();
+    input.focus();
+
+    const range = document.createRange();
+    const sel = window.getSelection();
+    range.setStart(input.childNodes[input.childNodes.length - 1], input.childNodes[input.childNodes.length - 1]?.textContent.length || 0);
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  })
