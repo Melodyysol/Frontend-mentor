@@ -426,48 +426,4 @@ let referenceText = document.querySelector('.js-text-to-type').innerText;
     range.collapse(true);
     sel.removeAllRanges();
     sel.addRange(range);
-<<<<<<< HEAD
   }
-
-  input.setAttribute("tabindex", "0");
-  input.setAttribute("role", "textbox");
-  input.setAttribute("autocorrect", "off");
-  input.setAttribute("autocapitalize", "off");
-  input.setAttribute("spellcheck", "false");
-
-  input.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    moveCursorToEnd(input);
-  });
-
-  input.addEventListener("mousedown", (e) => {
-    e.preventDefault();
-    moveCursorToEnd(input);
-  });
-
-  function moveCursorToEnd(el) {
-    // setCursorPosition(el, typedData.length);
-    const sel = window.getSelection();
-    if (!sel) return;
-    
-    const range = document.createRange();
-    range.selectNodeContents(el);
-    range.collapse(false);
-    sel.removeAllRanges();
-    sel.addRange(range);
-  }
-
-  // Prevent paste & enter
-  input.addEventListener("paste", e => e.preventDefault());
-  input.addEventListener("keydown", e => {
-    if (e.key === "Enter") e.preventDefault();
-  });
-
-  // Core typing logic - always append at the end
-  input.addEventListener('beforeinput', (e) => {
-    setCursorPosition(input, typedData.length);
-  });
-  
-=======
-  }
->>>>>>> 35230ac (No change)
