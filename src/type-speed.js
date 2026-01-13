@@ -1,8 +1,6 @@
 import { data } from './data/data.js';
 import { topScreenHTML } from './share/home-header.js';
-
-export let savedResult = JSON.parse(localStorage.getItem('savedResult')) || []
-
+import { savedResult } from './share/saved-result-store.js';
 
 let headerHTML = ''
 let mainHTML = ''
@@ -103,7 +101,7 @@ let input = document.querySelector('.text-area')
 let wpmEl = document.querySelector('.wpm-value');
 let accEl = document.querySelector('.accuracy-value')
 const timeEl = document.querySelector(".time-value");
-const restartBtn = document.querySelector(".js-restart-button");
+let restartBtn = document.querySelector(".js-restart-button");
 let startTime = null;
 let timer = null;
 let finished = false;
@@ -350,14 +348,12 @@ let referenceText = document.querySelector('.js-text-to-type').innerText;
     accEl.textContent = totalChars ? Math.round((correctChars / totalChars) * 100) + '%' : '0%';
 
     // Store test result
-    savedResult = {
-      wpm: Math.round((correctChars / 5)),
-      accuracy: totalChars ? Math.round((correctChars / totalChars) * 100) : 0,
-      correctChars: correctChars,
-      inCorrectChars: inCorrectChars,
-      time: TEST_DURATION - remainingTime
-    }
-    saveToStorage()
+    savedResult.wpm = Math.round((correctChars / 5));
+    savedResult.accuracy = totalChars ? Math.round((correctChars / totalChars) * 100) : 0;
+    savedResult.correctChars = correctChars
+    savedResult.inCorrectChars = inCorrectChars
+    savedResult.time = TEST_DURATION - remainingTime
+    localStorage.setItem('savedResult', JSON.stringify(savedResult));
   }
 
 
@@ -430,7 +426,4 @@ let referenceText = document.querySelector('.js-text-to-type').innerText;
     range.collapse(true);
     sel.removeAllRanges();
     sel.addRange(range);
-  }
-  function saveToStorage () {
-    localStorage.setItem('savedResult', JSON.stringify(savedResult));
   }

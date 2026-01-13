@@ -1,5 +1,8 @@
-import { savedResult } from "./type-speed.js";
 import { topScreenHTML } from "./share/home-header.js";
+import { savedResult } from "./share/saved-result-store.js";
+
+console.log(savedResult.inCorrectChars);
+
 
 document.querySelector('header').innerHTML = topScreenHTML()
 
@@ -24,16 +27,20 @@ function mainPageHTML() {
       <div class="wpm-info">
         <div>
           <span>WPM:</span>
-          <span>85</span>
+          <span>${savedResult.wpm}</span>
         </div>
         <div>
           <span>Accuracy:</span>
-          <span class="accuracy">90%</span>
+          <span class="accuracy">${savedResult.accuracy}%</span>
         </div>
         <div>
           <span>Characters</span>
           <span>
-            <span class="correct">120/<span class="incorrect">5<span>
+            <span class="correct" style="color: hsl(140, 63%, 57%); font-size: 16px;">
+              ${savedResult.correctChars}
+            </span>
+            /
+            <span class="incorrect">${savedResult.inCorrectChars}</span>
           </span>
         </div>
       </div>
@@ -49,3 +56,7 @@ function mainPageHTML() {
   document.querySelector('main').innerHTML = mainHTML;
 }
 mainPageHTML()
+
+document.querySelector('.start-over').addEventListener('click', () => {
+  window.location.href = 'index.html';
+})
