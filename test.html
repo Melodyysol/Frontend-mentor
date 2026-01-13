@@ -3,62 +3,448 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test</title>
+  <title>Document</title>
   <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      padding: 20px;
+    #reference {
+      font-size: 20px;
+      margin-bottom: 10px;
     }
 
-    #text {
+    #stats {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    #input {
+      border: 2px solid #000;
+      padding: 10px;
+      min-height: 45px;
       font-size: 20px;
-      padding: 2px;
+      outline: none;
+      white-space: pre-wrap;
     }
+
     .correct {
-      color: green;
+      color: #c8f7c5;
     }
-    .wrong {
-      color: red;
+
+    .incorrect {
+      color: #f7c5c5;
     }
-    .pending {
-      color: grey;
+
+    .locked {
+      border-color: gray;
+      background: #f4f4f4;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 6px 12px;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
+  <div id="reference">Practice makes perfect</div>
 
-  <p id="text"></p>
+  <div id="stats">
+    <span>Time: <b id="time">0</b>s</span>
+    <span>WPM: <b id="wpm">0</b></span>
+    <span>Accuracy: <b id="accuracy">100</b>%</span>
+  </div>
 
-  <input class="container" type="text" id="input" autofocus placeholder="Start typing...">
-  <script>
-    const targetText = 'Hello world!';
-    const textContainer = document.getElementById('text')
-    const input = document.getElementById('input');
+  <div
+    id="input"
+    contenteditable="true"
+    spellcheck="false"
+  ></div>
 
-    function renderText(userInput = '') {
-      textContainer.innerHTML = '';
-
-      for (let i = 0; i < targetText.length; i++) {
-        const span = document.createElement('span');
-        
-        if(i < userInput.length) {
-          if(userInput[i] === targetText[i]) {
-            span.className = 'correct'
-          }else {
-            span.className = 'wrong'
-          }
-        }else {
-          span.className = 'pending'
-        }
-        span.textContent = targetText[i];
-        textContainer.appendChild(span)
-      }
-    }
-    renderText();
-
-    input.addEventListener('input', () => {
-      renderText(input.value)
-    })
-  </script>
+  <button id="restart">Restart</button>
 </body>
+
+
+<script src="src/test.js" type="module">
+/*
+  function Test() {
+
+let timerStarted = false;
+let timerInterval;
+let timeLeft = 60;
+let startTime;
+let finished = false;
+
+function timeSetup() {
+  let timeValue = document.querySelector('.js-time-value').innerHTML
+  if (timeValue === 'Time (60s)') {
+    timerStarted = false;
+    timeLeft = 60;
+    document.querySelector('.text-area').addEventListener('input', handleTyping);
+    setupRestart();
+  } else if (timeValue === 'Passage') {
+    // set passage mode
+  }
+}
+
+document.querySelector('.text-area').addEventListener("beforeinput", (e) => {
+  if (finished) {
+    e.preventDefault();
+    return;
+  }
+
+  const cursorPos = getCursorPosition(input);
+
+  if (!startTime) startTimer();
+
+  // Backspace
+  if (e.inputType === "deleteContentBackward") {
+    if (cursorPos > 0) {
+      typedData.splice(cursorPos - 1, 1);
+      render(cursorPos - 1);
+      updateStats();
+    }
+    e.preventDefault();
+    return;
+  }
+
+  // Insert text
+  if (e.data) {
+    if (cursorPos >= referenceText.length) {
+      e.preventDefault();
+      return;
+    }
+
+    const expected = referenceText[cursorPos];
+    typedData.splice(cursorPos, 0, {
+      char: expected,
+      correct: e.data === expected
+    });
+
+    render(cursorPos + 1);
+    updateStats();
+
+    if (typedData.length === referenceText.length) finish();
+
+    e.preventDefault();
+  }
+});
+
+function render(cursorPos) {
+    input.innerHTML = typedData
+      .map(c =>
+        `<span class="${c.correct ? "correct" : "incorrect"}">${c.char}</span>`
+      )
+      .join("");
+
+    setCursorPosition(input, cursorPos);
+}
+ function updateStats() {
+    const correctChars = typedData.filter(c => c.correct).length;
+    const totalChars = typedData.length;
+
+    wpmEl.textContent = Math.round((correctChars / 5));
+    accEl.textContent = totalChars ? Math.round((correctChars / totalChars) * 100) : 100;
+  }
+
+  // Finish test
+  function finish() {
+    finished = true;
+    clearInterval(timer);
+    input.classList.add("locked");
+    input.blur();
+  }
+
+function handleTyping() {
+  if (!timerStarted) {
+    startTimer();
+    timerStarted = true;
+  }
+  // Add typing logic here (e.g., check input against text)
+}
+
+function startTimer() {
+  startTime = Date.now();
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    document.querySelector('.time-value').innerHTML = `00:${timeLeft < 10 ? '0' + timeLeft : timeLeft}`;
+    if (timeLeft === 0) {
+      clearInterval(timerInterval);
+      window.location.href = './first-result-test.html'
+      // end the game logic here
+    }
+  }, 1000);
+}
+
+function setupRestart() {
+  document.querySelector('.js-restart-button').addEventListener('click', () => {
+    clearInterval(timerInterval);
+    timerStarted = false;
+    timeLeft = 60;
+    document.querySelector('.time-value').innerHTML = '01:00';
+    document.querySelector('.text-area').value = '';
+    if(document.querySelector('.js-hard-mode').classList.contains('active')) {
+      shuffleMode('hard')
+    }else if(document.querySelector('.js-medium-mode').classList.contains('active')) {
+      shuffleMode('medium')
+    }else {
+      shuffleMode('easy')
+    }
+
+    if(document.querySelector('.js-mode-value').textContent === 'Hard') {
+      shuffleMode('hard')
+    }else if(document.querySelector('.js-mode-value').textContent === 'Medium') {
+      shuffleMode('medium')
+    }else {
+      shuffleMode('easy')
+    }
+    resetCalculations();
+    document.querySelector('.text-area').focus();
+  })
+}
+
+function accuracyCalculation() {
+  // Calculate accuracy logic here
+  const textArea = document.querySelector('.text-area');
+  const textToType = document.querySelector('.text-to-type');
+  let typedText = textArea.value;
+  const originalText = textToType.textContent;
+  for (let i = 0; i < typedText.length; i++) {
+    if (typedText[i] === originalText[i]) {
+      correctChars++;
+    }else {
+      inCorrectChars++;
+      /*
+      typedText = typedText.substring(0, i) + originalText[i] + typedText.substring(i + 1);
+      textArea.value = typedText;
+      
+    }
+  }
+
+  const accuracy = (((correctChars / originalText.length)) * 100);
+  document.querySelector('.accuracy-value').innerHTML = `${accuracy.toFixed(1)}%`;
+}
+document.querySelector('.text-area').addEventListener('input', accuracyCalculation);
+function wordPerMinuteCalculation() {
+  // Calculate WPM logic here
+  const textArea = document.querySelector('.text-area');
+  const textToType = document.querySelector('.text-to-type');
+  const typedText = textArea.value;
+  const originalText = textToType.textContent;
+  let correctChars = 0;
+  for (let i = 0; i < typedText.length; i++) {
+    if (typedText[i] === originalText[i]) {
+      correctChars++;
+    }
+  }
+  if (timerStarted && correctChars > 0) {
+    const elapsedMs = Date.now() - startTime;
+    const elapsedMinutes = elapsedMs / 60000;
+    const wpm = (correctChars / 5) / elapsedMinutes;
+    document.querySelector('.wpm-value').innerHTML = Math.round(wpm);
+  } else {
+    document.querySelector('.wpm-value').innerHTML = '0';
+  }
+}
+document.querySelector('.text-area').addEventListener('input', wordPerMinuteCalculation);
+
+function resetCalculations() {
+  document.querySelector('.wpm-value').innerHTML = '0';
+  document.querySelector('.accuracy-value').innerHTML = '0.0%';
+  input.textContent = ''
+}
+
+function getCursorPosition(el) {
+    const sel = window.getSelection();
+    if (!sel.rangeCount) return 0;
+
+    const range = sel.getRangeAt(0);
+    const pre = range.cloneRange();
+    pre.selectNodeContents(el);
+    pre.setEnd(range.endContainer, range.endOffset);
+    return pre.toString().length;
+  }
+
+
+  function setCursorPosition(el, pos) {
+    const range = document.createRange();
+    const sel = window.getSelection();
+    let current = 0;
+
+    for (const node of el.childNodes) {
+      const len = node.textContent.length;
+      if (current + len >= pos) {
+        range.setStart(node.firstChild, pos - current);
+        break;
+      }
+      current += len;
+    }
+
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+}
+  const referenceText = document.getElementById("reference").innerText;
+  const input = document.getElementById("input");
+
+  const timeEl = document.getElementById("time");
+  const wpmEl = document.getElementById("wpm");
+  const accEl = document.getElementById("accuracy");
+  const restartBtn = document.getElementById("restart");
+
+  let typedData = [];
+  let startTime = null;
+  let timer = null;
+  let finished = false;
+  const TEST_DURATION = 60;
+
+  // Prevent paste & enter
+  input.addEventListener("paste", e => e.preventDefault());
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") e.preventDefault();
+  });
+
+  // Core typing logic
+  input.addEventListener("beforeinput", (e) => {
+    if (finished) {
+      e.preventDefault();
+      return;
+    }
+
+    const cursorPos = getCursorPosition(input);
+
+    if (!startTime) startTimer();
+
+    // Backspace
+    if (e.inputType === "deleteContentBackward") {
+      if (cursorPos > 0) {
+        typedData.splice(cursorPos - 1, 1);
+        render(cursorPos - 1);
+        updateStats();
+      }
+      e.preventDefault();
+      return;
+    }
+
+    // Insert text
+    if (e.data) {
+      if (cursorPos >= referenceText.length) {
+        e.preventDefault();
+        return;
+      }
+
+      const expected = referenceText[cursorPos];
+      typedData.splice(cursorPos, 0, {
+        char: expected,
+        correct: e.data === expected
+      });
+
+      render(cursorPos + 1);
+      updateStats();
+
+      if (typedData.length === referenceText.length) finish();
+
+      e.preventDefault();
+    }
+  });
+
+  // Render characters
+  function render(cursorPos) {
+    input.innerHTML = typedData
+      .map(c =>
+        `<span class="${c.correct ? "correct" : "incorrect"}">${c.char}</span>`
+      )
+      .join("");
+
+    setCursorPosition(input, cursorPos);
+  }
+
+  // Timer
+  let remainingTime = TEST_DURATION;
+  function startTimer() {
+    startTime = Date.now();
+    remainingTime = TEST_DURATION;
+
+    timeEl.textContent = remainingTime;
+
+    timer = setInterval(() => {
+      remainingTime--
+      timeEl.textContent = remainingTime;
+
+      updateStats();
+
+      if(remainingTime <= 0) {
+        finish()
+      }
+    }, 1000);
+  }
+
+  // Stats
+  function updateStats() {
+    const correctChars = typedData.filter(c => c.correct).length;
+    const totalChars = typedData.length;
+
+    wpmEl.textContent = Math.round((correctChars / 5));
+    accEl.textContent = totalChars ? Math.round((correctChars / totalChars) * 100) : 100;
+  }
+
+  // Finish test
+  function finish() {
+    finished = true;
+    clearInterval(timer);
+    input.classList.add("locked");
+    input.blur();
+  }
+
+  // Restart
+  restartBtn.addEventListener('click', () => {
+    typedData = [];
+    startTime = null;
+    finished = false;
+    clearInterval(timer);
+
+    remainingTime = TEST_DURATION;
+    timeEl.textContent = remainingTime;
+
+    input.innerHTML = "";
+    input.classList.remove("locked");
+    input.focus();
+
+    wpmEl.textContent = 0;
+    accEl.textContent = 100;
+  });
+
+  // Cursor utilities
+  function getCursorPosition(el) {
+    const sel = window.getSelection();
+    if (!sel.rangeCount) return 0;
+
+    const range = sel.getRangeAt(0);
+    const pre = range.cloneRange();
+    pre.selectNodeContents(el);
+    pre.setEnd(range.endContainer, range.endOffset);
+    return pre.toString().length;
+  }
+
+  function setCursorPosition(el, pos) {
+    const range = document.createRange();
+    const sel = window.getSelection();
+    let current = 0;
+
+    for (const node of el.childNodes) {
+      const len = node.textContent.length;
+      if (current + len >= pos) {
+        range.setStart(node.firstChild, pos - current);
+        break;
+      }
+      current += len;
+    }
+
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }*/
+</script>
 </html>

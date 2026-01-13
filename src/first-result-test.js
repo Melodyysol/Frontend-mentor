@@ -1,3 +1,4 @@
+import { savedResult } from "./type-speed.js";
 import { topScreenHTML } from "./share/home-header.js";
 
 document.querySelector('header').innerHTML = topScreenHTML()

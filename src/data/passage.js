@@ -1,5 +1,1 @@
-let passages = {
-  easy: [],
-  medium: [],
-  hard: []
-}
+export let passages = []

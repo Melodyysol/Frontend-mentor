@@ -1,5 +1,8 @@
-import data from './data/data.js';
+import { data } from './data/data.js';
 import { topScreenHTML } from './share/home-header.js';
+
+export let savedResult = JSON.parse(localStorage.getItem('savedResult')) || []
+
 
 let headerHTML = ''
 let mainHTML = ''
@@ -7,6 +10,9 @@ let mainHTML = ''
 let shuffleEasy = data.easy.sort(() => Math.random() - 0.5);
 let shuffleMedium  = data.medium.sort(() => Math.random() - 0.5)
 let shuffleHard  = data.hard.sort(() => Math.random() - 0.5);
+let correctChars = 0;
+let inCorrectChars = 0;
+let typedData = []
 
 homeScreenHTML()
 function homeScreenHTML() {
@@ -52,34 +58,34 @@ function homeScreenHTML() {
           </div>
         </div>
         <div class="drop-down drop-down-mode js-drop-down-mode js-drop-down-mode-2">
-          <div class="js-easy-mode js-easy-mode-2">
+          <label class="js-easy-mode js-easy-mode-2">
             <input type="radio" name="mode" id="easy" checked>
             <label for="easy">Easy</label>
-          </div>
-          <div class="medium js-medium-mode js-medium-mode-2">
+          </label>
+          <label class="medium js-medium-mode js-medium-mode-2">
             <input type="radio" name="mode" id="medium">
             <label for="medium">Medium</label>
-          </div>
-          <div class="js-hard-mode js-hard-mode-2">
+          </label>
+          <label class="js-hard-mode js-hard-mode-2">
             <input type="radio" name="mode" id="hard">
             <label for="hard">Hard</label>
-          </div>
+          </label>
         </div>
         <div class="drop-down drop-down-time js-drop-down-time">
-          <div class="js-time-sec">
+          <label class="js-time-sec js-time-sec-2">
             <input type="radio" name="time" id="sec" checked>
             <label for="sec">Time (60s)</label>
-          </div>
-          <div class="medium passage js-time-passage">
+          </label>
+          <label class="medium passage js-time-passage js-time-passage-2">
             <input type="radio" name="time" id="passage">
             <label for="passage">Passage</label>
-          </div>
+          </label>
         </div>
       </div>
     </div>
   `
 
-document.querySelector('header').insertAdjacentHTML('afterbegin', headerHTML)
+document.querySelector('header').innerHTML = headerHTML
 }
 mainHTML = `
   <div class="start-message js-start-message">
@@ -88,10 +94,20 @@ mainHTML = `
   </div>
   <div class="typing-container">
     <p class="text-to-type js-text-to-type"></p>
-    <textarea class="text-area"></textarea>
+    <div contenteditable="true" class="text-area" spellcheck="false"></div>
   </div>
 `
-document.querySelector('main').insertAdjacentHTML('afterbegin', mainHTML)
+document.querySelector('main').innerHTML = mainHTML
+
+let input = document.querySelector('.text-area')
+let wpmEl = document.querySelector('.wpm-value');
+let accEl = document.querySelector('.accuracy-value')
+const timeEl = document.querySelector(".time-value");
+const restartBtn = document.querySelector(".js-restart-button");
+let startTime = null;
+let timer = null;
+let finished = false;
+const TEST_DURATION = 60;
 
 function getRandomText(difficulty) {
   let text = ''
@@ -187,14 +203,13 @@ document.querySelector('.js-start-button').addEventListener('click', clearScreen
 function clearScreen() {
   setTimeout(() => {
     startScreen.style.display = 'none'
-    document.querySelector('.js-restart-button').style.display = 'flex'
-    document.querySelector('.js-text-to-type').style.filter = 'blur(0px)'
-    timeSetup()
-    document.querySelector('.text-area').focus();
+    restartBtn.style.display = 'flex'
+    document.querySelector('.text-to-type').style.filter = 'blur(0px)'
+    // timeSetup()
+    input.focus();
   }, 400);
 }
 
-// document.body.addEventListener('keypress', clearScreen, once, true)
 
 
 document.querySelector('.js-list-time').addEventListener('click', () => {
@@ -204,17 +219,11 @@ function timedPassage(mode) {
   document.querySelector('.js-time-value').innerHTML = mode
   document.querySelector('.js-drop-down-time').style.display = 'none'
 }
-document.querySelector('.js-time-sec').addEventListener('click', () => {
-  timedPassage('Time (60s)')
-})
 document.querySelector('.js-time-passage').addEventListener('click', () => {
-  timedPassage('Passage')
-
   setTimeout(() => {
     alert('Passage mode is coming soon!')
     document.querySelector('.js-time-sec').classList.add('active')
     document.querySelector('.js-time-passage').classList.remove('active')
-    timedPassage('Time (60s)')
   }, 100);
   if(document.querySelector('.js-hard-mode').classList.contains('active')) {
       shuffleMode('hard')
@@ -224,51 +233,157 @@ document.querySelector('.js-time-passage').addEventListener('click', () => {
     shuffleMode('easy')
   }
 })
-
-let timerStarted = false;
-let timerInterval;
-let timeLeft = 60;
-let startTime;
-
-function timeSetup() {
-  let timeValue = document.querySelector('.js-time-value').innerHTML
-  if (timeValue === 'Time (60s)') {
-    timerStarted = false;
-    timeLeft = 60;
-    document.querySelector('.text-area').addEventListener('input', handleTyping);
-    setupRestart();
-  } else if (timeValue === 'Passage') {
-    // set passage mode
+document.querySelector('.js-time-sec-2').addEventListener('click', () => {
+  timedPassage('Time (60s)')
+})
+document.querySelector('.js-time-passage-2').addEventListener('click', () => {
+  timedPassage('Passage')
+  setTimeout(() => {
+    alert('Passage mode is coming soon!')
+    timedPassage('Time (60s)')
+    // document.getElementById('sec').ariaChecked
+  }, 100);
+  if(document.querySelector('.js-mode-value').textContent === 'Hard') {
+      shuffleMode('hard')
+  }else if(document.querySelector('.js-mode-value').textContent === 'Medium') {
+    shuffleMode('medium')
+  }else {
+    shuffleMode('easy')
   }
-}
+})
 
-function handleTyping() {
-  if (!timerStarted) {
-    startTimer();
-    timerStarted = true;
-  }
-  // Add typing logic here (e.g., check input against text)
-}
 
-function startTimer() {
-  startTime = Date.now();
-  timerInterval = setInterval(() => {
-    timeLeft--;
-    document.querySelector('.time-value').innerHTML = `00:${timeLeft < 10 ? '0' + timeLeft : timeLeft}`;
-    if (timeLeft === 0) {
-      clearInterval(timerInterval);
-      // end the game logic here
+let referenceText = document.querySelector('.js-text-to-type').innerText;
+
+  // Prevent paste & enter
+  input.addEventListener("paste", e => e.preventDefault());
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") e.preventDefault();
+  });
+
+  // Core typing logic
+  input.addEventListener("beforeinput", (e) => {
+    if (finished) {
+      e.preventDefault();
+      return;
     }
-  }, 1000);
-}
 
-function setupRestart() {
-  document.querySelector('.js-restart-button').addEventListener('click', () => {
-    clearInterval(timerInterval);
-    timerStarted = false;
-    timeLeft = 60;
-    document.querySelector('.time-value').innerHTML = '01:00';
-    document.querySelector('.text-area').value = '';
+    const cursorPos = getCursorPosition(input);
+
+    if (!startTime) startTimer();
+
+    // Backspace
+    if (e.inputType === "deleteContentBackward") {
+      if (cursorPos > 0) {
+        typedData.splice(cursorPos - 1, 1);
+        render(cursorPos - 1);
+        updateStats();
+      }
+      e.preventDefault();
+      return;
+    }
+
+    // Insert text
+    if (e.data) {
+      if (cursorPos >= referenceText.length) {
+        e.preventDefault();
+        return;
+      }
+
+      const expected = referenceText[cursorPos];
+      typedData.splice(cursorPos, 0, {
+        char: expected,
+        correct: e.data === expected
+      });
+
+      render(cursorPos + 1);
+      updateStats();
+
+      if (typedData.length === referenceText.length) finish();
+      
+
+      e.preventDefault();
+    }
+  });
+
+  // Render characters
+  function render(cursorPos) {
+    input.innerHTML = typedData
+      .map(c =>
+        `<span class="${c.correct ? "correct" : "incorrect"}">${c.char}</span>`
+      )
+      .join("");
+
+    setCursorPosition(input, cursorPos);
+  }
+
+  // Timer
+  let remainingTime = TEST_DURATION;
+  function startTimer() {
+    startTime = Date.now();
+    remainingTime = TEST_DURATION;
+
+    timeEl.textContent = '00:' + remainingTime;
+
+    timer = setInterval(() => {
+      remainingTime--
+      const timeLeft = `00:${remainingTime < 10 ? '0' + remainingTime : remainingTime}`
+      timeEl.textContent = timeLeft;
+      
+      updateStats();
+
+      if(remainingTime <= 0) {
+        finish()
+      }
+    }, 1000);
+  }
+
+  // Stats
+  function updateStats() {
+    const correctChars = typedData.filter(c => c.correct).length;
+    const totalChars = typedData.length;
+
+    inCorrectChars = totalChars - correctChars;
+    // const timeElapsed = (Date.now() - startTime) / 1000;
+
+    wpmEl.textContent = Math.round((correctChars / 5));
+    accEl.textContent = totalChars ? Math.round((correctChars / totalChars) * 100) + '%' : '0%';
+
+    // Store test result
+    savedResult = {
+      wpm: Math.round((correctChars / 5)),
+      accuracy: totalChars ? Math.round((correctChars / totalChars) * 100) : 0,
+      correctChars: correctChars,
+      inCorrectChars: inCorrectChars,
+      time: TEST_DURATION - remainingTime
+    }
+    saveToStorage()
+  }
+
+
+  // Finish test
+  function finish() {
+    window.location.href = `first-result-test.html`
+    finished = true;
+    clearInterval(timer);
+  }
+
+  // Restart
+  restartBtn.addEventListener('click', () => {
+    typedData = [];
+    startTime = null;
+    finished = false;
+    clearInterval(timer);
+
+    remainingTime = TEST_DURATION;
+    timeEl.textContent = remainingTime;
+
+    input.innerHTML = "";
+    input.focus();
+
+    wpmEl.textContent = 0;
+    accEl.textContent = '0.0%';
+
     if(document.querySelector('.js-hard-mode').classList.contains('active')) {
       shuffleMode('hard')
     }else if(document.querySelector('.js-medium-mode').classList.contains('active')) {
@@ -276,86 +391,46 @@ function setupRestart() {
     }else {
       shuffleMode('easy')
     }
-    resetCalculations();
-    document.querySelector('.text-area').focus();
-  })
-}
 
-function accuracyCalculation() {
-  // Calculate accuracy logic here
-  const textArea = document.querySelector('.text-area');
-  const textToType = document.querySelector('.text-to-type');
-  let typedText = textArea.value;
-  const originalText = textToType.textContent;
-  let correctChars = 0;
-  let inCorrectChars = 0;
-  for (let i = 0; i < typedText.length; i++) {
-    if (typedText[i] === originalText[i]) {
-      correctChars++;
+    if(document.querySelector('.js-mode-value').textContent === 'Hard') {
+      shuffleMode('hard')
+    }else if(document.querySelector('.js-mode-value').textContent === 'Medium') {
+      shuffleMode('medium')
     }else {
-      inCorrectChars++;
-      /*
-      typedText = typedText.substring(0, i) + originalText[i] + typedText.substring(i + 1);
-      textArea.value = typedText;
-      */
+      shuffleMode('easy')
     }
+  });
+
+  // Cursor utilities
+  function getCursorPosition(el) {
+    const sel = window.getSelection();
+    if (!sel.rangeCount) return 0;
+
+    const range = sel.getRangeAt(0);
+    const pre = range.cloneRange();
+    pre.selectNodeContents(el);
+    pre.setEnd(range.endContainer, range.endOffset);
+    return pre.toString().length;
   }
 
-  const accuracy = (((correctChars / originalText.length)) * 100);
-  document.querySelector('.accuracy-value').innerHTML = `${accuracy.toFixed(1)}%`;
-}
-document.querySelector('.text-area').addEventListener('input', accuracyCalculation);
-function wordPerMinuteCalculation() {
-  // Calculate WPM logic here
-  const textArea = document.querySelector('.text-area');
-  const textToType = document.querySelector('.text-to-type');
-  const typedText = textArea.value;
-  const originalText = textToType.textContent;
-  let correctChars = 0;
-  for (let i = 0; i < typedText.length; i++) {
-    if (typedText[i] === originalText[i]) {
-      correctChars++;
+  function setCursorPosition(el, pos) {
+    const range = document.createRange();
+    const sel = window.getSelection();
+    let current = 0;
+
+    for (const node of el.childNodes) {
+      const len = node.textContent.length;
+      if (current + len >= pos) {
+        range.setStart(node.firstChild, pos - current);
+        break;
+      }
+      current += len;
     }
-  }
-  if (timerStarted && correctChars > 0) {
-    const elapsedMs = Date.now() - startTime;
-    const elapsedMinutes = elapsedMs / 60000;
-    const wpm = (correctChars / 5) / elapsedMinutes;
-    document.querySelector('.wpm-value').innerHTML = Math.round(wpm);
-  } else {
-    document.querySelector('.wpm-value').innerHTML = '0';
-  }
-}
-document.querySelector('.text-area').addEventListener('input', wordPerMinuteCalculation);
 
-function resetCalculations() {
-  document.querySelector('.wpm-value').innerHTML = '0';
-  document.querySelector('.accuracy-value').innerHTML = '0.0%';
-}
-
-function textColorCorrection() {
-  // Implement text color correction logic here
-  const textArea = document.querySelector('.text-area');
-  const textToType = document.querySelector('.text-to-type');
-  let typedText = textArea.value;
-  const originalText = textToType.textContent;
-  for (let i = 0; i < typedText.length; i++) {
-    if (typedText[i] === originalText[i]) {
-      console.log('true')
-    }else {
-      let span = document.createElement('span')
-      span.innerHTML = originalText[i]
-      span.classList.add('incorrect')
-      typedText = typedText.substring(0, i) + span.innerHTML + typedText.substring(i + 1);
-      textArea.value = typedText;
-    }
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
   }
-}
-document.querySelector('.text-area').addEventListener('input', textColorCorrection)
-
-function endTyping() {
-  if(timeLeft === 0) {
-    alert('Your time has been exhausted')
+  function saveToStorage () {
+    localStorage.setItem('savedResult', JSON.stringify(savedResult));
   }
-}
-endTyping()

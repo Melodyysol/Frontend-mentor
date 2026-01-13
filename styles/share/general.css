@@ -36,6 +36,13 @@ header {
   color: hsla(0, 0%, 100%, 0.8);
   font-weight: 100;
 }
+.correct {
+  color: hsl(140, 63%, 57%);
+}
+
+.incorrect {
+  color: hsl(354, 63%, 57%);
+}
 
 @media (max-width: 600px) {
   body {

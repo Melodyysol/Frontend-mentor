@@ -116,7 +116,6 @@ main {
   caret-color: hsl(214, 100%, 55%);
   border: none;
   border-radius: 10px;
-  color: hsl(140, 63%, 57%);
   resize: none;
   outline: none;
   padding: 24px 0px;
@@ -124,6 +123,7 @@ main {
   background-color: transparent;
   font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 2px;
+  white-space: pre-wrap;
 }
 
 footer {
@@ -205,16 +205,16 @@ footer {
     cursor: pointer;
     transition: .15s;
   }
-  .drop-down div input, .drop-down div label {
+  .drop-down label input, .drop-down label label {
     cursor: pointer;
   }
   .drop-down-time {
     right: 20px;
-    top: 11.4em;
+    top: 10.5em;
     z-index: 4;
   }
   .drop-down-mode {
-    top: 11.4em;
+    top: 10.5em;
     z-index: 4;
   }
   .easy-time-select {
@@ -234,6 +234,13 @@ footer {
     width: 50%;
     padding: 5px 0;
     cursor: pointer;
+    transition: .15s;
+  }
+  .list:hover {
+    border: 1px solid hsl(240, 3%, 46%);
+  }
+  .list:focus {
+    border: 2px solid hsl(240, 3%, 46%);
   }
   .medium {
     border: none;

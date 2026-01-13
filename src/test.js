@@ -1,3 +1,4 @@
+
 let text = document.querySelector('.container')
 // let a = 'atere'
 // let newHtml = document.createElement('span')
@@ -9,10 +10,10 @@ let text = document.querySelector('.container')
 //   console.log(text)
 // })
 
-text.addEventListener('input', () => {
-  let typedText = text.value;
-  typedText = typedText.trim().split(/|s+/)
-  for (let char of typedText) {
-    text.value = `<span style="color: red;">${char}</span>`
-  }
-})
+// text.addEventListener('input', () => {
+//   let typedText = text.value;
+//   typedText = typedText.trim().split(/|s+/)
+//   for (let char of typedText) {
+//     text.value = `<span style="color: red;">${char}</span>`
+//   }
+// })
