@@ -426,6 +426,7 @@ let referenceText = document.querySelector('.js-text-to-type').innerText;
     range.collapse(true);
     sel.removeAllRanges();
     sel.addRange(range);
+<<<<<<< HEAD
   }
 
   input.setAttribute("tabindex", "0");
@@ -467,3 +468,6 @@ let referenceText = document.querySelector('.js-text-to-type').innerText;
     setCursorPosition(input, typedData.length);
   });
   
+=======
+  }
+>>>>>>> 35230ac (No change)
