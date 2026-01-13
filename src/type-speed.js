@@ -429,13 +429,13 @@ let referenceText = document.querySelector('.js-text-to-type').innerText;
     }
   });
 
-  input.addEventListener('click', (e) => {
+  input.addEventListener('input', (e) => {
     e.preventDefault();
     input.focus();
 
     const range = document.createRange();
     const sel = window.getSelection();
-    range.setStart(input.childNodes[input.childNodes.length - 1], input.childNodes[input.childNodes.length - 1]?.textContent.length || 0);
+    range.setStart(input.lastChild || input, input.textContent.length);
     range.collapse(true);
     sel.removeAllRanges();
     sel.addRange(range);
