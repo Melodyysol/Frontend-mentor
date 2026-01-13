@@ -92,7 +92,7 @@ mainHTML = `
   </div>
   <div class="typing-container">
     <p class="text-to-type js-text-to-type"></p>
-    <div contenteditable="true" class="text-area" spellcheck="false"></div>
+    <div contenteditable="true" class="text-area" spellcheck="false" autocorrect="off" autocapitalize="off"></div>
   </div>
 `
 document.querySelector('main').innerHTML = mainHTML
@@ -260,7 +260,7 @@ let referenceText = document.querySelector('.js-text-to-type').innerText;
   });
 
   // Core typing logic
-  input.addEventListener("beforeinput", (e) => {
+  input.addEventListener("input", (e) => {
     if (finished) {
       e.preventDefault();
       return;
@@ -400,13 +400,14 @@ let referenceText = document.querySelector('.js-text-to-type').innerText;
   // Cursor utilities
   function getCursorPosition(el) {
     const sel = window.getSelection();
-    if (!sel.rangeCount) return 0;
+    if (!sel || sel.rangeCount === 0) return el.textContent?.length || 0;
+    return sel.getRangeAt(0).endOffset;
 
-    const range = sel.getRangeAt(0);
-    const pre = range.cloneRange();
-    pre.selectNodeContents(el);
-    pre.setEnd(range.endContainer, range.endOffset);
-    return pre.toString().length;
+    // const range = sel.getRangeAt(0);
+    // const pre = range.cloneRange();
+    // pre.selectNodeContents(el);
+    // pre.setEnd(range.endContainer, range.endOffset);
+    // return pre.toString().length;
   }
 
   function setCursorPosition(el, pos) {
@@ -427,3 +428,5 @@ let referenceText = document.querySelector('.js-text-to-type').innerText;
     sel.removeAllRanges();
     sel.addRange(range);
   }
+
+  input.focus({ preventScroll: true });

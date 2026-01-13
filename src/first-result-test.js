@@ -36,11 +36,13 @@ function mainPageHTML() {
         <div>
           <span>Characters</span>
           <span>
-            <span class="correct" style="color: hsl(140, 63%, 57%); font-size: 16px;">
+            <span style="color: hsl(140, 63%, 57%); font-size: 16px;">
               ${savedResult.correctChars}
             </span>
             /
-            <span class="incorrect">${savedResult.inCorrectChars}</span>
+            <span style="color: hsl(354, 63%, 57%); font-size: 16px;">
+              ${savedResult.inCorrectChars}
+            </span>
           </span>
         </div>
       </div>
