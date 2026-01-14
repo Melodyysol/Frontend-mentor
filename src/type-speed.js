@@ -93,7 +93,11 @@ mainHTML = `
   </div>
   <div class="typing-container">
     <p class="text-to-type js-text-to-type"></p>
-    <div contenteditable="plaintext-only" class="text-area" spellcheck="false" autocorrect="off" autocapitalize="off"></div>
+    <textarea contenteditable="plaintext-only"
+     class="text-area" spellcheck="false" 
+     autocorrect="off" autocapitalize="off" 
+     autofocus>
+    </textarea>
   </div>
 `
 document.querySelector('main').innerHTML = mainHTML
@@ -107,6 +111,7 @@ let startTime = null;
 let timer = null;
 let finished = false;
 const TEST_DURATION = 60;
+const PENALTY_PER_MISTAKE = 1;
 
 function getRandomText(difficulty) {
   let text = ''
@@ -251,69 +256,50 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
   }
 })
 
+  const textDisplay = document.querySelector('.js-text-to-type');
+  input.value = '';
 
-let referenceText = document.querySelector('.js-text-to-type').innerText;
-
-  // Prevent paste & enter
-  input.addEventListener("paste", e => e.preventDefault());
-  input.addEventListener("keydown", e => {
-    if (e.key === "Enter") e.preventDefault();
-  });
-
-  // Core typing logic
-  input.addEventListener("beforeinput", (e) => {
-    if (finished) {
-      e.preventDefault();
-      return;
-    }
-
-    const cursorPos = getCursorPosition(input);
+  input.addEventListener('input', () => {
+    if (finished) return;
 
     if (!startTime) startTimer();
 
-    // Backspace
-    if (e.inputType === "deleteContentBackward") {
-      if (cursorPos > 0) {
-        typedData.splice(cursorPos - 1, 1);
-        render(cursorPos - 1);
-        updateStats();
-      }
-      e.preventDefault();
-      return;
-    }
-
-    // Insert text
-    if (e.data) {
-      if (cursorPos >= referenceText.length) {
-        e.preventDefault();
-        return;
-      }
-
-      const expected = referenceText[cursorPos];
-      typedData.splice(cursorPos, 0, {
-        char: expected,
-        correct: e.data === expected
+    typedData = [];
+    const typedValue = input.value;
+    
+    for (let i = 0; i < typedValue.length; i++) {
+      typedData.push({
+        char: typedValue[i],
+        expected: textDisplay.textContent[i],
+        correct: typedValue[i] === textDisplay.textContent[i]
       });
-
-      render(cursorPos + 1);
-      updateStats();
-
-      if (typedData.length === referenceText.length) finish();
-      
-
-      e.preventDefault();
     }
-  });
 
-  // Render characters
-  function render(cursorPos) {
-    input.innerHTML = typedData
-      .map(c =>
-        `<span class="${c.correct ? "correct" : "incorrect"}">${c.char}</span>`
-      )
-      .join("");
+    renderText();
+    updateStats();
 
-    setCursorPosition(input, cursorPos);
+    if (typedValue.length >= textDisplay.textContent.length) {
+      finish();
+    }
+  })
+
+  function renderText() {
+    let html = '';
+    for (let i = 0; i < textDisplay.textContent.length; i++) {
+      if (typedData[i]) {
+        html += `<span class="${typedData[i].correct ? 'correct' : 'incorrect'}">${textDisplay.textContent[i]}</span>`;
+      } else if (i === typedData.length) {
+        html += `<span class="current">${textDisplay.textContent[i]}</span>`;
+      } else {
+        html += `<span>${textDisplay.textContent[i]}</span>`;
+      }
+
+    }
+    textDisplay.innerHTML = html;
+  }
+
+  if (invalidKeys.includes(input.value)) {
+    input.value = input.value.replace(input.value, '');
   }
 
   // Timer
@@ -343,14 +329,18 @@ let referenceText = document.querySelector('.js-text-to-type').innerText;
     const totalChars = typedData.length;
 
     inCorrectChars = totalChars - correctChars;
-    // const timeElapsed = (Date.now() - startTime) / 1000;
+    const timeElapsed = (TEST_DURATION - remainingTime) / 60;
+    let rawWPM = timeElapsed > 0 ? (correctChars / 5) / timeElapsed : 0;
+    let penalizedWPM = Math.max(0, rawWPM - (inCorrectChars * PENALTY_PER_MISTAKE));
+    const wpm = Math.round(penalizedWPM);
 
-    wpmEl.textContent = Math.round((correctChars / 5));
-    accEl.textContent = totalChars ? Math.round((correctChars / totalChars) * 100) + '%' : '0%';
+    const acc = totalChars ? Math.round((correctChars / totalChars) * 100) : 0;
+    wpmEl.textContent = wpm;
+    accEl.textContent = acc + '%';
 
     // Store test result
-    savedResult.wpm = Math.round((correctChars / 5));
-    savedResult.accuracy = totalChars ? Math.round((correctChars / totalChars) * 100) : 0;
+    savedResult.wpm = wpm;
+    savedResult.accuracy = acc;
     savedResult.correctChars = correctChars
     savedResult.inCorrectChars = inCorrectChars
     savedResult.time = TEST_DURATION - remainingTime
@@ -383,60 +373,3 @@ let referenceText = document.querySelector('.js-text-to-type').innerText;
 
     window.location.reload();
   });
-
-  // Cursor utilities
-  function getCursorPosition(el) {
-    const sel = window.getSelection();
-    if (!sel.rangeCount) return 0;
-
-    const range = sel.getRangeAt(0);
-    const pre = range.cloneRange();
-    pre.selectNodeContents(el);
-    pre.setEnd(range.endContainer, range.endOffset);
-    return pre.toString().length;
-  }
-
-  function setCursorPosition(el, pos) {
-    const range = document.createRange();
-    const sel = window.getSelection();
-    let current = 0;
-
-    for (const node of el.childNodes) {
-      const len = node.textContent.length;
-      if (current + len >= pos) {
-        range.setStart(node.firstChild, pos - current);
-        break;
-      }
-      current += len;
-    }
-
-    range.collapse(true);
-    sel.removeAllRanges();
-    sel.addRange(range);
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Tab') {
-      e.preventDefault();
-      input.focus();
-    }
-    if (e.key === 'Escape') {
-      input.blur();
-    }
-
-    if (e.location === 0 && !invalidKeys.includes(e.key)) {
-      input.focus();
-    }
-  });
-
-  input.addEventListener('input', (e) => {
-    e.preventDefault();
-    input.focus();
-
-    const range = document.createRange();
-    const sel = window.getSelection();
-    range.setStart(input.lastChild || input, input.textContent.length);
-    range.collapse(true);
-    sel.removeAllRanges();
-    sel.addRange(range);
-  })

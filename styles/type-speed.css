@@ -105,10 +105,11 @@ main {
   pointer-events: none;
   letter-spacing: 2px;
   font-family: Arial, Helvetica, sans-serif;
+  word-wrap: break-word;
 }
 
 .text-area {
-  position: relative;
+  position: absolute;
   width: 100%;
   font-size: 24px;
   line-height: 30px;
@@ -124,7 +125,7 @@ main {
   font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 2px;
   white-space: pre-wrap;
-  pointer-events: auto; 
+  color: transparent;
 }
 
 footer {
