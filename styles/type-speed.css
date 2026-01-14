@@ -114,7 +114,7 @@ main {
   font-size: 24px;
   line-height: 30px;
   z-index: 2;
-  caret-color: hsl(214, 100%, 55%);
+  /* caret-color: hsl(214, 100%, 55%); */
   border: none;
   border-radius: 10px;
   resize: none;
