@@ -1,6 +1,8 @@
 import { topScreenHTML } from "./share/home-header.js";
+import { currentResult, updatePersonalBest } from "./share/saved-result-store.js";
 
 document.querySelector('header').innerHTML = topScreenHTML()
+updatePersonalBest();
 
 function mainPageHTML() {
   let mainHTML = `
@@ -18,17 +20,17 @@ function mainPageHTML() {
       <div class="wpm-info">
         <div>
           <span>WPM:</span>
-          <span>85</span>
+          <span>${currentResult.wpm}</span>
         </div>
         <div>
           <span>Accuracy:</span>
-          <span class="accuracy">90%</span>
+          <span class="accuracy">${currentResult.accuracy}%</span>
         </div>
         <div>
           <span>Characters</span>
           <span>
-            <span class="correct">120</span>
-            / <span class="incorrect">5</span>
+            <span style="color: hsl(140, 63%, 57%);">${currentResult.correctChars}</span>
+            / <span style="color: hsl(25, 98%, 50%);">${currentResult.inCorrectChars}</span>
           </span>
         </div>
       </div>
@@ -42,5 +44,9 @@ function mainPageHTML() {
   `
 
   document.querySelector('main').innerHTML = mainHTML;
+
+  document.querySelector('.start-over').addEventListener('click', () => {
+    window.location.href = `index.html`;
+  });
 }
 mainPageHTML()

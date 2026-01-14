@@ -1,6 +1,6 @@
 import { data } from './data/data.js';
 import { topScreenHTML } from './share/home-header.js';
-import { savedResult } from './share/saved-result-store.js';
+import { currentResult, changePageHighWPM, updatePersonalBest } from './share/saved-result-store.js';
 
 let headerHTML = ''
 let mainHTML = ''
@@ -11,7 +11,7 @@ let shuffleHard  = data.hard.sort(() => Math.random() - 0.5);
 let correctChars = 0;
 let inCorrectChars = 0;
 let typedData = []
-const invalidKeys = 'Shift, Control, Alt, Meta, CapsLock, Tab, Escape, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Enter, Backspace, Delete, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12';
+
 
 homeScreenHTML()
 function homeScreenHTML() {
@@ -93,11 +93,9 @@ mainHTML = `
   </div>
   <div class="typing-container">
     <p class="text-to-type js-text-to-type"></p>
-    <textarea contenteditable="plaintext-only"
-     class="text-area" spellcheck="false" 
+    <textarea class="text-area" spellcheck="false"
      autocorrect="off" autocapitalize="off" 
-     autofocus>
-    </textarea>
+     autocomplete="off" autosuggest="off" autofocus></textarea>
   </div>
 `
 document.querySelector('main').innerHTML = mainHTML
@@ -112,6 +110,7 @@ let timer = null;
 let finished = false;
 const TEST_DURATION = 60;
 const PENALTY_PER_MISTAKE = 1;
+
 
 function getRandomText(difficulty) {
   let text = ''
@@ -144,25 +143,34 @@ document.querySelector('.js-list-mode').addEventListener('click', () => {
 })
 
 document.querySelector('.js-easy-mode').addEventListener('click', () => {
-  document.querySelector('.js-easy-mode').classList.add('active')
-  document.querySelector('.js-medium-mode').classList.remove('active')
-  document.querySelector('.js-hard-mode').classList.remove('active')
-  easyMediumHard('Easy');
-  changeMode('easy')
+  setTimeout(() => {
+    document.querySelector('.js-easy-mode').classList.add('active')
+    document.querySelector('.js-medium-mode').classList.remove('active')
+    document.querySelector('.js-hard-mode').classList.remove('active')
+    easyMediumHard('Easy');
+    changeMode('easy')
+    input.focus()
+  }, 200);
 })
 document.querySelector('.js-medium-mode').addEventListener('click', () => {
-  document.querySelector('.js-medium-mode').classList.add('active')
-  document.querySelector('.js-easy-mode').classList.remove('active')
-  document.querySelector('.js-hard-mode').classList.remove('active')
-  easyMediumHard('Medium')
-  changeMode('medium')
+  setTimeout(() => {
+    document.querySelector('.js-medium-mode').classList.add('active')
+    document.querySelector('.js-easy-mode').classList.remove('active')
+    document.querySelector('.js-hard-mode').classList.remove('active')
+    easyMediumHard('Medium')
+    changeMode('medium')
+    input.focus()
+  }, 200);
 })
 document.querySelector('.js-hard-mode').addEventListener('click', () => {
-  document.querySelector('.js-hard-mode').classList.add('active')
-  document.querySelector('.js-easy-mode').classList.remove('active')
-  document.querySelector('.js-medium-mode').classList.remove('active')
-  easyMediumHard('Hard')
-  changeMode('hard')
+  setTimeout(() => {
+    document.querySelector('.js-hard-mode').classList.add('active')
+    document.querySelector('.js-easy-mode').classList.remove('active')
+    document.querySelector('.js-medium-mode').classList.remove('active')
+    easyMediumHard('Hard')
+    changeMode('hard')
+    input.focus()
+  }, 200);
 })
 
 function shuffleMode (mode) {
@@ -180,16 +188,25 @@ function shuffleMode (mode) {
 }
 
 document.querySelector('.js-easy-mode-2').addEventListener('click', () => {
-  easyMediumHard('Easy');
-  changeMode('easy')
+  setTimeout(() => {
+    easyMediumHard('Easy');
+    changeMode('easy')
+    input.focus()
+  }, 200);
 })
 document.querySelector('.js-medium-mode-2').addEventListener('click', () => {
-  easyMediumHard('Medium')
-  changeMode('medium')
+  setTimeout(() => {
+    easyMediumHard('Medium')
+    changeMode('medium')
+    input.focus()
+  }, 200);
 })
 document.querySelector('.js-hard-mode-2').addEventListener('click', () => {
-  easyMediumHard('Hard')
-  changeMode('hard')
+  setTimeout(() => {
+    easyMediumHard('Hard')
+    changeMode('hard')
+    input.focus()
+  }, 200);
 })
 
 function easyMediumHard(mode) {
@@ -230,7 +247,7 @@ document.querySelector('.js-time-passage').addEventListener('click', () => {
     document.querySelector('.js-time-passage').classList.remove('active')
   }, 100);
   if(document.querySelector('.js-hard-mode').classList.contains('active')) {
-      shuffleMode('hard')
+    shuffleMode('hard')
   }else if(document.querySelector('.js-medium-mode').classList.contains('active')) {
     shuffleMode('medium')
   }else {
@@ -298,10 +315,6 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
     textDisplay.innerHTML = html;
   }
 
-  if (invalidKeys.includes(input.value)) {
-    input.value = input.value.replace(input.value, '');
-  }
-
   // Timer
   let remainingTime = TEST_DURATION;
   function startTimer() {
@@ -309,6 +322,7 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
     remainingTime = TEST_DURATION;
 
     timeEl.textContent = '00:' + remainingTime;
+    changePageHighWPM();
 
     timer = setInterval(() => {
       remainingTime--
@@ -339,18 +353,19 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
     accEl.textContent = acc + '%';
 
     // Store test result
-    savedResult.wpm = wpm;
-    savedResult.accuracy = acc;
-    savedResult.correctChars = correctChars
-    savedResult.inCorrectChars = inCorrectChars
-    savedResult.time = TEST_DURATION - remainingTime
-    localStorage.setItem('savedResult', JSON.stringify(savedResult));
+    currentResult.wpm = wpm;
+    currentResult.accuracy = acc;
+    currentResult.correctChars = correctChars;
+    currentResult.inCorrectChars = inCorrectChars;
+    currentResult.time = TEST_DURATION - remainingTime
+    localStorage.setItem('currentResult', JSON.stringify(currentResult));
   }
 
 
   // Finish test
   function finish() {
-    window.location.href = `first-result-test.html`
+    input.disabled = true;
+    window.location.href = `first-result-test.html`;
     finished = true;
     clearInterval(timer);
   }
@@ -373,3 +388,4 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
 
     window.location.reload();
   });
+  updatePersonalBest();

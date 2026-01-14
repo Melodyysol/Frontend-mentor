@@ -1,10 +1,23 @@
-import { topScreenHTML } from "./share/home-header.js";
-import { savedResult } from "./share/saved-result-store.js";
-
-console.log(savedResult.inCorrectChars);
+import { currentResult } from "./share/saved-result-store.js";
 
 
-document.querySelector('header').innerHTML = topScreenHTML()
+function topScreenHTML() {
+  let topScreenHTML = `
+    <div class="type-top-header type-header">
+      <div>
+        <img src="typing-speed-test-main/assets/images/logo-large.svg" alt="Logo large" class="typing-logo-large">
+        <img src="typing-speed-test-main/assets/images/logo-small.svg" alt="Logo small" class="typing-logo-small">
+      </div>
+      <div class="personal-best-container">
+        <img src="typing-speed-test-main/assets/images/icon-personal-best.svg" alt="Icon personal best" class="cup">
+        <span class="personal-best information">Personal best: <span class="personal-best-value">${currentResult.wpm} WPM</span></span>
+        <span class="personal-best information personal-best-2">Best: <span class="personal-best-value">92 WPM</span></span>
+      </div>
+    </div>
+  `
+  document.querySelector('header').innerHTML = topScreenHTML
+}
+topScreenHTML()
 
 function mainPageHTML() {
   let mainHTML = `
@@ -27,21 +40,21 @@ function mainPageHTML() {
       <div class="wpm-info">
         <div>
           <span>WPM:</span>
-          <span>${savedResult.wpm}</span>
+          <span>${currentResult.wpm}</span>
         </div>
         <div>
           <span>Accuracy:</span>
-          <span class="accuracy">${savedResult.accuracy}%</span>
+          <span class="accuracy">${currentResult.accuracy}%</span>
         </div>
         <div>
           <span>Characters</span>
           <span>
             <span style="color: hsl(140, 63%, 57%); font-size: 16px;">
-              ${savedResult.correctChars}
+              ${currentResult.correctChars}
             </span>
             /
             <span style="color: hsl(354, 63%, 57%); font-size: 16px;">
-              ${savedResult.inCorrectChars}
+              ${currentResult.inCorrectChars}
             </span>
           </span>
         </div>
