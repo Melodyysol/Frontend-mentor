@@ -6,26 +6,43 @@ let currentResult = JSON.parse(localStorage.getItem('currentResult')) || {
   time: 0
 };
 
-const savedResult = JSON.parse(localStorage.getItem('savedResult')) || [{
+const savedResult = JSON.parse(localStorage.getItem('savedResult')) || {
   wpm: 0,
   accuracy: 0,
   correctChars: 0,
   inCorrectChars: 0,
   time: 0
-}];
+};
 
-savedResult.push(currentResult);
-localStorage.setItem('savedResult', JSON.stringify(savedResult));
+let resultHistory = JSON.parse(localStorage.getItem('resultHistory')) || [];
+
+function saveCurrentResult() {
+  resultHistory.push({...currentResult});
+  localStorage.setItem('resultHistory', JSON.stringify(resultHistory));
+}
 
 function updatePersonalBest() {
-  if (savedResult.length === 0) {
-    document.querySelector('.high-wpm').textContent = 0;
-    document.querySelector('.high-wpm-mobile').textContent = 0;
-    return;
+  // if (savedResult.length === 0) {
+  //   document.querySelector('.high-wpm').textContent = 0;
+  //   document.querySelector('.high-wpm-mobile').textContent = 0;
+  //   return;
+  // }
+  saveCurrentResult();
+  if (currentResult.wpm > savedResult.wpm) {
+    savedResult.wpm = currentResult.wpm;
+    savedResult.accuracy = currentResult.accuracy;
+    savedResult.correctChars = currentResult.correctChars;
+    savedResult.inCorrectChars = currentResult.inCorrectChars;
+    savedResult.time = currentResult.time;
+
+    localStorage.setItem('savedResult', JSON.stringify(savedResult));
   }
-  let personalBest = savedResult.reduce((max, result) => result.wpm > max ? result.wpm : max, 0);
-  document.querySelector('.high-wpm').textContent = personalBest;
-  document.querySelector('.high-wpm-mobile').textContent = personalBest;
+  
+  let personalBest = resultHistory.reduce((max, result) => result.wpm > max ? result.wpm : max, 0);
+  document.querySelector('.high-wpm').textContent = savedResult.wpm;
+  document.querySelector('.high-wpm-mobile').textContent = savedResult.wpm;
+
+  localStorage.setItem('personalBest', JSON.stringify({wpm: personalBest}));
 }
 
 export { currentResult, savedResult, updatePersonalBest };

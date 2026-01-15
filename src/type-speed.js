@@ -401,16 +401,10 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
   updatePersonalBest();
 
   function changePageHighWPM() {
-    let personalBest = savedResult.reduce((max, result) => result.wpm > max ? result.wpm : max, 0);
-
-    localStorage.setItem('currentResult', JSON.stringify(currentResult));
-
-    if (currentResult.wpm > personalBest && savedResult.length > 1 && personalBest > 0) {
-      window.location.href = `second-result.html`;
-      document.querySelector('.high-wpm').textContent = currentResult.wpm;
-      document.querySelector('.high-wpm-mobile').textContent = currentResult.wpm;
+    if(currentResult.wpm > savedResult.wpm && savedResult.wpm !== 0) {
+      window.location.href = 'second-result.html';
     } else {
-      window.location.href = `first-result-test.html`;
+      window.location.href = 'first-result-test.html';
     }
   }
 

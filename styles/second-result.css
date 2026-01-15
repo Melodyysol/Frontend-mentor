@@ -73,6 +73,7 @@ main {
   cursor: pointer;
   margin-top: 2em;
   color: white;
+  z-index: 2;
 }
 
 .start-over span img {
