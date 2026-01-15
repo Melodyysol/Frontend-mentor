@@ -8,7 +8,6 @@ let mainHTML = ''
 let shuffleEasy = data.easy.sort(() => Math.random() - 0.5);
 let shuffleMedium  = data.medium.sort(() => Math.random() - 0.5)
 let shuffleHard  = data.hard.sort(() => Math.random() - 0.5);
-let correctChars = 0;
 let inCorrectChars = 0;
 let typedData = []
 
@@ -417,6 +416,9 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
 
   function changePageHighWPM() {
     let personalBest = savedResult.reduce((max, result) => result.wpm > max ? result.wpm : max, 0);
+
+    localStorage.setItem('currentResult', JSON.stringify(currentResult));
+
     if (currentResult.wpm > personalBest && savedResult.length > 1 && personalBest > 0) {
       window.location.href = `second-result.html`;
       document.querySelector('.high-wpm').textContent = currentResult.wpm;
