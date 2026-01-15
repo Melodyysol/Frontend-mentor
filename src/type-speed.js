@@ -1,6 +1,6 @@
 import { data } from './data/data.js';
 import { topScreenHTML } from './share/home-header.js';
-import { currentResult, changePageHighWPM, updatePersonalBest } from './share/saved-result-store.js';
+import { currentResult, savedResult, updatePersonalBest } from './share/saved-result-store.js';
 
 let headerHTML = ''
 let mainHTML = ''
@@ -389,3 +389,22 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
     window.location.reload();
   });
   updatePersonalBest();
+
+  function changePageHighWPM() {
+    let personalBest = savedResult.reduce((max, result) => result.wpm > max ? result.wpm : max, 0);
+
+    setTimeout(() => {
+      if (personalBest === 0) {
+        document.querySelector('.high-wpm').textContent = 0;
+        window.location.href = `first-result-test.html`;
+        return;
+      }
+
+      if (currentResult.wpm > personalBest && savedResult.length > 1) {
+        window.location.href = `second-result.html`;
+        document.querySelector('.high-wpm').textContent = currentResult.wpm;
+      } else {
+        window.location.href = `first-result-test.html`;
+      }
+    }, 60000);
+  }
