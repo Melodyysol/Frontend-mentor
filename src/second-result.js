@@ -34,19 +34,22 @@ function mainPageHTML() {
           </span>
         </div>
       </div>
-      <button class="start-over">
-        <span>Beat This Score</span> 
-        <span>
-          <img src="typing-speed-test-main/assets/images/icon-restart.svg" alt="icon restart">
-        </span>
-      </button>
+      <footer>
+        <button class="start-over">
+          <span>Beat This Score</span> 
+          <span>
+            <img src="typing-speed-test-main/assets/images/icon-restart.svg" alt="icon restart">
+          </span>
+        </button>
+        <button class="learderboard js-learderboard">LEADERBOARD</button>
+      </footer>
     </div>
   `
 
   document.querySelector('main').innerHTML = mainHTML;
 
-  document.querySelector('.start-over').addEventListener('click', () => {
-    window.location.href = `index.html`;
-  });
+  document.querySelector('.start-over').addEventListener('click', () => window.location.href = `index.html`)
+
+  document.querySelector('.js-learderboard').addEventListener('click', () => window.location.href = 'leaderboard.html')
 }
 mainPageHTML()

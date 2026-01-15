@@ -60,7 +60,12 @@ main {
   font-weight: 600;
 }
 
-.start-over {
+footer {
+  display: flex;
+  column-gap: 20px;
+}
+
+.start-over, .learderboard {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,20 +79,22 @@ main {
   margin-top: 2em;
   color: white;
   z-index: 2;
+  transition: 0.3s;
 }
 
 .start-over span img {
   color: black;
 }
 
-.start-over:hover {
+.start-over:hover, .learderboard:hover {
   background-color: hsl(240, 1%, 59%);
 }
-.start-over:focus {
+.start-over:focus, .learderboard:focus {
   background-color: hsl(210, 100%, 65%);
   outline: 2px solid hsl(214, 100%, 55%);
   border: 2px solid hsl(0, 0%, 7%);
 }
+
 
 @media (max-width: 600px) {
   main {

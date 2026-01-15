@@ -45,4 +45,4 @@ function updatePersonalBest() {
   localStorage.setItem('personalBest', JSON.stringify({wpm: personalBest}));
 }
 
-export { currentResult, savedResult, updatePersonalBest };
+export { currentResult, savedResult, updatePersonalBest, resultHistory };

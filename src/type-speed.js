@@ -191,6 +191,7 @@ document.querySelector('.js-easy-mode-2').addEventListener('click', () => {
     easyMediumHard('Easy');
     changeMode('easy')
     input.focus()
+    document.querySelector('footer').style.marginTop = '6em';
   }, 200);
 })
 document.querySelector('.js-medium-mode-2').addEventListener('click', () => {
@@ -198,6 +199,7 @@ document.querySelector('.js-medium-mode-2').addEventListener('click', () => {
     easyMediumHard('Medium')
     changeMode('medium')
     input.focus()
+    document.querySelector('footer').style.marginTop = '6em';
   }, 200);
 })
 document.querySelector('.js-hard-mode-2').addEventListener('click', () => {
@@ -205,6 +207,7 @@ document.querySelector('.js-hard-mode-2').addEventListener('click', () => {
     easyMediumHard('Hard')
     changeMode('hard')
     input.focus()
+    document.querySelector('footer').style.marginTop = '11em';
   }, 200);
 })
 
