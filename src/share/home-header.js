@@ -12,7 +12,8 @@ export function topScreenHTML() {
         <img src="typing-speed-test-main/assets/images/icon-personal-best.svg" alt="Icon personal best" class="cup">
         <span class="personal-best information">Personal best: <span class="personal-best-value">
           <span class="high-wpm"></span> WPM</span></span>
-        <span class="personal-best information personal-best-2">Best: <span class="personal-best-value">92 WPM</span></span>
+        <span class="personal-best information personal-best-2">Best: <span class="personal-best-value">
+          <span class="high-wpm-mobile"></span> WPM</span></span>
       </div>
     </div>
   `

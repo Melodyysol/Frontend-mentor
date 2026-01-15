@@ -9,7 +9,7 @@ main {
 }
 .pattern-confetti {
   position: absolute;
-  bottom: -18em;
+  bottom: -17em;
 }
 .pattern-confetti img {
   width: 100%;
@@ -86,12 +86,6 @@ main {
   background-color: hsl(210, 100%, 65%);
   outline: 2px solid hsl(214, 100%, 55%);
   border: 2px solid hsl(0, 0%, 7%);
-}
-.correct {
-  color: hsl(140, 63%, 57%);
-}
-.incorrect {
-  color: hsl(354, 63%, 57%);
 }
 
 @media (max-width: 600px) {

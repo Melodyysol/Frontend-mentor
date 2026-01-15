@@ -245,6 +245,20 @@ document.querySelector('.js-time-passage').addEventListener('click', () => {
     alert('Passage mode is coming soon!')
     document.querySelector('.js-time-sec').classList.add('active')
     document.querySelector('.js-time-passage').classList.remove('active')
+
+    typedData = [];
+    startTime = null;
+    finished = false;
+    clearInterval(timer);
+
+    remainingTime = TEST_DURATION;
+    timeEl.textContent = remainingTime;
+
+    input.innerHTML = "";
+    input.focus();
+
+    wpmEl.textContent = 0;
+    accEl.textContent = '0.0%';
   }, 100);
   if(document.querySelector('.js-hard-mode').classList.contains('active')) {
     shuffleMode('hard')
@@ -262,7 +276,20 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
   setTimeout(() => {
     alert('Passage mode is coming soon!')
     timedPassage('Time (60s)')
-    // document.getElementById('sec').ariaChecked
+
+    typedData = [];
+    startTime = null;
+    finished = false;
+    clearInterval(timer);
+
+    remainingTime = TEST_DURATION;
+    timeEl.textContent = remainingTime;
+
+    input.innerHTML = "";
+    input.focus();
+
+    wpmEl.textContent = 0;
+    accEl.textContent = '0.0%';
   }, 100);
   if(document.querySelector('.js-mode-value').textContent === 'Hard') {
       shuffleMode('hard')
@@ -322,7 +349,6 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
     remainingTime = TEST_DURATION;
 
     timeEl.textContent = '00:' + remainingTime;
-    changePageHighWPM();
 
     timer = setInterval(() => {
       remainingTime--
@@ -364,8 +390,7 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
 
   // Finish test
   function finish() {
-    input.disabled = true;
-    window.location.href = `first-result-test.html`;
+    changePageHighWPM()
     finished = true;
     clearInterval(timer);
   }
@@ -392,19 +417,13 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
 
   function changePageHighWPM() {
     let personalBest = savedResult.reduce((max, result) => result.wpm > max ? result.wpm : max, 0);
-
-    setTimeout(() => {
-      if (personalBest === 0) {
-        document.querySelector('.high-wpm').textContent = 0;
-        window.location.href = `first-result-test.html`;
-        return;
-      }
-
-      if (currentResult.wpm > personalBest && savedResult.length > 1) {
-        window.location.href = `second-result.html`;
-        document.querySelector('.high-wpm').textContent = currentResult.wpm;
-      } else {
-        window.location.href = `first-result-test.html`;
-      }
-    }, 60000);
+    if (currentResult.wpm > personalBest && savedResult.length > 1 && personalBest > 0) {
+      window.location.href = `second-result.html`;
+      document.querySelector('.high-wpm').textContent = currentResult.wpm;
+      document.querySelector('.high-wpm-mobile').textContent = currentResult.wpm;
+    } else {
+      window.location.href = `first-result-test.html`;
+    }
   }
+
+  input.addEventListener('paste', e => e.preventDefault())
