@@ -396,20 +396,6 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
 
   // Restart
   restartBtn.addEventListener('click', () => {
-    // typedData = [];
-    // startTime = null;
-    // finished = false;
-    // clearInterval(timer);
-
-    // remainingTime = TEST_DURATION;
-    // timeEl.textContent = remainingTime;
-
-    // input.innerHTML = "";
-    // input.focus();
-
-    // wpmEl.textContent = 0;
-    // accEl.textContent = '0.0%';
-
     window.location.reload();
   });
   updatePersonalBest();
