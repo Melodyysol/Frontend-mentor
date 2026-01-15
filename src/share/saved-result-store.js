@@ -2,10 +2,17 @@ let currentResult = JSON.parse(localStorage.getItem('currentResult')) || {
   wpm: 0,
   accuracy: 0,
   correctChars: 0,
-  inCorrectChars: 0
+  inCorrectChars: 0,
+  time: 0
 };
 
-const savedResult = JSON.parse(localStorage.getItem('savedResult')) || [];
+const savedResult = JSON.parse(localStorage.getItem('savedResult')) || [{
+  wpm: 0,
+  accuracy: 0,
+  correctChars: 0,
+  inCorrectChars: 0,
+  time: 0
+}];
 
 savedResult.push(currentResult);
 localStorage.setItem('savedResult', JSON.stringify(savedResult));
