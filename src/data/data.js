@@ -128,85 +128,85 @@ export const data =  {
   "quote": [
     {
       "id": "easy-1",
-      "text": "The sun rose over the quiet town. Birds sang in the trees as people woke up and started their day. It was going to be a warm and sunny morning."
+      "text": "The morning air was cool and calm. People walked slowly to work while shops opened their doors. The city felt peaceful before the noise of the day began."
     },
     {
       "id": "easy-2",
-      "text": "She walked to the store to buy some bread and milk. The shop was busy but she found what she needed quickly. On her way home, she saw a friend and waved."
+      "text": "He sat by the window and watched the clouds move across the sky. Each one had a different shape. It made him feel relaxed and free."
     },
     {
       "id": "easy-3",
-      "text": "The dog ran across the park chasing a ball. He was fast and loved to play. After a while, he got tired and lay down in the cool shade of a big oak tree."
+      "text": "The children laughed as they ran through the field. Their shoes were covered in grass and dirt. They did not care because they were having fun."
     },
     {
       "id": "easy-4",
-      "text": "I like to read books before I go to sleep. It helps me relax after a long day. My favorite stories are about adventure and travel to far away places."
+      "text": "She enjoyed cooking simple meals at home. The sound of chopping vegetables filled the kitchen. Cooking helped her forget about stress."
     },
     {
       "id": "easy-5",
-      "text": "The kitchen smelled of fresh coffee and toast. Mom was making breakfast while dad read the news. It was a normal morning in their small but cozy home."
+      "text": "The rain stopped and the sun came out slowly. Small puddles reflected the sky. The streets smelled fresh and clean."
     },
     {
       "id": "easy-6",
-      "text": "We went to the beach last summer. The water was blue and the sand was warm. We built a big sand castle and looked for shells along the shore."
+      "text": "Every evening, he took a short walk around the neighborhood. It helped clear his mind. The quiet streets made him feel calm."
     },
     {
       "id": "easy-7",
-      "text": "The cat sat on the window sill watching the rain. Drops fell down the glass one by one. She seemed happy to be inside where it was dry and warm."
+      "text": "The old clock on the wall ticked softly. Time seemed to move slower in the room. It was a peaceful place to sit and think."
     },
     {
       "id": "easy-8",
-      "text": "My best friend lives next door to me. We play games together after school. Sometimes we ride our bikes around the block or sit and talk for hours."
+      "text": "She packed her bag and checked everything twice. Today was the day of her trip. She smiled as she locked the door behind her."
     },
     {
       "id": "easy-9",
-      "text": "Spring is my favorite time of year. Flowers start to bloom and the days get longer. I love to see the trees turn green again after the cold winter months."
+      "text": "The smell of fresh bread filled the bakery. Customers waited patiently in line. Warm bread always made people happy."
     },
     {
       "id": "easy-10",
-      "text": "The music played softly in the room. She closed her eyes and let the sounds wash over her. It was a simple song but it made her feel at peace."
+      "text": "At night, the stars shone brightly in the sky. He lay on the ground and looked up. It reminded him how big the world was."
     }
   ],
   "lyrics": [
     {
       "id": "easy-1",
-      "text": "The sun rose over the quiet town. Birds sang in the trees as people woke up and started their day. It was going to be a warm and sunny morning."
+      "text": "Wake up to the sound of morning light. The world is moving but it feels just right. Take a breath and start your day slow."
     },
     {
       "id": "easy-2",
-      "text": "She walked to the store to buy some bread and milk. The shop was busy but she found what she needed quickly. On her way home, she saw a friend and waved."
+      "text": "We walk the same road every day. Different dreams but we find our way. Side by side, we keep moving on."
     },
     {
       "id": "easy-3",
-      "text": "The dog ran across the park chasing a ball. He was fast and loved to play. After a while, he got tired and lay down in the cool shade of a big oak tree."
+      "text": "The night feels warm, the music plays. Lost in thoughts of better days. Hold this moment, let it stay."
     },
     {
       "id": "easy-4",
-      "text": "I like to read books before I go to sleep. It helps me relax after a long day. My favorite stories are about adventure and travel to far away places."
+      "text": "Rain on the window, lights down low. Stories in the silence grow. Every sound feels soft and true."
     },
     {
       "id": "easy-5",
-      "text": "The kitchen smelled of fresh coffee and toast. Mom was making breakfast while dad read the news. It was a normal morning in their small but cozy home."
+      "text": "I hear your voice across the room. It cuts through the quiet gloom. Suddenly, I feel alive."
     },
     {
       "id": "easy-6",
-      "text": "We went to the beach last summer. The water was blue and the sand was warm. We built a big sand castle and looked for shells along the shore."
+      "text": "Feet on the ground, head in the sky. Dreams feel closer when I try. One more step, I will be fine."
     },
     {
       "id": "easy-7",
-      "text": "The cat sat on the window sill watching the rain. Drops fell down the glass one by one. She seemed happy to be inside where it was dry and warm."
+      "text": "The road is long but I am strong. I sing this simple hopeful song. I keep moving forward still."
     },
     {
       "id": "easy-8",
-      "text": "My best friend lives next door to me. We play games together after school. Sometimes we ride our bikes around the block or sit and talk for hours."
+      "text": "Lights go down, the crowd is near. Every sound is loud and clear. This is where I want to stay."
     },
     {
       "id": "easy-9",
-      "text": "Spring is my favorite time of year. Flowers start to bloom and the days get longer. I love to see the trees turn green again after the cold winter months."
+      "text": "Slow down time, let the moment breathe. Everything is easier when you believe. Hold my hand, don’t let go."
     },
     {
       "id": "easy-10",
-      "text": "The music played softly in the room. She closed her eyes and let the sounds wash over her. It was a simple song but it made her feel at peace."
+      "text": "When the morning comes again. I will rise and start again. Every day is something new."
     }
   ]
 };
