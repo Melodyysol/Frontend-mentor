@@ -70,9 +70,21 @@ function homeScreenHTML() {
           </label>
         </div>
         <div class="drop-down drop-down-time js-drop-down-time">
+          <label class="js-time-sec js-time-sec-2-1">
+            <input type="radio" name="time" id="sec-1">
+            <label for="sec-1">Time (15s)</label>
+          </label>
+          <label class="js-time-sec js-time-sec-2-2">
+            <input type="radio" name="time" id="sec-2">
+            <label for="sec-2">Time (30s)</label>
+          </label>
           <label class="js-time-sec js-time-sec-2">
             <input type="radio" name="time" id="sec" checked>
             <label for="sec">Time (60s)</label>
+          </label>
+          <label class="js-time-sec js-time-sec-2-3">
+            <input type="radio" name="time" id="sec-3">
+            <label for="sec-3">Time (120s)</label>
           </label>
           <label class="medium passage js-time-passage js-time-passage-2">
             <input type="radio" name="time" id="passage">
@@ -107,7 +119,7 @@ let restartBtn = document.querySelector(".js-restart-button");
 let startTime = null;
 let timer = null;
 let finished = false;
-const TEST_DURATION = 60;
+let TEST_DURATION = 60; // default
 const PENALTY_PER_MISTAKE = 1;
 
 
@@ -245,9 +257,23 @@ document.querySelector('.js-time-passage').addEventListener('click', () => {
   newPassage()
   input.focus();
 })
+document.querySelector('.js-time-sec-2-1').addEventListener('click', () => {
+  timedPassage('Time (15s)')
+  TEST_DURATION = 15;
+})
+document.querySelector('.js-time-sec-2-2').addEventListener('click', () => {
+  timedPassage('Time (30s)')
+  TEST_DURATION = 30
+})
 document.querySelector('.js-time-sec-2').addEventListener('click', () => {
   timedPassage('Time (60s)')
+  TEST_DURATION = 60
 })
+document.querySelector('.js-time-sec-2-3').addEventListener('click', () => {
+  timedPassage('Time (120s)')
+  TEST_DURATION = 120
+})
+
 document.querySelector('.js-time-passage-2').addEventListener('click', () => {
   clearScreen()
   timedPassage('Passage')
@@ -268,7 +294,7 @@ function newPassage() {
     clearInterval(timer);
 
     remainingTime = TEST_DURATION;
-    timeEl.textContent = '01:00';
+    timeEl.textContent = '00:' + remainingTime;
 
     input.innerHTML = "";
 
