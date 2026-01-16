@@ -24,7 +24,7 @@ function homeScreenHTML() {
         </span>
         <span class="accuracy-info information info">
           <span>Accuracy: </span>
-          <span class="accuracy-value">0.0%</span>
+          <span class="accuracy-value">100%</span>
         </span>
         <span class="information info">
           <span>Time: </span>
@@ -94,7 +94,7 @@ mainHTML = `
     <p class="text-to-type js-text-to-type"></p>
     <textarea class="text-area" spellcheck="false"
      autocorrect="off" autocapitalize="off" 
-     autocomplete="off" autosuggest="off" autofocus></textarea>
+     autocomplete="off" autosuggest="off"></textarea>
   </div>
 `
 document.querySelector('main').innerHTML = mainHTML
@@ -217,9 +217,6 @@ function easyMediumHard(mode) {
 }
 
 let startScreen = document.querySelector('.js-start-message')
-startScreen.addEventListener('click', () => {
-  clearScreen()
-})
 document.querySelector('.js-start-button').addEventListener('click', clearScreen)
 
 
@@ -243,8 +240,25 @@ function timedPassage(mode) {
   document.querySelector('.js-drop-down-time').style.display = 'none'
 }
 document.querySelector('.js-time-passage').addEventListener('click', () => {
+  clearScreen()
+  alert('Passage mode is coming soon!')
+  newPassage()
+  input.focus();
+})
+document.querySelector('.js-time-sec-2').addEventListener('click', () => {
+  timedPassage('Time (60s)')
+})
+document.querySelector('.js-time-passage-2').addEventListener('click', () => {
+  clearScreen()
+  timedPassage('Passage')
+  alert('Passage mode is coming soon!')
+  newPassage()
+  input.focus();
+})
+
+function newPassage() {
   setTimeout(() => {
-    alert('Passage mode is coming soon!')
+    timedPassage('Time (60s)')
     document.querySelector('.js-time-sec').classList.add('active')
     document.querySelector('.js-time-passage').classList.remove('active')
 
@@ -254,14 +268,17 @@ document.querySelector('.js-time-passage').addEventListener('click', () => {
     clearInterval(timer);
 
     remainingTime = TEST_DURATION;
-    timeEl.textContent = remainingTime;
+    timeEl.textContent = '01:00';
 
     input.innerHTML = "";
-    input.focus();
 
     wpmEl.textContent = 0;
-    accEl.textContent = '0.0%';
+    accEl.textContent = '100%';
+
+    document.getElementById('passage').checked = false
+    document.getElementById('sec').checked = true
   }, 100);
+
   if(document.querySelector('.js-hard-mode').classList.contains('active')) {
     shuffleMode('hard')
   }else if(document.querySelector('.js-medium-mode').classList.contains('active')) {
@@ -269,38 +286,16 @@ document.querySelector('.js-time-passage').addEventListener('click', () => {
   }else {
     shuffleMode('easy')
   }
-})
-document.querySelector('.js-time-sec-2').addEventListener('click', () => {
-  timedPassage('Time (60s)')
-})
-document.querySelector('.js-time-passage-2').addEventListener('click', () => {
-  timedPassage('Passage')
-  setTimeout(() => {
-    alert('Passage mode is coming soon!')
-    timedPassage('Time (60s)')
 
-    typedData = [];
-    startTime = null;
-    finished = false;
-    clearInterval(timer);
-
-    remainingTime = TEST_DURATION;
-    timeEl.textContent = remainingTime;
-
-    input.innerHTML = "";
-    input.focus();
-
-    wpmEl.textContent = 0;
-    accEl.textContent = '0.0%';
-  }, 100);
   if(document.querySelector('.js-mode-value').textContent === 'Hard') {
-      shuffleMode('hard')
+    shuffleMode('hard')
   }else if(document.querySelector('.js-mode-value').textContent === 'Medium') {
     shuffleMode('medium')
   }else {
     shuffleMode('easy')
   }
-})
+}
+
 
   const textDisplay = document.querySelector('.js-text-to-type');
   input.value = '';
@@ -320,6 +315,19 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
         correct: typedValue[i] === textDisplay.textContent[i]
       });
     }
+    let checkout
+    typedData.forEach(d => {
+      if(!d.correct) {
+        checkout = d;
+      }else {
+        checkout = undefined
+      }
+      if (checkout && checkout !== undefined) {
+        inCorrectChars++
+      }
+    })
+
+
 
     renderText();
     updateStats();
@@ -372,7 +380,6 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
     const correctChars = typedData.filter(c => c.correct).length;
     const totalChars = typedData.length;
 
-    inCorrectChars = totalChars - correctChars;
     const timeElapsed = (TEST_DURATION - remainingTime) / 60;
     let rawWPM = timeElapsed > 0 ? (correctChars / 5) / timeElapsed : 0;
     let penalizedWPM = Math.max(0, rawWPM - (inCorrectChars * PENALTY_PER_MISTAKE));
@@ -387,7 +394,8 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
     currentResult.accuracy = acc;
     currentResult.correctChars = correctChars;
     currentResult.inCorrectChars = inCorrectChars;
-    currentResult.time = TEST_DURATION - remainingTime
+    currentResult.time = TEST_DURATION - remainingTime;
+
     localStorage.setItem('currentResult', JSON.stringify(currentResult));
   }
 
@@ -401,7 +409,8 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
 
   // Restart
   restartBtn.addEventListener('click', () => {
-    window.location.reload();
+    newPassage()
+    input.focus()
   });
   updatePersonalBest();
 

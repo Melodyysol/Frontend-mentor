@@ -1,6 +1,10 @@
 # Frontend Mentor - Typing Speed Test solution
 
-This is a solution to the [Typing Speed Test challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/typing-speed-test). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [Typing Speed Test challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/typing-speed-test).
+
+The goal of this project is to test a user's typing speed by calculating **WPM**, **accuracy**, and tracking correct and incorrect characters in real time.
+
+Frontend Mentor challenges help me improve my coding skills by building realistic projects. 
 
 ## Table of contents
 
@@ -16,7 +20,6 @@ This is a solution to the [Typing Speed Test challenge on Frontend Mentor](https
 - [Author](#author)
 - [Acknowledgments](#acknowledgments)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 
@@ -26,86 +29,69 @@ Users should be able to:
 
 - View the optimal layout for the interface depending on their device's screen size
 - See hover and focus states for all interactive elements on the page
+- Type text and real time feed back
+- See their **WPM**, **accuracy** and typing statistics
+- Track best result using local storage which can be view in the leaderboard when users beat their high score
 
 ### Screenshot
 
 ![](./screenshot.jpg)
 
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [solution URL is here](https://www.frontendmentor.io/solutions/typing-speed-test-js)
+- Live Site URL: [Add live site URL here](https://frontend-typing.netlify.app) or (https://melodyysol.github.io/Frontend-mentor/)
 
 ## My process
 
 ### Built with
 
 - Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
+- CSS3 (Flexbox and Grid)
+- Venilla Javascrit (ES Modules)
+- Local Storage API
 - Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+This project helped me improve my understanding of:
 
-To see how you can add code snippets, see below:
+- Handling keyboard events accurately
+- Prevent cursor manipulation in input fields
+- Calculate WPM and accuracy correctly
+- Storing and comparing results using localStorage
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
 ```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
+  input.addEventListener('click', e => {
+    const len = input.value.length;
+    input.setSelectionRange(len, len)
+  })
 ```
-
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
-
-**Note: Delete this note and the content within this section and replace with your own learnings.**
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+In future version of this projects, I plan to:
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+- Add an online leaderboard
+- Allow users to enter custom text
+- Improve UI animation and feedback
+- Add sound effect and themes (dark / light mode)
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+- [Frontend Mentor Community](https://frontendmentor.io/community) - Inspiration and feedback from other developers.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Github - [Issa Abdulwaris Atere](https://github.com/melodyysol/Frontend-mentor)
+- Frontend Mentor - [@Melodyysol](https://www.frontendmentor.io/profile/melodyysol)
+- Twitter - [@Melody_Shiller](https://www.twitter.com/melody_shiller)
+- LinkedIn - [issa-abdulwaris-atere](https://www.linkedin.com/in/issa-abdulwaris-atere-b4329639b)
 
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
 
 ## Acknowledgments
 
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
+Thanks to Frontend Mentor for providing this challenge and to the developer community for feedback and inspiration.
 
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
