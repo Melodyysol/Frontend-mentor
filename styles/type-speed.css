@@ -104,7 +104,6 @@ main {
   color: hsl(240, 3%, 46%);
   pointer-events: none;
   letter-spacing: 2px;
-  font-family: Arial, Helvetica, sans-serif;
   word-wrap: break-word;
 }
 
@@ -114,7 +113,7 @@ main {
   font-size: 24px;
   line-height: 30px;
   z-index: 2;
-  caret-color: transparent;
+  caret-color: hsl(240, 1%, 59%);
   border: none;
   border-radius: 10px;
   resize: none;
@@ -122,7 +121,6 @@ main {
   padding: 24px 0px;
   min-height: 250px;
   background-color: transparent;
-  font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 2px;
   white-space: pre-wrap;
   color: transparent;
@@ -212,11 +210,11 @@ footer {
   }
   .drop-down-time {
     right: 20px;
-    top: 10.5em;
+    top: 11em;
     z-index: 4;
   }
   .drop-down-mode {
-    top: 10.5em;
+    top: 11em;
     z-index: 4;
   }
   .easy-time-select {

@@ -38,13 +38,19 @@ header {
 }
 .correct {
   color: hsl(140, 63%, 57%);
-  background-color:  hsla(140, 63%, 57%, 0.5);
 }
 
 .incorrect {
   color: hsl(354, 63%, 57%);
   text-decoration: underline;
-  background-color: hsl(354, 63%, 57%, 0.5);
+}
+
+.current {
+  height: 10px;
+  padding: 0 8px;
+  border-radius: 5px;
+  background-color: hsla(240, 1%, 59%, 0.2);
+  text-align: center;
 }
 
 @media (max-width: 600px) {

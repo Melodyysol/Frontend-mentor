@@ -352,6 +352,8 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
 
     timeEl.textContent = '00:' + remainingTime;
 
+    input.style.caretColor = 'transparent'
+
     timer = setInterval(() => {
       remainingTime--
       const timeLeft = `00:${remainingTime < 10 ? '0' + remainingTime : remainingTime}`
@@ -412,3 +414,8 @@ document.querySelector('.js-time-passage-2').addEventListener('click', () => {
   }
 
   input.addEventListener('paste', e => e.preventDefault())
+
+  input.addEventListener('click', e => {
+    const len = input.value.length;
+    input.setSelectionRange(len, len)
+  })
