@@ -124,5 +124,89 @@ export const data =  {
       "id": "hard-10",
       "text": "The archaeological expedition unearthed artifacts that complicated prevailing theories about Bronze Age trade networks. Obsidian from Anatolia, lapis lazuli from Afghanistan, and amber from the Baltic—all discovered in a single Mycenaean tomb—suggested commercial connections far more extensive than previously hypothesized. \"We've underestimated ancient peoples' navigational capabilities and their appetite for luxury goods,\" the lead researcher observed. \"Globalization isn't as modern as we assume.\""
     }
+  ],
+  "quote": [
+    {
+      "id": "easy-1",
+      "text": "The sun rose over the quiet town. Birds sang in the trees as people woke up and started their day. It was going to be a warm and sunny morning."
+    },
+    {
+      "id": "easy-2",
+      "text": "She walked to the store to buy some bread and milk. The shop was busy but she found what she needed quickly. On her way home, she saw a friend and waved."
+    },
+    {
+      "id": "easy-3",
+      "text": "The dog ran across the park chasing a ball. He was fast and loved to play. After a while, he got tired and lay down in the cool shade of a big oak tree."
+    },
+    {
+      "id": "easy-4",
+      "text": "I like to read books before I go to sleep. It helps me relax after a long day. My favorite stories are about adventure and travel to far away places."
+    },
+    {
+      "id": "easy-5",
+      "text": "The kitchen smelled of fresh coffee and toast. Mom was making breakfast while dad read the news. It was a normal morning in their small but cozy home."
+    },
+    {
+      "id": "easy-6",
+      "text": "We went to the beach last summer. The water was blue and the sand was warm. We built a big sand castle and looked for shells along the shore."
+    },
+    {
+      "id": "easy-7",
+      "text": "The cat sat on the window sill watching the rain. Drops fell down the glass one by one. She seemed happy to be inside where it was dry and warm."
+    },
+    {
+      "id": "easy-8",
+      "text": "My best friend lives next door to me. We play games together after school. Sometimes we ride our bikes around the block or sit and talk for hours."
+    },
+    {
+      "id": "easy-9",
+      "text": "Spring is my favorite time of year. Flowers start to bloom and the days get longer. I love to see the trees turn green again after the cold winter months."
+    },
+    {
+      "id": "easy-10",
+      "text": "The music played softly in the room. She closed her eyes and let the sounds wash over her. It was a simple song but it made her feel at peace."
+    }
+  ],
+  "lyrics": [
+    {
+      "id": "easy-1",
+      "text": "The sun rose over the quiet town. Birds sang in the trees as people woke up and started their day. It was going to be a warm and sunny morning."
+    },
+    {
+      "id": "easy-2",
+      "text": "She walked to the store to buy some bread and milk. The shop was busy but she found what she needed quickly. On her way home, she saw a friend and waved."
+    },
+    {
+      "id": "easy-3",
+      "text": "The dog ran across the park chasing a ball. He was fast and loved to play. After a while, he got tired and lay down in the cool shade of a big oak tree."
+    },
+    {
+      "id": "easy-4",
+      "text": "I like to read books before I go to sleep. It helps me relax after a long day. My favorite stories are about adventure and travel to far away places."
+    },
+    {
+      "id": "easy-5",
+      "text": "The kitchen smelled of fresh coffee and toast. Mom was making breakfast while dad read the news. It was a normal morning in their small but cozy home."
+    },
+    {
+      "id": "easy-6",
+      "text": "We went to the beach last summer. The water was blue and the sand was warm. We built a big sand castle and looked for shells along the shore."
+    },
+    {
+      "id": "easy-7",
+      "text": "The cat sat on the window sill watching the rain. Drops fell down the glass one by one. She seemed happy to be inside where it was dry and warm."
+    },
+    {
+      "id": "easy-8",
+      "text": "My best friend lives next door to me. We play games together after school. Sometimes we ride our bikes around the block or sit and talk for hours."
+    },
+    {
+      "id": "easy-9",
+      "text": "Spring is my favorite time of year. Flowers start to bloom and the days get longer. I love to see the trees turn green again after the cold winter months."
+    },
+    {
+      "id": "easy-10",
+      "text": "The music played softly in the room. She closed her eyes and let the sounds wash over her. It was a simple song but it made her feel at peace."
+    }
   ]
 };

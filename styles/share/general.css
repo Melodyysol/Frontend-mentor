@@ -1,14 +1,23 @@
+:root {
+  --black: hsl(0, 0%, 7%);
+  --mediumBlack: hsl(0, 0%, 15%);
+  --lightblack: hsla(240, 1%, 59%, 0.5);
+  --white: hsla(0, 0%, 100%, 0.8);
+  --green: hsl(140, 63%, 57%);
+  --red: hsl(354, 63%, 57%);
+}
+
 body {
   font-family: 'Sora', sans-serif;
   font-weight: 400;
   color: white;
-  background-color: hsl(0, 0%, 7%);
+  background-color: var(--black);
   padding: 10px 30px;
   font-size: 16px;
 }
 header {
   border: none;
-  border-bottom: 2px solid hsl(0, 0%, 15%);
+  border-bottom: 2px solid var(--mediumBlack);
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -33,15 +42,15 @@ header {
   display: none;
 }
 .personal-best-value {
-  color: hsla(0, 0%, 100%, 0.8);
+  color: var(--white);
   font-weight: 100;
 }
 .correct {
-  color: hsl(140, 63%, 57%);
+  color: var(--green);
 }
 
 .incorrect {
-  color: hsl(354, 63%, 57%);
+  color: var(--red);
   text-decoration: underline;
 }
 
@@ -49,8 +58,14 @@ header {
   height: 10px;
   padding: 0 5px;
   border-radius: 5px;
-  background-color: hsla(240, 1%, 59%, 0.2);
+  background-color: var(--lightblack);
   text-align: center;
+  animation: blinking linear 1s infinite alternate-reverse;
+}
+
+@keyframes blinking {
+  0% {background-color: var(--lightblack);}
+  100% {background-color: transparent;}
 }
 
 @media (max-width: 600px) {

@@ -8,15 +8,18 @@ let mainHTML = ''
 let shuffleEasy = data.easy.sort(() => Math.random() - 0.5);
 let shuffleMedium  = data.medium.sort(() => Math.random() - 0.5)
 let shuffleHard  = data.hard.sort(() => Math.random() - 0.5);
+let shuffleQuote  = data.quote.sort(() => Math.random() - 0.5);
+let shuffleLyrics  = data.lyrics.sort(() => Math.random() - 0.5);
 let inCorrectChars = 0;
 let typedData = []
-
 
 homeScreenHTML()
 function homeScreenHTML() {
   headerHTML = `
-    ${topScreenHTML()}
-    <div class="type-bottom-header type-header">
+    <section>
+      ${topScreenHTML()}
+    </section>
+    <section class="type-bottom-header type-header">
       <div class="wpm-content content">
         <span class="wpm-count information info">
           <span>WPM: </span>
@@ -60,13 +63,25 @@ function homeScreenHTML() {
             <input type="radio" name="mode" id="easy" checked>
             <label for="easy">Easy</label>
           </label>
-          <label class="medium js-medium-mode js-medium-mode-2">
+          <label class="js-medium-mode js-medium-mode-2">
             <input type="radio" name="mode" id="medium">
             <label for="medium">Medium</label>
           </label>
           <label class="js-hard-mode js-hard-mode-2">
             <input type="radio" name="mode" id="hard">
             <label for="hard">Hard</label>
+          </label>
+          <label class="js-quote-mode js-quote-mode-2">
+            <input type="radio" name="mode" id="quote">
+            <label for="quote">Quote</label>
+          </label>
+          <label class="js-lyrics-mode js-lyrics-mode-2">
+            <input type="radio" name="mode" id="lyrics">
+            <label for="lyric">Lyrics</label>
+          </label>
+          <label class="js-custom-mode js-custom-mode-2">
+            <input type="radio" name="mode" id="custom">
+            <label for="custom">Custom</label>
           </label>
         </div>
         <div class="drop-down drop-down-time js-drop-down-time">
@@ -92,22 +107,30 @@ function homeScreenHTML() {
           </label>
         </div>
       </div>
-    </div>
+    </section>
   `
 
 document.querySelector('header').innerHTML = headerHTML
 }
 mainHTML = `
-  <div class="start-message js-start-message">
-    <button class="general-button start-button js-start-button">Start Typing Test</button>
-    <p>Or click the test and start typing</p>
-  </div>
-  <div class="typing-container">
-    <p class="text-to-type js-text-to-type"></p>
-    <textarea class="text-area" spellcheck="false"
-     autocorrect="off" autocapitalize="off" 
-     autocomplete="off" autosuggest="off"></textarea>
-  </div>
+  <section>
+    <div class="custom-container js-custom-container">
+      <textarea maxlength="500" id="custom-textarea" spellcheck="false"
+        autocorrect="off" autocapitalize="off" autocomplete="off" autosuggest="off"
+        placeholder="Paste or type text to be typed here. Max length of 500. Press Go to continue"></textarea>
+      <button class="general-button go js-go">Go</button>
+    </div>
+    <div class="start-message js-start-message">
+      <button class="general-button start-button js-start-button">Start Typing Test</button>
+      <p>Or click the test and start typing</p>
+    </div>
+    <div class="typing-container">
+      <p class="text-to-type js-text-to-type"></p>
+      <textarea class="text-area" spellcheck="false"
+      autocorrect="off" autocapitalize="off" 
+      autocomplete="off" autosuggest="off"></textarea>
+    </div>
+  </section>
 `
 document.querySelector('main').innerHTML = mainHTML
 
@@ -121,6 +144,21 @@ let timer = null;
 let finished = false;
 let TEST_DURATION = 60; // default
 const PENALTY_PER_MISTAKE = 1;
+let custom = ''
+let newCustom = document.getElementById('custom-textarea')
+
+document.querySelector('.js-go').addEventListener('click', () => {
+  setTimeout(() => {
+    if (newCustom.value.length > 50) {
+      custom = newCustom.value
+      changeMode('custom')
+      document.querySelector('.js-custom-container').style.display = 'none'
+      input.focus()
+    }else {
+      alert('Text must be 50 characters or more')
+    }
+  }, 200);
+})
 
 
 function getRandomText(difficulty) {
@@ -131,6 +169,12 @@ function getRandomText(difficulty) {
     text = shuffleMedium[0]
   } else if (difficulty === 'hard') {
     text = shuffleHard[0]
+  } else if (difficulty === 'quote') {
+    text = shuffleQuote[0]
+  } else if (difficulty === 'lyrics') {
+    text = shuffleLyrics[0]
+  } else if (difficulty === 'custom') {
+    text = custom
   }
   return text
 }
@@ -147,10 +191,25 @@ function initialize() {
 }
 function changeMode(difficulty) {
   let newText = getRandomText(difficulty)
+  if (difficulty === 'custom') {
+    document.querySelector('.js-text-to-type').innerHTML = custom
+    return
+  }
   document.querySelector('.js-text-to-type').innerHTML = newText.text
 }
+
+
+let isDropDown1 = false
 document.querySelector('.js-list-mode').addEventListener('click', () => {
-  document.querySelector('.js-drop-down-mode').style.display = 'flex'
+  setTimeout(() => {
+    if (!isDropDown1) {
+      document.querySelector('.js-drop-down-mode').style.display = 'flex'
+      isDropDown1 = true
+    }else {
+      document.querySelector('.js-drop-down-mode').style.display = 'none'
+      isDropDown1 = false
+    }
+  }, 200);
 })
 
 document.querySelector('.js-easy-mode').addEventListener('click', () => {
@@ -194,6 +253,10 @@ function shuffleMode (mode) {
     shuffleSum = shuffleMedium
   }else if(shuffleSum === 'shuffleHard') {
     shuffleSum = shuffleHard
+  }else if(shuffleSum === 'shuffleLyrics') {
+    shuffleSum = shuffleLyrics
+  }else if(shuffleSum === 'shuffleQuote') {
+    shuffleSum = shuffleQuote
   }
   document.querySelector('.js-text-to-type').innerHTML = shuffleSum[randomNumber].text
 }
@@ -223,6 +286,33 @@ document.querySelector('.js-hard-mode-2').addEventListener('click', () => {
   }, 200);
 })
 
+document.querySelector('.js-quote-mode-2').addEventListener('click', () => {
+  setTimeout(() => {
+    easyMediumHard('Quote')
+    changeMode('quote')
+    input.focus()
+    document.querySelector('footer').style.marginTop = '6em';
+  }, 200);
+})
+document.querySelector('.js-lyrics-mode-2').addEventListener('click', () => {
+  setTimeout(() => {
+    easyMediumHard('Lyrics')
+    changeMode('lyrics')
+    input.focus()
+    document.querySelector('footer').style.marginTop = '6em';
+  }, 200);
+})
+
+document.querySelector('.js-custom-mode-2').addEventListener('click', () => {
+  setTimeout(() => {
+    easyMediumHard('Custom')
+    document.querySelector('.custom-container').style.display = 'flex'
+    input.value = '';
+    newCustom.focus()
+    document.querySelector('footer').style.marginTop = '6em';
+  }, 200);
+})
+
 function easyMediumHard(mode) {
   document.querySelector('.js-mode-value').innerHTML = mode
   document.querySelector('.js-drop-down-mode-2').style.display = 'none'
@@ -241,11 +331,17 @@ function clearScreen() {
     input.focus();
   }, 400);
 }
-
-
-
+let isDropDown = false
 document.querySelector('.js-list-time').addEventListener('click', () => {
-  document.querySelector('.js-drop-down-time').style.display = 'flex'
+  setTimeout(() => {
+    if(!isDropDown) {
+      document.querySelector('.js-drop-down-time').style.display = 'flex'
+      isDropDown = true
+    }else {
+      document.querySelector('.js-drop-down-time').style.display = 'none'
+      isDropDown = false
+    }
+  }, 200);
 })
 function timedPassage(mode) {
   document.querySelector('.js-time-value').innerHTML = mode
@@ -260,18 +356,22 @@ document.querySelector('.js-time-passage').addEventListener('click', () => {
 document.querySelector('.js-time-sec-2-1').addEventListener('click', () => {
   timedPassage('Time (15s)')
   TEST_DURATION = 15;
+  timeEl.textContent = '00:15'
 })
 document.querySelector('.js-time-sec-2-2').addEventListener('click', () => {
   timedPassage('Time (30s)')
   TEST_DURATION = 30
+  timeEl.textContent = '00:30'
 })
 document.querySelector('.js-time-sec-2').addEventListener('click', () => {
   timedPassage('Time (60s)')
   TEST_DURATION = 60
+  timeEl.textContent = '01:00'
 })
 document.querySelector('.js-time-sec-2-3').addEventListener('click', () => {
   timedPassage('Time (120s)')
   TEST_DURATION = 120
+  timeEl.textContent = '02:00'
 })
 
 document.querySelector('.js-time-passage-2').addEventListener('click', () => {
@@ -384,13 +484,17 @@ function newPassage() {
     startTime = Date.now();
     remainingTime = TEST_DURATION;
 
-    timeEl.textContent = '00:' + remainingTime;
-
     input.style.caretColor = 'transparent'
 
     timer = setInterval(() => {
+      let timeLeft
       remainingTime--
-      const timeLeft = `00:${remainingTime < 10 ? '0' + remainingTime : remainingTime}`
+      if (remainingTime > 60) {
+        let timeLeftMin = remainingTime - 60
+        timeLeft = `01:${timeLeftMin < 10 ? '0' + timeLeftMin : timeLeftMin} `
+      } else {
+        timeLeft = `00:${remainingTime < 10 ? '0' + remainingTime : remainingTime}`
+      }
       timeEl.textContent = timeLeft;
       
       updateStats();
