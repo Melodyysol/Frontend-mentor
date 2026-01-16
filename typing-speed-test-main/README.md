@@ -2,7 +2,7 @@
 
 This is a solution to the [Typing Speed Test challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/typing-speed-test).
 
-The goal of this project is to test a user's typing speed by calculating **WPM**, **accuracy**, and tracking correct and incorrect characters in real time.
+The goal of this project is to test a user's typing speed by calculating **WPM**, **accuracy**, and tracking correct and incorrect characters in real-time.
 
 Frontend Mentor challenges help me improve my coding skills by building realistic projects. 
 
@@ -29,20 +29,21 @@ Users should be able to:
 
 - View the optimal layout for the interface depending on their device's screen size
 - See hover and focus states for all interactive elements on the page
-- Type text and real time feed back
+- Type text and real-time feedback
 - See their **WPM**, **accuracy** and typing statistics
 - To enter custom text or pick lyrics or quotes for mobile only.
-- Track best result using local storage which can be view in the leaderboard when users beat their high score
+- Track best result using local storage which can be viewed in the leaderboard when users beat their high score
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![](/preview.jpg)
 
 
 ### Links
 
 - Solution URL: [solution URL is here](https://www.frontendmentor.io/solutions/typing-speed-test-js)
-- Live Site URL: [Add live site URL here](https://frontend-typing.netlify.app) or (https://melodyysol.github.io/Frontend-mentor/)
+- Live Site URL(GitHub): (https://melodyysol.github.io/Frontend-mentor/)
+- Live Site URL(Netlify): (https://frontend-typing.netlify.app)
 
 ## My process
 
@@ -50,7 +51,7 @@ Users should be able to:
 
 - Semantic HTML5 markup
 - CSS3 (Flexbox and Grid)
-- Venilla Javascrit (ES Modules)
+- Vanilla JavaScrit (ES Modules)
 - Local Storage API
 - Mobile-first workflow
 
@@ -64,16 +65,14 @@ This project helped me improve my understanding of:
 - Calculate WPM and accuracy correctly
 - Storing and comparing results using localStorage
 
-```js
-  input.addEventListener('click', e => {
-    const len = input.value.length;
-    input.setSelectionRange(len, len)
-  })
-```
+input.addEventListener('click', e => {
+  const len = input.value.length;
+  input.setSelectionRange(len, len)
+})
 
 ### Continued development
 
-In future version of this projects, I plan to:
+In future version of this project, I plan to:
 
 - Add an online leaderboard
 - Improve UI animation and feedback
