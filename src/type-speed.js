@@ -45,73 +45,73 @@ export function renderTypeGrid () {
         <div class="dif-mode-content content">
           <span class="information info">
             <span>Difficulty: </span>
-            <button class="general-button active easy js-easy-mode">Easy</button> 
-            <button class="general-button js-medium-mode">Medium</button> 
-            <button class="general-button js-hard-mode">Hard</button>
+            <button type="button" class="general-button active easy js-easy-mode">Easy</button> 
+            <button type="button" class="general-button js-medium-mode">Medium</button> 
+            <button type="button" class="general-button js-hard-mode">Hard</button>
           </span>
           <span class="information info mode-info">
             <span>Mode: </span>
-            <button class="general-button active timed js-time-sec">Timed (60s)</button> 
-            <button class="general-button js-time-passage">Passage</button>
+            <button type="button" class="general-button active timed js-time-sec">Timed (60s)</button> 
+            <button type="button" class="general-button js-time-passage">Passage</button>
           </span>
         </div>
         <div class="dif-mode-content-small">
           <div class="easy-time-select">
             <div class="list js-list-mode">
               <span class="js-mode-value">Easy</span>
-              <img class="arrow1" src="typing-speed-test-main/assets/images/icon-down-arrow.svg">
+              <img class="arrow1" alt="arrow up" src="typing-speed-test-main/assets/images/icon-down-arrow.svg">
             </div>
             <div class="list js-list-time">
               <span class="js-time-value">Time (60s)</span>
-              <img class="arrow2" src="typing-speed-test-main/assets/images/icon-down-arrow.svg">
+              <img class="arrow2" alt="arrow down" src="typing-speed-test-main/assets/images/icon-down-arrow.svg">
             </div>
           </div>
           <div class="drop-down drop-down-mode js-drop-down-mode js-drop-down-mode-2">
-            <label class="js-easy-mode js-easy-mode-2">
+            <label for="easy" class="js-easy-mode js-easy-mode-2">
               <input type="radio" name="mode" id="easy" checked>
-              <label for="easy">Easy</label>
+              <span>Easy</span>
             </label>
-            <label class="js-medium-mode js-medium-mode-2">
+            <label for="medium" class="js-medium-mode js-medium-mode-2">
               <input type="radio" name="mode" id="medium">
-              <label for="medium">Medium</label>
+              <span>Medium</span>
             </label>
-            <label class="js-hard-mode js-hard-mode-2">
+            <label for="hard" class="js-hard-mode js-hard-mode-2">
               <input type="radio" name="mode" id="hard">
-              <label for="hard">Hard</label>
+              <span>Hard</span>
             </label>
-            <label class="js-quote-mode js-quote-mode-2">
+            <label for="quote" class="js-quote-mode js-quote-mode-2">
               <input type="radio" name="mode" id="quote">
-              <label for="quote">Quote</label>
+              <span>Quote</span>
             </label>
-            <label class="js-lyrics-mode js-lyrics-mode-2">
+            <label for="lyric" class="js-lyrics-mode js-lyrics-mode-2">
               <input type="radio" name="mode" id="lyrics">
-              <label for="lyric">Lyrics</label>
+              <span>Lyrics</span>
             </label>
-            <label class="js-custom-mode js-custom-mode-2">
+            <label for="custom" class="js-custom-mode js-custom-mode-2">
               <input type="radio" name="mode" id="custom">
-              <label for="custom">Custom</label>
+              <span>Custom</span>
             </label>
           </div>
           <div class="drop-down drop-down-time js-drop-down-time">
-            <label class="js-time-sec js-time-sec-2-1">
+            <label for="sec-1" class="js-time-sec js-time-sec-2-1">
               <input type="radio" name="time" id="sec-1">
-              <label for="sec-1">Time (15s)</label>
+              <span>Time (15s)</span>
             </label>
-            <label class="js-time-sec js-time-sec-2-2">
+            <label for="sec-2" class="js-time-sec js-time-sec-2-2">
               <input type="radio" name="time" id="sec-2">
-              <label for="sec-2">Time (30s)</label>
+              <span>Time (30s)</span>
             </label>
-            <label class="js-time-sec js-time-sec-2">
+            <label for="sec" class="js-time-sec js-time-sec-2">
               <input type="radio" name="time" id="sec" checked>
-              <label for="sec">Time (60s)</label>
+              <span>Time (60s)</span>
             </label>
-            <label class="js-time-sec js-time-sec-2-3">
+            <label for="sec-3" class="js-time-sec js-time-sec-2-3">
               <input type="radio" name="time" id="sec-3">
-              <label for="sec-3">Time (120s)</label>
+              <span>Time (120s)</span>
             </label>
-            <label class="medium passage js-time-passage js-time-passage-2">
+            <label for="passage" class="medium passage js-time-passage js-time-passage-2">
               <input type="radio" name="time" id="passage">
-              <label for="passage">Passage</label>
+              <span>Passage</span>
             </label>
           </div>
         </div>
@@ -123,13 +123,13 @@ export function renderTypeGrid () {
   mainHTML = `
     <section>
       <div class="custom-container js-custom-container">
-        <textarea maxlength="500" id="custom-textarea" spellcheck="false" aria-labelledby="firstname"
+        <textarea maxlength="500" class="custom-textarea" id="custom-textarea" spellcheck="false" aria-labelledby="firstname"
           autocorrect="off" autocapitalize="off" autocomplete="off" autosuggest="off"
           placeholder="Paste or type text to be typed here. Max length of 500. Press Go to continue"></textarea>
-        <button class="general-button go js-go">Go</button>
+        <button type="submit" class="general-button go js-go">Go</button>
       </div>
       <div class="start-message js-start-message">
-        <button class="general-button start-button js-start-button">Start Typing Test</button>
+        <button type="button" class="general-button start-button js-start-button">Start Typing Test</button>
         <p>Or click the test and start typing</p>
       </div>
       <div class="typing-container">

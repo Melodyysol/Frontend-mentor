@@ -59,7 +59,7 @@ function mainPageHTML() {
           </span>
         </div>
       </div>
-      <button class="start-over">
+      <button type="reset" class="start-over">
         <span>Beat This Score</span> 
         <span>
           <img src="typing-speed-test-main/assets/images/icon-restart.svg" alt="icon restart">

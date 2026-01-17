@@ -35,13 +35,13 @@ function mainPageHTML() {
         </div>
       </div>
       <footer>
-        <button class="start-over">
+        <button type="reset" class="start-over">
           <span>Beat This Score</span> 
           <span>
             <img src="typing-speed-test-main/assets/images/icon-restart-2.svg" alt="icon restart">
           </span>
         </button>
-        <button class="learderboard js-learderboard">LEADERBOARD</button>
+        <button type="submit" class="learderboard js-learderboard">LEADERBOARD</button>
       </footer>
     </div>
   `
