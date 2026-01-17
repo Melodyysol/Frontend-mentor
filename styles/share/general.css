@@ -60,7 +60,6 @@ header {
   border-radius: 5px;
   background-color: var(--white);
   text-align: center;
-  animation: name duration timing-function delay iteration-count direction fill-mode;
   animation: blinking 1.5s linear 2s infinite alternate;
 }
 

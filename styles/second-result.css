@@ -98,13 +98,23 @@ footer {
 
 @media (max-width: 600px) {
   main {
-    margin-top: 4em;
+    margin-top: 3em;
   }
   .middle-section {
     row-gap: 20px;
   }
   .pattern-confetti {
-    bottom: -5em;
+    height: 150px;
+    bottom: -7em;
+  }
+  .pattern-confetti img {
+    /* height: 100%; */
+    animation: glowing 1.5s linear 0.2s infinite alternate;
+  }
+
+  @keyframes glowing {
+    from {transform: translateY(100%);}
+    to {transform: translateY(10%);}
   }
   .base-encourage h1 {
     font-size: 24px;
