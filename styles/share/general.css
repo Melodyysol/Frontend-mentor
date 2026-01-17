@@ -58,9 +58,10 @@ header {
   height: 10px;
   padding: 0 5px;
   border-radius: 5px;
-  background-color: var(--lightblack);
+  background-color: var(--white);
   text-align: center;
-  animation: blinking linear 2s infinite alternate-reverse;
+  animation: name duration timing-function delay iteration-count direction fill-mode;
+  animation: blinking 1.5s linear 2s infinite alternate;
 }
 
 @keyframes blinking {
