@@ -2,425 +2,437 @@ import { data } from './data/data.js';
 import { topScreenHTML } from './share/home-header.js';
 import { currentResult, savedResult, updatePersonalBest } from './share/saved-result-store.js';
 
-let headerHTML = ''
-let mainHTML = ''
+try {
+  renderTypeGrid()
+} catch (error) {
+  console.log('Uncaught error. Try again later.')
+}
 
-let shuffleEasy = data.easy.sort(() => Math.random() - 0.5);
-let shuffleMedium  = data.medium.sort(() => Math.random() - 0.5)
-let shuffleHard  = data.hard.sort(() => Math.random() - 0.5);
-let shuffleQuote  = data.quote.sort(() => Math.random() - 0.5);
-let shuffleLyrics  = data.lyrics.sort(() => Math.random() - 0.5);
-let inCorrectChars = 0;
-let typedData = []
+export function renderTypeGrid () {
 
-homeScreenHTML()
-function homeScreenHTML() {
-  headerHTML = `
+  let headerHTML = ''
+  let mainHTML = ''
+
+  let shuffleEasy = data.easy.sort(() => Math.random() - 0.5);
+  let shuffleMedium  = data.medium.sort(() => Math.random() - 0.5)
+  let shuffleHard  = data.hard.sort(() => Math.random() - 0.5);
+  let shuffleQuote  = data.quote.sort(() => Math.random() - 0.5);
+  let shuffleLyrics  = data.lyrics.sort(() => Math.random() - 0.5);
+  let inCorrectChars = 0;
+  let typedData = []
+
+  homeScreenHTML()
+  function homeScreenHTML() {
+    headerHTML = `
+      <section>
+        ${topScreenHTML()}
+      </section>
+      <section class="type-bottom-header type-header">
+        <div class="wpm-content content">
+          <span class="wpm-count information info">
+            <span>WPM: </span>
+            <span class="wpm-value">0</span>
+          </span>
+          <span class="accuracy-info information info">
+            <span>Accuracy: </span>
+            <span class="accuracy-value">100%</span>
+          </span>
+          <span class="information info">
+            <span>Time: </span>
+            <span class="time-value">01:00</span>
+          </span>
+        </div>
+        <div class="dif-mode-content content">
+          <span class="information info">
+            <span>Difficulty: </span>
+            <button class="general-button active easy js-easy-mode">Easy</button> 
+            <button class="general-button js-medium-mode">Medium</button> 
+            <button class="general-button js-hard-mode">Hard</button>
+          </span>
+          <span class="information info mode-info">
+            <span>Mode: </span>
+            <button class="general-button active timed js-time-sec">Timed (60s)</button> 
+            <button class="general-button js-time-passage">Passage</button>
+          </span>
+        </div>
+        <div class="dif-mode-content-small">
+          <div class="easy-time-select">
+            <div class="list js-list-mode">
+              <span class="js-mode-value">Easy</span>
+              <img class="arrow1" src="typing-speed-test-main/assets/images/icon-down-arrow.svg">
+            </div>
+            <div class="list js-list-time">
+              <span class="js-time-value">Time (60s)</span>
+              <img class="arrow2" src="typing-speed-test-main/assets/images/icon-down-arrow.svg">
+            </div>
+          </div>
+          <div class="drop-down drop-down-mode js-drop-down-mode js-drop-down-mode-2">
+            <label class="js-easy-mode js-easy-mode-2">
+              <input type="radio" name="mode" id="easy" checked>
+              <label for="easy">Easy</label>
+            </label>
+            <label class="js-medium-mode js-medium-mode-2">
+              <input type="radio" name="mode" id="medium">
+              <label for="medium">Medium</label>
+            </label>
+            <label class="js-hard-mode js-hard-mode-2">
+              <input type="radio" name="mode" id="hard">
+              <label for="hard">Hard</label>
+            </label>
+            <label class="js-quote-mode js-quote-mode-2">
+              <input type="radio" name="mode" id="quote">
+              <label for="quote">Quote</label>
+            </label>
+            <label class="js-lyrics-mode js-lyrics-mode-2">
+              <input type="radio" name="mode" id="lyrics">
+              <label for="lyric">Lyrics</label>
+            </label>
+            <label class="js-custom-mode js-custom-mode-2">
+              <input type="radio" name="mode" id="custom">
+              <label for="custom">Custom</label>
+            </label>
+          </div>
+          <div class="drop-down drop-down-time js-drop-down-time">
+            <label class="js-time-sec js-time-sec-2-1">
+              <input type="radio" name="time" id="sec-1">
+              <label for="sec-1">Time (15s)</label>
+            </label>
+            <label class="js-time-sec js-time-sec-2-2">
+              <input type="radio" name="time" id="sec-2">
+              <label for="sec-2">Time (30s)</label>
+            </label>
+            <label class="js-time-sec js-time-sec-2">
+              <input type="radio" name="time" id="sec" checked>
+              <label for="sec">Time (60s)</label>
+            </label>
+            <label class="js-time-sec js-time-sec-2-3">
+              <input type="radio" name="time" id="sec-3">
+              <label for="sec-3">Time (120s)</label>
+            </label>
+            <label class="medium passage js-time-passage js-time-passage-2">
+              <input type="radio" name="time" id="passage">
+              <label for="passage">Passage</label>
+            </label>
+          </div>
+        </div>
+      </section>
+    `
+
+  document.querySelector('header').innerHTML = headerHTML
+  }
+  mainHTML = `
     <section>
-      ${topScreenHTML()}
-    </section>
-    <section class="type-bottom-header type-header">
-      <div class="wpm-content content">
-        <span class="wpm-count information info">
-          <span>WPM: </span>
-          <span class="wpm-value">0</span>
-        </span>
-        <span class="accuracy-info information info">
-          <span>Accuracy: </span>
-          <span class="accuracy-value">100%</span>
-        </span>
-        <span class="information info">
-          <span>Time: </span>
-          <span class="time-value">01:00</span>
-        </span>
+      <form class="custom-container js-custom-container">
+        <textarea maxlength="500" id="custom-textarea" spellcheck="false"
+          autocorrect="off" autocapitalize="off" autocomplete="off" autosuggest="off"
+          placeholder="Paste or type text to be typed here. Max length of 500. Press Go to continue"></textarea>
+        <button class="general-button go js-go">Go</button>
+      </form>
+      <div class="start-message js-start-message">
+        <button class="general-button start-button js-start-button">Start Typing Test</button>
+        <p>Or click the test and start typing</p>
       </div>
-      <div class="dif-mode-content content">
-        <span class="information info">
-          <span>Difficulty: </span>
-          <button class="general-button active easy js-easy-mode">Easy</button> 
-          <button class="general-button js-medium-mode">Medium</button> 
-          <button class="general-button js-hard-mode">Hard</button>
-        </span>
-        <span class="information info mode-info">
-          <span>Mode: </span>
-          <button class="general-button active timed js-time-sec">Timed (60s)</button> 
-          <button class="general-button js-time-passage">Passage</button>
-        </span>
-      </div>
-      <div class="dif-mode-content-small">
-        <div class="easy-time-select">
-          <div class="list js-list-mode">
-            <span class="js-mode-value">Easy</span>
-            <img src="typing-speed-test-main/assets/images/icon-down-arrow.svg">
-          </div>
-          <div class="list js-list-time">
-            <span class="js-time-value">Time (60s)</span>
-            <img src="typing-speed-test-main/assets/images/icon-down-arrow.svg">
-          </div>
-        </div>
-        <div class="drop-down drop-down-mode js-drop-down-mode js-drop-down-mode-2">
-          <label class="js-easy-mode js-easy-mode-2">
-            <input type="radio" name="mode" id="easy" checked>
-            <label for="easy">Easy</label>
-          </label>
-          <label class="js-medium-mode js-medium-mode-2">
-            <input type="radio" name="mode" id="medium">
-            <label for="medium">Medium</label>
-          </label>
-          <label class="js-hard-mode js-hard-mode-2">
-            <input type="radio" name="mode" id="hard">
-            <label for="hard">Hard</label>
-          </label>
-          <label class="js-quote-mode js-quote-mode-2">
-            <input type="radio" name="mode" id="quote">
-            <label for="quote">Quote</label>
-          </label>
-          <label class="js-lyrics-mode js-lyrics-mode-2">
-            <input type="radio" name="mode" id="lyrics">
-            <label for="lyric">Lyrics</label>
-          </label>
-          <label class="js-custom-mode js-custom-mode-2">
-            <input type="radio" name="mode" id="custom">
-            <label for="custom">Custom</label>
-          </label>
-        </div>
-        <div class="drop-down drop-down-time js-drop-down-time">
-          <label class="js-time-sec js-time-sec-2-1">
-            <input type="radio" name="time" id="sec-1">
-            <label for="sec-1">Time (15s)</label>
-          </label>
-          <label class="js-time-sec js-time-sec-2-2">
-            <input type="radio" name="time" id="sec-2">
-            <label for="sec-2">Time (30s)</label>
-          </label>
-          <label class="js-time-sec js-time-sec-2">
-            <input type="radio" name="time" id="sec" checked>
-            <label for="sec">Time (60s)</label>
-          </label>
-          <label class="js-time-sec js-time-sec-2-3">
-            <input type="radio" name="time" id="sec-3">
-            <label for="sec-3">Time (120s)</label>
-          </label>
-          <label class="medium passage js-time-passage js-time-passage-2">
-            <input type="radio" name="time" id="passage">
-            <label for="passage">Passage</label>
-          </label>
-        </div>
-      </div>
+      <form class="typing-container">
+        <p class="text-to-type js-text-to-type"></p>
+        <textarea class="text-area" spellcheck="false"
+        autocorrect="off" autocapitalize="off" 
+        autocomplete="off" autosuggest="off"></textarea>
+      </form>
     </section>
   `
+  document.querySelector('main').innerHTML = mainHTML
 
-document.querySelector('header').innerHTML = headerHTML
-}
-mainHTML = `
-  <section>
-    <form class="custom-container js-custom-container">
-      <textarea maxlength="500" id="custom-textarea" spellcheck="false"
-        autocorrect="off" autocapitalize="off" autocomplete="off" autosuggest="off"
-        placeholder="Paste or type text to be typed here. Max length of 500. Press Go to continue"></textarea>
-      <button class="general-button go js-go">Go</button>
-    </form>
-    <div class="start-message js-start-message">
-      <button class="general-button start-button js-start-button">Start Typing Test</button>
-      <p>Or click the test and start typing</p>
-    </div>
-    <form class="typing-container">
-      <p class="text-to-type js-text-to-type"></p>
-      <textarea class="text-area" spellcheck="false"
-      autocorrect="off" autocapitalize="off" 
-      autocomplete="off" autosuggest="off"></textarea>
-    </form>
-  </section>
-`
-document.querySelector('main').innerHTML = mainHTML
+  let input = document.querySelector('.text-area')
+  let wpmEl = document.querySelector('.wpm-value');
+  let accEl = document.querySelector('.accuracy-value')
+  const timeEl = document.querySelector(".time-value");
+  let restartBtn = document.querySelector(".js-restart-button");
+  let startTime = null;
+  let timer = null;
+  let finished = false;
+  let TEST_DURATION = 60; // default
+  const PENALTY_PER_MISTAKE = 1;
+  let custom = ''
+  let newCustom = document.getElementById('custom-textarea')
 
-let input = document.querySelector('.text-area')
-let wpmEl = document.querySelector('.wpm-value');
-let accEl = document.querySelector('.accuracy-value')
-const timeEl = document.querySelector(".time-value");
-let restartBtn = document.querySelector(".js-restart-button");
-let startTime = null;
-let timer = null;
-let finished = false;
-let TEST_DURATION = 60; // default
-const PENALTY_PER_MISTAKE = 1;
-let custom = ''
-let newCustom = document.getElementById('custom-textarea')
+  document.querySelector('.js-go').addEventListener('click', () => {
+    setTimeout(() => {
+      if (newCustom.value.length > 50) {
+        custom = newCustom.value
+        changeMode('custom')
+        document.querySelector('.js-custom-container').style.display = 'none'
+        input.focus()
+      }else {
+        alert('Text must be 50 characters or more')
+      }
+    }, 200);
+  })
 
-document.querySelector('.js-go').addEventListener('click', () => {
-  setTimeout(() => {
-    if (newCustom.value.length > 50) {
-      custom = newCustom.value
-      changeMode('custom')
-      document.querySelector('.js-custom-container').style.display = 'none'
+
+  function getRandomText(difficulty) {
+    let text = ''
+    if (difficulty === 'easy') {
+      text = shuffleEasy[0]
+    } else if (difficulty === 'medium') {
+      text = shuffleMedium[0]
+    } else if (difficulty === 'hard') {
+      text = shuffleHard[0]
+    } else if (difficulty === 'quote') {
+      text = shuffleQuote[0]
+    } else if (difficulty === 'lyrics') {
+      text = shuffleLyrics[0]
+    } else if (difficulty === 'custom') {
+      text = custom
+    }
+    return text
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialize);
+  } else {
+    initialize();
+  }
+
+  function initialize() {
+    let defaultText = getRandomText('easy')
+    document.querySelector('.js-text-to-type').innerHTML = defaultText.text
+  }
+  function changeMode(difficulty) {
+    let newText = getRandomText(difficulty)
+    if (difficulty === 'custom') {
+      document.querySelector('.js-text-to-type').innerHTML = custom
+      return
+    }
+    document.querySelector('.js-text-to-type').innerHTML = newText.text
+  }
+
+
+  let isDropDown1 = false
+  document.querySelector('.js-list-mode').addEventListener('click', () => {
+    setTimeout(() => {
+      if (!isDropDown1) {
+        document.querySelector('.js-drop-down-mode').style.display = 'flex'
+        document.querySelector('.arrow1').style.transform = 'rotate(180deg)'
+        isDropDown1 = true
+      }else {
+        document.querySelector('.js-drop-down-mode').style.display = 'none'
+        document.querySelector('.arrow1').style.transform = 'rotate(0deg)'
+        isDropDown1 = false
+      }
+    }, 200);
+  })
+
+  document.querySelector('.js-easy-mode').addEventListener('click', () => {
+    setTimeout(() => {
+      document.querySelector('.js-easy-mode').classList.add('active')
+      document.querySelector('.js-medium-mode').classList.remove('active')
+      document.querySelector('.js-hard-mode').classList.remove('active')
+      easyMediumHard('Easy');
+      changeMode('easy')
       input.focus()
-    }else {
-      alert('Text must be 50 characters or more')
+    }, 200);
+  })
+  document.querySelector('.js-medium-mode').addEventListener('click', () => {
+    setTimeout(() => {
+      document.querySelector('.js-medium-mode').classList.add('active')
+      document.querySelector('.js-easy-mode').classList.remove('active')
+      document.querySelector('.js-hard-mode').classList.remove('active')
+      easyMediumHard('Medium')
+      changeMode('medium')
+      input.focus()
+    }, 200);
+  })
+  document.querySelector('.js-hard-mode').addEventListener('click', () => {
+    setTimeout(() => {
+      document.querySelector('.js-hard-mode').classList.add('active')
+      document.querySelector('.js-easy-mode').classList.remove('active')
+      document.querySelector('.js-medium-mode').classList.remove('active')
+      easyMediumHard('Hard')
+      changeMode('hard')
+      input.focus()
+    }, 200);
+  })
+
+  function shuffleMode (mode) {
+    let randomNumber = Math.floor(Math.random() * 10);
+    let shuffleSum = ('shuffle' + mode.at(0).toUpperCase() + mode.slice(1))
+
+    if(shuffleSum === 'shuffleEasy') {
+      shuffleSum = shuffleEasy
+    }else if(shuffleSum === 'shuffleMedium') {
+      shuffleSum = shuffleMedium
+    }else if(shuffleSum === 'shuffleHard') {
+      shuffleSum = shuffleHard
+    }else if(shuffleSum === 'shuffleLyrics') {
+      shuffleSum = shuffleLyrics
+    }else if(shuffleSum === 'shuffleQuote') {
+      shuffleSum = shuffleQuote
     }
-  }, 200);
-})
-
-
-function getRandomText(difficulty) {
-  let text = ''
-  if (difficulty === 'easy') {
-    text = shuffleEasy[0]
-  } else if (difficulty === 'medium') {
-    text = shuffleMedium[0]
-  } else if (difficulty === 'hard') {
-    text = shuffleHard[0]
-  } else if (difficulty === 'quote') {
-    text = shuffleQuote[0]
-  } else if (difficulty === 'lyrics') {
-    text = shuffleLyrics[0]
-  } else if (difficulty === 'custom') {
-    text = custom
+    document.querySelector('.js-text-to-type').innerHTML = shuffleSum[randomNumber].text
   }
-  return text
-}
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initialize);
-} else {
-  initialize();
-}
+  document.querySelector('.js-easy-mode-2').addEventListener('click', () => {
+    setTimeout(() => {
+      easyMediumHard('Easy');
+      changeMode('easy')
+      input.focus()
+      document.querySelector('footer').style.marginTop = '6em';
+    }, 200);
+  })
+  document.querySelector('.js-medium-mode-2').addEventListener('click', () => {
+    setTimeout(() => {
+      easyMediumHard('Medium')
+      changeMode('medium')
+      input.focus()
+      document.querySelector('footer').style.marginTop = '6em';
+    }, 200);
+  })
+  document.querySelector('.js-hard-mode-2').addEventListener('click', () => {
+    setTimeout(() => {
+      easyMediumHard('Hard')
+      changeMode('hard')
+      input.focus()
+      document.querySelector('footer').style.marginTop = '11em';
+    }, 200);
+  })
 
-function initialize() {
-  let defaultText = getRandomText('easy')
-  document.querySelector('.js-text-to-type').innerHTML = defaultText.text
-}
-function changeMode(difficulty) {
-  let newText = getRandomText(difficulty)
-  if (difficulty === 'custom') {
-    document.querySelector('.js-text-to-type').innerHTML = custom
-    return
+  document.querySelector('.js-quote-mode-2').addEventListener('click', () => {
+    setTimeout(() => {
+      easyMediumHard('Quote')
+      changeMode('quote')
+      input.focus()
+      document.querySelector('footer').style.marginTop = '6em';
+    }, 200);
+  })
+  document.querySelector('.js-lyrics-mode-2').addEventListener('click', () => {
+    setTimeout(() => {
+      easyMediumHard('Lyrics')
+      changeMode('lyrics')
+      input.focus()
+      document.querySelector('footer').style.marginTop = '6em';
+    }, 200);
+  })
+
+  document.querySelector('.js-custom-mode-2').addEventListener('click', () => {
+    setTimeout(() => {
+      easyMediumHard('Custom')
+      document.querySelector('.custom-container').style.display = 'flex'
+      input.value = '';
+      newCustom.focus()
+      document.querySelector('footer').style.marginTop = '6em';
+    }, 200);
+  })
+
+  function easyMediumHard(mode) {
+    document.querySelector('.js-mode-value').innerHTML = mode
+    document.querySelector('.js-drop-down-mode-2').style.display = 'none'
   }
-  document.querySelector('.js-text-to-type').innerHTML = newText.text
-}
+
+  let startScreen = document.querySelector('.js-start-message')
+  document.querySelector('.js-start-button').addEventListener('click', clearScreen)
 
 
-let isDropDown1 = false
-document.querySelector('.js-list-mode').addEventListener('click', () => {
-  setTimeout(() => {
-    if (!isDropDown1) {
-      document.querySelector('.js-drop-down-mode').style.display = 'flex'
-      isDropDown1 = true
-    }else {
-      document.querySelector('.js-drop-down-mode').style.display = 'none'
-      isDropDown1 = false
-    }
-  }, 200);
-})
-
-document.querySelector('.js-easy-mode').addEventListener('click', () => {
-  setTimeout(() => {
-    document.querySelector('.js-easy-mode').classList.add('active')
-    document.querySelector('.js-medium-mode').classList.remove('active')
-    document.querySelector('.js-hard-mode').classList.remove('active')
-    easyMediumHard('Easy');
-    changeMode('easy')
-    input.focus()
-  }, 200);
-})
-document.querySelector('.js-medium-mode').addEventListener('click', () => {
-  setTimeout(() => {
-    document.querySelector('.js-medium-mode').classList.add('active')
-    document.querySelector('.js-easy-mode').classList.remove('active')
-    document.querySelector('.js-hard-mode').classList.remove('active')
-    easyMediumHard('Medium')
-    changeMode('medium')
-    input.focus()
-  }, 200);
-})
-document.querySelector('.js-hard-mode').addEventListener('click', () => {
-  setTimeout(() => {
-    document.querySelector('.js-hard-mode').classList.add('active')
-    document.querySelector('.js-easy-mode').classList.remove('active')
-    document.querySelector('.js-medium-mode').classList.remove('active')
-    easyMediumHard('Hard')
-    changeMode('hard')
-    input.focus()
-  }, 200);
-})
-
-function shuffleMode (mode) {
-  let randomNumber = Math.floor(Math.random() * 10);
-  let shuffleSum = ('shuffle' + mode.at(0).toUpperCase() + mode.slice(1))
-
-  if(shuffleSum === 'shuffleEasy') {
-    shuffleSum = shuffleEasy
-  }else if(shuffleSum === 'shuffleMedium') {
-    shuffleSum = shuffleMedium
-  }else if(shuffleSum === 'shuffleHard') {
-    shuffleSum = shuffleHard
-  }else if(shuffleSum === 'shuffleLyrics') {
-    shuffleSum = shuffleLyrics
-  }else if(shuffleSum === 'shuffleQuote') {
-    shuffleSum = shuffleQuote
+  function clearScreen() {
+    setTimeout(() => {
+      startScreen.style.display = 'none'
+      restartBtn.style.display = 'flex'
+      document.querySelector('.text-to-type').style.filter = 'blur(0px)'
+      // timeSetup()
+      input.focus();
+    }, 400);
   }
-  document.querySelector('.js-text-to-type').innerHTML = shuffleSum[randomNumber].text
-}
-
-document.querySelector('.js-easy-mode-2').addEventListener('click', () => {
-  setTimeout(() => {
-    easyMediumHard('Easy');
-    changeMode('easy')
-    input.focus()
-    document.querySelector('footer').style.marginTop = '6em';
-  }, 200);
-})
-document.querySelector('.js-medium-mode-2').addEventListener('click', () => {
-  setTimeout(() => {
-    easyMediumHard('Medium')
-    changeMode('medium')
-    input.focus()
-    document.querySelector('footer').style.marginTop = '6em';
-  }, 200);
-})
-document.querySelector('.js-hard-mode-2').addEventListener('click', () => {
-  setTimeout(() => {
-    easyMediumHard('Hard')
-    changeMode('hard')
-    input.focus()
-    document.querySelector('footer').style.marginTop = '11em';
-  }, 200);
-})
-
-document.querySelector('.js-quote-mode-2').addEventListener('click', () => {
-  setTimeout(() => {
-    easyMediumHard('Quote')
-    changeMode('quote')
-    input.focus()
-    document.querySelector('footer').style.marginTop = '6em';
-  }, 200);
-})
-document.querySelector('.js-lyrics-mode-2').addEventListener('click', () => {
-  setTimeout(() => {
-    easyMediumHard('Lyrics')
-    changeMode('lyrics')
-    input.focus()
-    document.querySelector('footer').style.marginTop = '6em';
-  }, 200);
-})
-
-document.querySelector('.js-custom-mode-2').addEventListener('click', () => {
-  setTimeout(() => {
-    easyMediumHard('Custom')
-    document.querySelector('.custom-container').style.display = 'flex'
-    input.value = '';
-    newCustom.focus()
-    document.querySelector('footer').style.marginTop = '6em';
-  }, 200);
-})
-
-function easyMediumHard(mode) {
-  document.querySelector('.js-mode-value').innerHTML = mode
-  document.querySelector('.js-drop-down-mode-2').style.display = 'none'
-}
-
-let startScreen = document.querySelector('.js-start-message')
-document.querySelector('.js-start-button').addEventListener('click', clearScreen)
-
-
-function clearScreen() {
-  setTimeout(() => {
-    startScreen.style.display = 'none'
-    restartBtn.style.display = 'flex'
-    document.querySelector('.text-to-type').style.filter = 'blur(0px)'
-    // timeSetup()
+  let isDropDown = false
+  document.querySelector('.js-list-time').addEventListener('click', () => {
+    setTimeout(() => {
+      if(!isDropDown) {
+        document.querySelector('.js-drop-down-time').style.display = 'flex'
+        document.querySelector('.arrow2').style.transform = 'rotate(180deg)'
+        isDropDown = true
+      }else {
+        document.querySelector('.js-drop-down-time').style.display = 'none'
+        document.querySelector('.arrow2').style.transform = 'rotate(0deg)'
+        isDropDown = false
+      }
+    }, 200);
+  })
+  function timedPassage(mode) {
+    document.querySelector('.js-time-value').innerHTML = mode
+    document.querySelector('.js-drop-down-time').style.display = 'none'
+  }
+  document.querySelector('.js-time-passage').addEventListener('click', () => {
+    clearScreen()
+    alert('Passage mode is coming soon!')
+    newPassage()
     input.focus();
-  }, 400);
-}
-let isDropDown = false
-document.querySelector('.js-list-time').addEventListener('click', () => {
-  setTimeout(() => {
-    if(!isDropDown) {
-      document.querySelector('.js-drop-down-time').style.display = 'flex'
-      isDropDown = true
-    }else {
-      document.querySelector('.js-drop-down-time').style.display = 'none'
-      isDropDown = false
-    }
-  }, 200);
-})
-function timedPassage(mode) {
-  document.querySelector('.js-time-value').innerHTML = mode
-  document.querySelector('.js-drop-down-time').style.display = 'none'
-}
-document.querySelector('.js-time-passage').addEventListener('click', () => {
-  clearScreen()
-  alert('Passage mode is coming soon!')
-  newPassage()
-  input.focus();
-})
-document.querySelector('.js-time-sec-2-1').addEventListener('click', () => {
-  timedPassage('Time (15s)')
-  TEST_DURATION = 15;
-  timeEl.textContent = '00:15'
-})
-document.querySelector('.js-time-sec-2-2').addEventListener('click', () => {
-  timedPassage('Time (30s)')
-  TEST_DURATION = 30
-  timeEl.textContent = '00:30'
-})
-document.querySelector('.js-time-sec-2').addEventListener('click', () => {
-  timedPassage('Time (60s)')
-  TEST_DURATION = 60
-  timeEl.textContent = '01:00'
-})
-document.querySelector('.js-time-sec-2-3').addEventListener('click', () => {
-  timedPassage('Time (120s)')
-  TEST_DURATION = 120
-  timeEl.textContent = '02:00'
-})
-
-document.querySelector('.js-time-passage-2').addEventListener('click', () => {
-  clearScreen()
-  timedPassage('Passage')
-  alert('Passage mode is coming soon!')
-  newPassage()
-  input.focus();
-})
-
-function newPassage() {
-  setTimeout(() => {
+  })
+  document.querySelector('.js-time-sec-2-1').addEventListener('click', () => {
+    timedPassage('Time (15s)')
+    TEST_DURATION = 15;
+    timeEl.textContent = '00:15'
+  })
+  document.querySelector('.js-time-sec-2-2').addEventListener('click', () => {
+    timedPassage('Time (30s)')
+    TEST_DURATION = 30
+    timeEl.textContent = '00:30'
+  })
+  document.querySelector('.js-time-sec-2').addEventListener('click', () => {
     timedPassage('Time (60s)')
-    document.querySelector('.js-time-sec').classList.add('active')
-    document.querySelector('.js-time-passage').classList.remove('active')
+    TEST_DURATION = 60
+    timeEl.textContent = '01:00'
+  })
+  document.querySelector('.js-time-sec-2-3').addEventListener('click', () => {
+    timedPassage('Time (120s)')
+    TEST_DURATION = 120
+    timeEl.textContent = '02:00'
+  })
 
-    typedData = [];
-    startTime = null;
-    finished = false;
-    clearInterval(timer);
+  document.querySelector('.js-time-passage-2').addEventListener('click', () => {
+    clearScreen()
+    timedPassage('Passage')
+    alert('Passage mode is coming soon!')
+    newPassage()
+    input.focus();
+  })
 
-    remainingTime = TEST_DURATION;
-    timeEl.textContent = '00:' + remainingTime;
+  function newPassage() {
+    setTimeout(() => {
+      timedPassage('Time (60s)')
+      document.querySelector('.js-time-sec').classList.add('active')
+      document.querySelector('.js-time-passage').classList.remove('active')
 
-    input.innerHTML = "";
+      typedData = [];
+      startTime = null;
+      finished = false;
+      clearInterval(timer);
 
-    wpmEl.textContent = 0;
-    accEl.textContent = '100%';
+      remainingTime = TEST_DURATION;
+      timeEl.textContent = '00:' + remainingTime;
 
-    document.getElementById('passage').checked = false
-    document.getElementById('sec').checked = true
-  }, 100);
+      input.innerHTML = "";
 
-  if(document.querySelector('.js-hard-mode').classList.contains('active')) {
-    shuffleMode('hard')
-  }else if(document.querySelector('.js-medium-mode').classList.contains('active')) {
-    shuffleMode('medium')
-  }else {
-    shuffleMode('easy')
+      wpmEl.textContent = 0;
+      accEl.textContent = '100%';
+
+      document.getElementById('passage').checked = false
+      document.getElementById('sec').checked = true
+    }, 100);
+
+    if(document.querySelector('.js-hard-mode').classList.contains('active')) {
+      shuffleMode('hard')
+    }else if(document.querySelector('.js-medium-mode').classList.contains('active')) {
+      shuffleMode('medium')
+    }else {
+      shuffleMode('easy')
+    }
+
+    if(document.querySelector('.js-mode-value').textContent === 'Hard') {
+      shuffleMode('hard')
+    }else if(document.querySelector('.js-mode-value').textContent === 'Medium') {
+      shuffleMode('medium')
+    }else {
+      shuffleMode('easy')
+    }
   }
-
-  if(document.querySelector('.js-mode-value').textContent === 'Hard') {
-    shuffleMode('hard')
-  }else if(document.querySelector('.js-mode-value').textContent === 'Medium') {
-    shuffleMode('medium')
-  }else {
-    shuffleMode('easy')
-  }
-}
 
 
   const textDisplay = document.querySelector('.js-text-to-type');
@@ -559,3 +571,4 @@ function newPassage() {
     const len = input.value.length;
     input.setSelectionRange(len, len)
   })
+}
