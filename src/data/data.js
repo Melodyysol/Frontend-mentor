@@ -127,85 +127,85 @@ export const data =  {
   ],
   "quote": [
     {
-      "id": "easy-1",
+      "id": "quote-1",
       "text": "The morning air was cool and calm. People walked slowly to work while shops opened their doors. The city felt peaceful before the noise of the day began."
     },
     {
-      "id": "easy-2",
+      "id": "quote-2",
       "text": "He sat by the window and watched the clouds move across the sky. Each one had a different shape. It made him feel relaxed and free."
     },
     {
-      "id": "easy-3",
+      "id": "quote-3",
       "text": "The children laughed as they ran through the field. Their shoes were covered in grass and dirt. They did not care because they were having fun."
     },
     {
-      "id": "easy-4",
+      "id": "quote-4",
       "text": "She enjoyed cooking simple meals at home. The sound of chopping vegetables filled the kitchen. Cooking helped her forget about stress."
     },
     {
-      "id": "easy-5",
+      "id": "quote-5",
       "text": "The rain stopped and the sun came out slowly. Small puddles reflected the sky. The streets smelled fresh and clean."
     },
     {
-      "id": "easy-6",
+      "id": "quote-6",
       "text": "Every evening, he took a short walk around the neighborhood. It helped clear his mind. The quiet streets made him feel calm."
     },
     {
-      "id": "easy-7",
+      "id": "quote-7",
       "text": "The old clock on the wall ticked softly. Time seemed to move slower in the room. It was a peaceful place to sit and think."
     },
     {
-      "id": "easy-8",
+      "id": "quote-8",
       "text": "She packed her bag and checked everything twice. Today was the day of her trip. She smiled as she locked the door behind her."
     },
     {
-      "id": "easy-9",
+      "id": "quote-9",
       "text": "The smell of fresh bread filled the bakery. Customers waited patiently in line. Warm bread always made people happy."
     },
     {
-      "id": "easy-10",
+      "id": "quote-10",
       "text": "At night, the stars shone brightly in the sky. He lay on the ground and looked up. It reminded him how big the world was."
     }
   ],
   "lyrics": [
     {
-      "id": "easy-1",
+      "id": "lyrics-1",
       "text": "Wake up to the sound of morning light. The world is moving but it feels just right. Take a breath and start your day slow."
     },
     {
-      "id": "easy-2",
+      "id": "lyrics-2",
       "text": "We walk the same road every day. Different dreams but we find our way. Side by side, we keep moving on."
     },
     {
-      "id": "easy-3",
+      "id": "lyrics-3",
       "text": "The night feels warm, the music plays. Lost in thoughts of better days. Hold this moment, let it stay."
     },
     {
-      "id": "easy-4",
+      "id": "lyrics-4",
       "text": "Rain on the window, lights down low. Stories in the silence grow. Every sound feels soft and true."
     },
     {
-      "id": "easy-5",
+      "id": "lyrics-5",
       "text": "I hear your voice across the room. It cuts through the quiet gloom. Suddenly, I feel alive."
     },
     {
-      "id": "easy-6",
+      "id": "lyrics-6",
       "text": "Feet on the ground, head in the sky. Dreams feel closer when I try. One more step, I will be fine."
     },
     {
-      "id": "easy-7",
+      "id": "lyrics-7",
       "text": "The road is long but I am strong. I sing this simple hopeful song. I keep moving forward still."
     },
     {
-      "id": "easy-8",
+      "id": "lyrics-8",
       "text": "Lights go down, the crowd is near. Every sound is loud and clear. This is where I want to stay."
     },
     {
-      "id": "easy-9",
+      "id": "lyrics-9",
       "text": "Slow down time, let the moment breathe. Everything is easier when you believe. Hold my hand, don’t let go."
     },
     {
-      "id": "easy-10",
+      "id": "lyrics-10",
       "text": "When the morning comes again. I will rise and start again. Every day is something new."
     }
   ]

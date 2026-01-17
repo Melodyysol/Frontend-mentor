@@ -509,10 +509,11 @@ function newPassage() {
   function updateStats() {
     const correctChars = typedData.filter(c => c.correct).length;
     const totalChars = typedData.length;
+    let incorrectChageableChars = totalChars - correctChars
 
     const timeElapsed = (TEST_DURATION - remainingTime) / 60;
     let rawWPM = timeElapsed > 0 ? (correctChars / 5) / timeElapsed : 0;
-    let penalizedWPM = Math.max(0, rawWPM - (inCorrectChars * PENALTY_PER_MISTAKE));
+    let penalizedWPM = Math.max(0, rawWPM - (incorrectChageableChars * PENALTY_PER_MISTAKE));
     const wpm = Math.round(penalizedWPM);
 
     const acc = totalChars ? Math.round((correctChars / totalChars) * 100) : 0;
