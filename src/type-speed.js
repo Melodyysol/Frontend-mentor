@@ -114,22 +114,22 @@ document.querySelector('header').innerHTML = headerHTML
 }
 mainHTML = `
   <section>
-    <div class="custom-container js-custom-container">
+    <form class="custom-container js-custom-container">
       <textarea maxlength="500" id="custom-textarea" spellcheck="false"
         autocorrect="off" autocapitalize="off" autocomplete="off" autosuggest="off"
         placeholder="Paste or type text to be typed here. Max length of 500. Press Go to continue"></textarea>
       <button class="general-button go js-go">Go</button>
-    </div>
+    </form>
     <div class="start-message js-start-message">
       <button class="general-button start-button js-start-button">Start Typing Test</button>
       <p>Or click the test and start typing</p>
     </div>
-    <div class="typing-container">
+    <form class="typing-container">
       <p class="text-to-type js-text-to-type"></p>
       <textarea class="text-area" spellcheck="false"
       autocorrect="off" autocapitalize="off" 
       autocomplete="off" autosuggest="off"></textarea>
-    </div>
+    </form>
   </section>
 `
 document.querySelector('main').innerHTML = mainHTML

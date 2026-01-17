@@ -94,7 +94,14 @@ footer {
   outline: 2px solid hsl(214, 100%, 55%);
   border: 2px solid hsl(0, 0%, 7%);
 }
+.pattern-confetti img {
+  animation: glowing 1.5s linear 0.2s infinite alternate;
+}
 
+@keyframes glowing {
+  from {transform: translateY(-40%);}
+  to {transform: translateY(10%);}
+}
 
 @media (max-width: 600px) {
   main {
@@ -106,10 +113,6 @@ footer {
   .pattern-confetti {
     height: 150px;
     bottom: -7em;
-  }
-  .pattern-confetti img {
-    /* height: 100%; */
-    animation: glowing 1.5s linear 0.2s infinite alternate;
   }
 
   @keyframes glowing {
