@@ -122,22 +122,22 @@ export function renderTypeGrid () {
   }
   mainHTML = `
     <section>
-      <form class="custom-container js-custom-container">
-        <textarea maxlength="500" id="custom-textarea" spellcheck="false"
+      <div class="custom-container js-custom-container">
+        <textarea maxlength="500" id="custom-textarea" spellcheck="false" aria-labelledby="firstname"
           autocorrect="off" autocapitalize="off" autocomplete="off" autosuggest="off"
           placeholder="Paste or type text to be typed here. Max length of 500. Press Go to continue"></textarea>
         <button class="general-button go js-go">Go</button>
-      </form>
+      </div>
       <div class="start-message js-start-message">
         <button class="general-button start-button js-start-button">Start Typing Test</button>
         <p>Or click the test and start typing</p>
       </div>
-      <form class="typing-container">
+      <div class="typing-container">
         <p class="text-to-type js-text-to-type"></p>
         <textarea class="text-area" spellcheck="false"
-        autocorrect="off" autocapitalize="off" 
+        autocorrect="off" autocapitalize="off" aria-labelledby="secondname"
         autocomplete="off" autosuggest="off"></textarea>
-      </form>
+      </div>
     </section>
   `
   document.querySelector('main').innerHTML = mainHTML
