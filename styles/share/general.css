@@ -60,12 +60,12 @@ header {
   border-radius: 5px;
   background-color: var(--lightblack);
   text-align: center;
-  animation: blinking linear 1s infinite alternate-reverse;
+  animation: blinking linear 2s infinite alternate-reverse;
 }
 
 @keyframes blinking {
-  0% {background-color: var(--lightblack);}
-  100% {background-color: transparent;}
+  from {background-color: var(--lightblack);}
+  to {background-color: var(--white);}
 }
 
 @media (max-width: 600px) {
