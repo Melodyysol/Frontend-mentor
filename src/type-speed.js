@@ -338,7 +338,7 @@ export function renderTypeGrid () {
     setTimeout(() => {
       startScreen.style.display = 'none'
       restartBtn.style.display = 'flex'
-      document.querySelector('.text-to-type').style.filter = 'blur(0px)'
+      document.querySelector('.text-to-type').style.filter = 'blur(0em)'
       // timeSetup()
       input.focus();
     }, 400);

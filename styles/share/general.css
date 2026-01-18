@@ -21,7 +21,7 @@ header {
   padding: 0.9375rem;
   display: flex;
   flex-direction: column;
-  row-gap: 40px;
+  row-gap: 2.5rem;
 }
 .type-header {
   display: flex;
@@ -93,7 +93,7 @@ header {
     width: 1rem;
   }
   .personal-best-container {
-    margin-right: 0px;
+    margin-right: 0em;
   }
     .typing-logo-small {
     display: initial;

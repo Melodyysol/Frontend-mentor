@@ -7,7 +7,7 @@ h1 {
 
 }
 .table-body {
-  max-height: 400px;
+  max-height: 25rem;
   overflow-y: auto;
 }
 .table-body div:nth-child(odd) {

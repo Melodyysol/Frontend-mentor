@@ -99,7 +99,7 @@
 main {
   border: none;
   border-bottom: 0.125rem solid var(--mediumBlack);
-  padding: 1.875rem 0.625rem 0px 0.625rem;
+  padding: 1.875rem 0.625rem 0em 0.625rem;
 }
 
 .typing-container {
@@ -136,8 +136,8 @@ main {
   column-gap: 0.625rem;
 }
 .custom-textarea {
-  height: 200px;
-  width: 200px;
+  height: 12.5rem;
+  width: 12.5rem;
   border-radius: 0.625rem;
   color: var(--mediumBlack);
   background-color: var(--lightGrey);
@@ -173,8 +173,8 @@ main {
   border-radius: 0.625rem;
   resize: none;
   outline: none;
-  padding: 1.5rem 0px;
-  min-height: 250px;
+  padding: 1.5rem 0em;
+  min-height: 15.625rem;
   background-color: transparent;
   letter-spacing: 0.125rem;
   white-space: pre-wrap;
@@ -182,7 +182,7 @@ main {
 }
 
 footer {
-  margin-top: 40px;
+  margin-top: 2.5rem;
 }
 .restart {
   border: none;
@@ -190,7 +190,7 @@ footer {
   font-size: 1.125rem;
   padding: 0.9375rem 1.25rem;
   margin: auto;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   column-gap: 0.625rem;
@@ -206,10 +206,7 @@ footer {
   color: var(--pureWhite);
   transition: .15s;
 }
-.restart {
-  display: none;
-}
-  
+
 .start-button:hover, .restart:hover {
   background-color: var(--lightBlue);
   opacity: 1;
@@ -311,13 +308,13 @@ footer {
     letter-spacing: 0;
   }
   .text-area {
-    min-height: 350px;
+    min-height: 21.875rem;
     font-size: 1rem;
     padding-top: 0.9375rem;
-    letter-spacing: 0px;
+    letter-spacing: 0em;
   }
   main {
-    padding: 1.25rem 0px 0px 0.3125rem;
+    padding: 1.25rem 0em 0em 0.3125rem;
   }
   footer {
     margin-top: 6em;

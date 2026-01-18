@@ -94,7 +94,7 @@ footer {
   outline: 0.125rem solid hsl(214, 100%, 55%);
   border: 0.125rem solid hsl(0, 0%, 7%);
 }
-.pattern-confetti img {
+.pattern-confetti-img {
   animation: glowing 1.5s linear 0.2s infinite alternate;
 }
 
@@ -133,7 +133,7 @@ footer {
     width: 80%;
   }
   .wpm-info div {
-    min-height: 4.6875;
+    min-height: 4.6875rem;
     width: 100%;
   }
   .start-over, .learderboard {

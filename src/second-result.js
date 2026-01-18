@@ -7,7 +7,7 @@ updatePersonalBest();
 function mainPageHTML() {
   let mainHTML = `
     <div class="pattern-confetti">
-      <img alt="Pattern confetti" src="typing-speed-test-main/assets/images/pattern-confetti.svg">
+      <img class="pattern-confetti-img" alt="Pattern confetti" src="typing-speed-test-main/assets/images/pattern-confetti.svg">
     </div>
     <div class="middle-section">
       <div class="completed-icon">
