@@ -56,7 +56,7 @@ header {
 
 .current {
   height: 0.625rem;
-  padding: 0 0.3125rem;
+  padding: 0 0.1rem;
   border-radius: 0.3125rem;
   background-color: var(--white);
   text-align: center;

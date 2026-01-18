@@ -1,11 +1,12 @@
 import { data } from './data/data.js';
 import { topScreen } from './share/home-header.js';
 import { currentResult, savedResult, updatePersonalBest } from './share/saved-result-store.js';
+import { calculateAccuracy, calculateWPM } from './utils/calcAccWPM.js';
 
 try {
   renderTypeGrid()
 } catch (error) {
-  console.log('Uncaught error detected. Try again later.', error)
+  console.log('Uncaught error detected. Try again later.', error);
 }
 
 export function renderTypeGrid () {
@@ -13,11 +14,22 @@ export function renderTypeGrid () {
   let headerHTML = ''
   let mainHTML = ''
 
-  const shuffleEasy = data.easy.sort(() => Math.random() - 0.5);
-  const shuffleMedium  = data.medium.sort(() => Math.random() - 0.5)
-  const shuffleHard  = data.hard.sort(() => Math.random() - 0.5);
-  const shuffleQuote  = data.quote.sort(() => Math.random() - 0.5);
-  const shuffleLyrics  = data.lyrics.sort(() => Math.random() - 0.5);
+  function shuffleDifficulty (difficulty) {
+    const difficulties = [...difficulty];
+    for (let i = 0; i < difficulties.length; i++) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [difficulties[i], difficulties[j]] = [difficulties[j], difficulties[i]]
+    }
+    return difficulties;
+  }
+
+  let pools = {
+    easy: shuffleDifficulty(data.easy),
+    medium: shuffleDifficulty(data.medium),
+    hard: shuffleDifficulty(data.hard),
+    quote: shuffleDifficulty(data.quote),
+    lyrics: shuffleDifficulty(data.lyrics)
+  }
   let inCorrectChars = 0;
   let typedData = []
 
@@ -140,9 +152,8 @@ export function renderTypeGrid () {
       </div>
     </section>
   `
-  document.querySelector('main').innerHTML = mainHTML
-
-  const input = document.querySelector('.text-area')
+  document.querySelector('main').innerHTML = mainHTML;
+  const input = document.querySelector('.text-area');
   const textDisplay = document.querySelector('.js-text-to-type');
   const wpmEl = document.querySelector('.wpm-value');
   const accEl = document.querySelector('.accuracy-value')
@@ -152,8 +163,7 @@ export function renderTypeGrid () {
   let timer = null;
   let finished = false;
   let TEST_DURATION = 60; // default
-  const PENALTY_PER_MISTAKE = 1;
-  let custom = ''
+  let custom = '';
   const newCustom = document.getElementById('custom-textarea')
 
   document.querySelector('.js-go').addEventListener('click', () => {
@@ -172,21 +182,16 @@ export function renderTypeGrid () {
 
 
   function getRandomText(difficulty) {
-    let text = ''
-    if (difficulty === 'easy') {
-      text = shuffleEasy[0]
-    } else if (difficulty === 'medium') {
-      text = shuffleMedium[0]
-    } else if (difficulty === 'hard') {
-      text = shuffleHard[0]
-    } else if (difficulty === 'quote') {
-      text = shuffleQuote[0]
-    } else if (difficulty === 'lyrics') {
-      text = shuffleLyrics[0]
-    } else if (difficulty === 'custom') {
-      text = custom
+    if (difficulty === 'custom') return custom;
+
+    let pool = pools[difficulty]
+
+    if (!pool || pool.length === 0) {
+      pools[difficulty] = shuffleDifficulty(data[difficulty]);
+      pool = pools[difficulty]
     }
-    return text
+
+    return pool.pop();
   }
 
   if (document.readyState === 'loading') {
@@ -201,11 +206,7 @@ export function renderTypeGrid () {
   }
   function changeMode(difficulty) {
     const newText = getRandomText(difficulty)
-    if (difficulty === 'custom') {
-      textDisplay.innerHTML = custom
-      return
-    }
-    textDisplay.innerHTML = newText.text
+    textDisplay.innerHTML = difficulty === 'custom' ? custom : newText.text
   }
 
 
@@ -231,7 +232,7 @@ export function renderTypeGrid () {
       document.querySelector('.js-hard-mode').classList.remove('active')
       easyMediumHard('Easy');
       changeMode('easy')
-      input.focus()
+      newPassage()
     }, 200);
   })
   document.querySelector('.js-medium-mode').addEventListener('click', () => {
@@ -241,7 +242,7 @@ export function renderTypeGrid () {
       document.querySelector('.js-hard-mode').classList.remove('active')
       easyMediumHard('Medium')
       changeMode('medium')
-      input.focus()
+      newPassage()
     }, 200);
   })
   document.querySelector('.js-hard-mode').addEventListener('click', () => {
@@ -251,27 +252,9 @@ export function renderTypeGrid () {
       document.querySelector('.js-medium-mode').classList.remove('active')
       easyMediumHard('Hard')
       changeMode('hard')
-      input.focus()
+      newPassage()
     }, 200);
   })
-
-  function shuffleMode (mode) {
-    const randomNumber = Math.floor(Math.random() * 10);
-    let shuffleSum = ('shuffle' + mode.at(0).toUpperCase() + mode.slice(1))
-
-    if(shuffleSum === 'shuffleEasy') {
-      shuffleSum = shuffleEasy
-    }else if(shuffleSum === 'shuffleMedium') {
-      shuffleSum = shuffleMedium
-    }else if(shuffleSum === 'shuffleHard') {
-      shuffleSum = shuffleHard
-    }else if(shuffleSum === 'shuffleLyrics') {
-      shuffleSum = shuffleLyrics
-    }else if(shuffleSum === 'shuffleQuote') {
-      shuffleSum = shuffleQuote
-    }
-    textDisplay.innerHTML = shuffleSum[randomNumber].text
-  }
 
   document.querySelector('.js-easy-mode-2').addEventListener('click', () => {
     setTimeout(() => {
@@ -410,30 +393,20 @@ export function renderTypeGrid () {
       remainingTime = TEST_DURATION;
       timeEl.textContent = '00:' + remainingTime;
 
-      input.innerHTML = "";
+      input.value = "";
+      input.style.caretColor = 'var(--grey)'
+      input.focus()
 
       wpmEl.textContent = 0;
       accEl.textContent = '100%';
 
-      document.getElementById('passage').checked = false
-      document.getElementById('sec').checked = true
+      document.getElementById('passage').checked = false;
+      document.getElementById('sec').checked = true;
+
+      const mode = document.querySelector('.js-mode-value').textContent.toLowerCase();
+      const newText = getRandomText(mode === 'custom' ? 'custom' : mode)
+      textDisplay.innerHTML = mode === 'custom' ? custom : newText.text
     }, 100);
-
-    if(document.querySelector('.js-hard-mode').classList.contains('active')) {
-      shuffleMode('hard')
-    }else if(document.querySelector('.js-medium-mode').classList.contains('active')) {
-      shuffleMode('medium')
-    }else {
-      shuffleMode('easy')
-    }
-
-    if(document.querySelector('.js-mode-value').textContent === 'Hard') {
-      shuffleMode('hard')
-    }else if(document.querySelector('.js-mode-value').textContent === 'Medium') {
-      shuffleMode('medium')
-    }else {
-      shuffleMode('easy')
-    }
   }
 
 
@@ -467,9 +440,6 @@ export function renderTypeGrid () {
         inCorrectChars++
       }
     })
-
-
-
     renderText();
     updateStats();
 
@@ -524,14 +494,11 @@ export function renderTypeGrid () {
   function updateStats() {
     const correctChars = typedData.filter(c => c.correct).length;
     const totalChars = typedData.length;
-    const incorrectChageableChars = totalChars - correctChars
+    const secondsElapsed = TEST_DURATION - remainingTime
 
-    const timeElapsed = (TEST_DURATION - remainingTime) / 60;
-    const rawWPM = timeElapsed > 0 ? (correctChars / 5) / timeElapsed : 0;
-    const penalizedWPM = Math.max(0, rawWPM - (incorrectChageableChars * PENALTY_PER_MISTAKE));
-    const wpm = Math.round(penalizedWPM);
+    const wpm = calculateWPM(correctChars, secondsElapsed)
 
-    const acc = totalChars ? Math.round((correctChars / totalChars) * 100) : 0;
+    const acc = calculateAccuracy(correctChars, totalChars)
     wpmEl.textContent = wpm;
     accEl.textContent = acc + '%';
 
@@ -540,7 +507,7 @@ export function renderTypeGrid () {
     currentResult.accuracy = acc;
     currentResult.correctChars = correctChars;
     currentResult.inCorrectChars = inCorrectChars;
-    currentResult.time = TEST_DURATION - remainingTime;
+    currentResult.time = secondsElapsed;
 
     localStorage.setItem('currentResult', JSON.stringify(currentResult));
   }
