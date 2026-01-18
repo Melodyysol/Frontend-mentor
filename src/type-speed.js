@@ -199,7 +199,7 @@ export function renderTypeGrid () {
     textDisplay.innerHTML = defaultText.text
   }
   function changeMode(difficulty) {
-    let newText = getRandomText(difficulty)
+    const newText = getRandomText(difficulty)
     if (difficulty === 'custom') {
       textDisplay.innerHTML = custom
       return
@@ -256,7 +256,7 @@ export function renderTypeGrid () {
 
   function shuffleMode (mode) {
     const randomNumber = Math.floor(Math.random() * 10);
-    const shuffleSum = ('shuffle' + mode.at(0).toUpperCase() + mode.slice(1))
+    let shuffleSum = ('shuffle' + mode.at(0).toUpperCase() + mode.slice(1))
 
     if(shuffleSum === 'shuffleEasy') {
       shuffleSum = shuffleEasy
