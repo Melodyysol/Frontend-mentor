@@ -5,8 +5,7 @@ import { currentResult, savedResult, updatePersonalBest } from './share/saved-re
 try {
   renderTypeGrid()
 } catch (error) {
-  error = 'Uncaught error detected. Try again later.'
-  console.log(error)
+  console.log('Uncaught error detected. Try again later.', error)
 }
 
 export function renderTypeGrid () {
@@ -196,7 +195,7 @@ export function renderTypeGrid () {
   }
 
   function initialize() {
-    let defaultText = getRandomText('easy')
+    const defaultText = getRandomText('easy')
     textDisplay.innerHTML = defaultText.text
   }
   function changeMode(difficulty) {
@@ -256,8 +255,8 @@ export function renderTypeGrid () {
   })
 
   function shuffleMode (mode) {
-    let randomNumber = Math.floor(Math.random() * 10);
-    let shuffleSum = ('shuffle' + mode.at(0).toUpperCase() + mode.slice(1))
+    const randomNumber = Math.floor(Math.random() * 10);
+    const shuffleSum = ('shuffle' + mode.at(0).toUpperCase() + mode.slice(1))
 
     if(shuffleSum === 'shuffleEasy') {
       shuffleSum = shuffleEasy
@@ -330,7 +329,7 @@ export function renderTypeGrid () {
     document.querySelector('.js-drop-down-mode-2').style.display = 'none'
   }
 
-  let startScreen = document.querySelector('.js-start-message')
+  const startScreen = document.querySelector('.js-start-message')
   document.querySelector('.js-start-button').addEventListener('click', clearScreen)
 
 
@@ -503,7 +502,7 @@ export function renderTypeGrid () {
       let timeLeft
       remainingTime--
       if (remainingTime > 60) {
-        let timeLeftMin = remainingTime - 60
+        const timeLeftMin = remainingTime - 60
         timeLeft = `01:${timeLeftMin < 10 ? '0' + timeLeftMin : timeLeftMin} `
       } else {
         timeLeft = `00:${remainingTime < 10 ? '0' + remainingTime : remainingTime}`
@@ -522,11 +521,11 @@ export function renderTypeGrid () {
   function updateStats() {
     const correctChars = typedData.filter(c => c.correct).length;
     const totalChars = typedData.length;
-    let incorrectChageableChars = totalChars - correctChars
+    const incorrectChageableChars = totalChars - correctChars
 
     const timeElapsed = (TEST_DURATION - remainingTime) / 60;
-    let rawWPM = timeElapsed > 0 ? (correctChars / 5) / timeElapsed : 0;
-    let penalizedWPM = Math.max(0, rawWPM - (incorrectChageableChars * PENALTY_PER_MISTAKE));
+    const rawWPM = timeElapsed > 0 ? (correctChars / 5) / timeElapsed : 0;
+    const penalizedWPM = Math.max(0, rawWPM - (incorrectChageableChars * PENALTY_PER_MISTAKE));
     const wpm = Math.round(penalizedWPM);
 
     const acc = totalChars ? Math.round((correctChars / totalChars) * 100) : 0;
@@ -568,7 +567,7 @@ export function renderTypeGrid () {
 
   input.addEventListener('paste', e => e.preventDefault())
 
-  input.addEventListener('click', e => {
+  input.addEventListener('click', () => {
     const len = input.value.length;
     input.setSelectionRange(len, len)
   })
