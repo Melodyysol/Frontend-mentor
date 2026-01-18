@@ -1,4 +1,4 @@
-let currentResult = JSON.parse(localStorage.getItem('currentResult')) || {
+const currentResult = JSON.parse(localStorage.getItem('currentResult')) || {
   wpm: 0,
   accuracy: 0,
   correctChars: 0,
@@ -14,7 +14,7 @@ const savedResult = JSON.parse(localStorage.getItem('savedResult')) || {
   time: 0
 };
 
-let resultHistory = JSON.parse(localStorage.getItem('resultHistory')) || [];
+const resultHistory = JSON.parse(localStorage.getItem('resultHistory')) || [];
 
 function saveCurrentResult() {
   resultHistory.push({...currentResult});
@@ -38,7 +38,7 @@ function updatePersonalBest() {
     localStorage.setItem('savedResult', JSON.stringify(savedResult));
   }
   
-  let personalBest = resultHistory.reduce((max, result) => result.wpm > max ? result.wpm : max, 0);
+  const personalBest = resultHistory.reduce((max, result) => result.wpm > max ? result.wpm : max, 0);
   document.querySelector('.high-wpm').textContent = savedResult.wpm;
   document.querySelector('.high-wpm-mobile').textContent = savedResult.wpm;
 

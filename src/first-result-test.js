@@ -2,7 +2,7 @@ import { currentResult } from "./share/saved-result-store.js";
 
 
 function topScreen() {
-  let topScreenHTML = `
+  const topScreenHTML = `
     <div class="type-top-header type-header">
       <div>
         <img src="typing-speed-test-main/assets/images/logo-large.svg" alt="Logo large" class="typing-logo-large">
@@ -20,7 +20,7 @@ function topScreen() {
 topScreen()
 
 function mainPageHTML() {
-  let mainHTML = `
+  const mainHTML = `
     <div class="star-one">
       <img alt="star one" src="typing-speed-test-main/assets/images/pattern-star-2.svg">
     </div>

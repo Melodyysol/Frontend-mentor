@@ -1,5 +1,5 @@
 export function topScreen() {
-  let topScreenHTML = `
+  const topScreenHTML = `
     <div class="type-top-header type-header">
       <div>
         <img src="typing-speed-test-main/assets/images/logo-large.svg" alt="Logo large" class="typing-logo-large">

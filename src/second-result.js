@@ -5,7 +5,7 @@ document.querySelector('header').innerHTML = topScreen()
 updatePersonalBest();
 
 function mainPageHTML() {
-  let mainHTML = `
+  const mainHTML = `
     <div class="pattern-confetti">
       <img class="pattern-confetti-img" alt="Pattern confetti" src="typing-speed-test-main/assets/images/pattern-confetti.svg">
     </div>
