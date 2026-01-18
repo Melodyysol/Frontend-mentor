@@ -1,7 +1,7 @@
-import { topScreenHTML } from "./share/home-header.js";
+import { topScreen } from "./share/home-header.js";
 import { currentResult, updatePersonalBest } from "./share/saved-result-store.js";
 
-document.querySelector('header').innerHTML = topScreenHTML()
+document.querySelector('header').innerHTML = topScreen()
 updatePersonalBest();
 
 function mainPageHTML() {

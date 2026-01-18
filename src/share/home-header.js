@@ -1,7 +1,4 @@
-import { currentResult } from "./saved-result-store.js";
-
-
-export function topScreenHTML() {
+export function topScreen() {
   let topScreenHTML = `
     <div class="type-top-header type-header">
       <div>

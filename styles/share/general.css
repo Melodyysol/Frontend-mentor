@@ -12,13 +12,13 @@ body {
   font-weight: 400;
   color: white;
   background-color: var(--black);
-  padding: 10px 30px;
-  font-size: 16px;
+  padding: 0.625rem 1.875rem;
+  font-size: 1rem;
 }
 header {
   border: none;
-  border-bottom: 2px solid var(--mediumBlack);
-  padding: 15px;
+  border-bottom: 0.125rem solid var(--mediumBlack);
+  padding: 0.9375rem;
   display: flex;
   flex-direction: column;
   row-gap: 40px;
@@ -33,10 +33,10 @@ header {
 }
 .cup {
   /* width: 8%; */
-  width: 18px;
+  width: 1.125rem;
 }
 .personal-best-container {
-  margin-right: 12px;
+  margin-right: 0.75rem;
 }
 .personal-best-2 {
   display: none;
@@ -55,9 +55,9 @@ header {
 }
 
 .current {
-  height: 10px;
-  padding: 0 5px;
-  border-radius: 5px;
+  height: 0.625rem;
+  padding: 0 0.3125rem;
+  border-radius: 0.3125rem;
   background-color: var(--white);
   text-align: center;
   animation: blinking 1.5s linear 2s infinite alternate;
@@ -68,21 +68,29 @@ header {
   to {background-color: var(--white);}
 }
 
-@media (max-width: 600px) {
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation-duration: 0s !important;
+  }
+
+}
+
+@media (max-width: 37.5em) {
   body {
     padding: 0;
   }
   header {
-    padding: 10px 10px 20px 10px ;
-    row-gap: 10px;
+    padding: 0.625rem 0.625rem 1.25rem 0.625rem ;
+    row-gap: 0.625rem;
   }
   .type-bottom-header {
     justify-content: center;
     flex-direction: column;
-    row-gap: 15px;
+    row-gap: 0.9375rem;
   }
   .cup {
-    width: 16px;
+    width: 1rem;
   }
   .personal-best-container {
     margin-right: 0px;

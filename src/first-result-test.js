@@ -1,7 +1,7 @@
 import { currentResult } from "./share/saved-result-store.js";
 
 
-function topScreenHTML() {
+function topScreen() {
   let topScreenHTML = `
     <div class="type-top-header type-header">
       <div>
@@ -17,7 +17,7 @@ function topScreenHTML() {
   `
   document.querySelector('header').innerHTML = topScreenHTML
 }
-topScreenHTML()
+topScreen()
 
 function mainPageHTML() {
   let mainHTML = `
@@ -49,11 +49,11 @@ function mainPageHTML() {
         <div>
           <span>Characters</span>
           <span>
-            <span style="color: hsl(140, 63%, 57%); font-size: 16px;">
+            <span style="color: hsl(140, 63%, 57%); font-size: 1rem;">
               ${currentResult.correctChars}
             </span>
             /
-            <span style="color: hsl(354, 63%, 57%); font-size: 16px;">
+            <span style="color: hsl(354, 63%, 57%); font-size: 1rem;">
               ${currentResult.inCorrectChars}
             </span>
           </span>

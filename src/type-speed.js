@@ -1,11 +1,12 @@
 import { data } from './data/data.js';
-import { topScreenHTML } from './share/home-header.js';
+import { topScreen } from './share/home-header.js';
 import { currentResult, savedResult, updatePersonalBest } from './share/saved-result-store.js';
 
 try {
   renderTypeGrid()
 } catch (error) {
-  console.log('Uncaught error. Try again later.')
+  error = 'Uncaught error detected. Try again later.'
+  console.log(error)
 }
 
 export function renderTypeGrid () {
@@ -13,11 +14,11 @@ export function renderTypeGrid () {
   let headerHTML = ''
   let mainHTML = ''
 
-  let shuffleEasy = data.easy.sort(() => Math.random() - 0.5);
-  let shuffleMedium  = data.medium.sort(() => Math.random() - 0.5)
-  let shuffleHard  = data.hard.sort(() => Math.random() - 0.5);
-  let shuffleQuote  = data.quote.sort(() => Math.random() - 0.5);
-  let shuffleLyrics  = data.lyrics.sort(() => Math.random() - 0.5);
+  const shuffleEasy = data.easy.sort(() => Math.random() - 0.5);
+  const shuffleMedium  = data.medium.sort(() => Math.random() - 0.5)
+  const shuffleHard  = data.hard.sort(() => Math.random() - 0.5);
+  const shuffleQuote  = data.quote.sort(() => Math.random() - 0.5);
+  const shuffleLyrics  = data.lyrics.sort(() => Math.random() - 0.5);
   let inCorrectChars = 0;
   let typedData = []
 
@@ -25,7 +26,7 @@ export function renderTypeGrid () {
   function homeScreenHTML() {
     headerHTML = `
       <section>
-        ${topScreenHTML()}
+        ${topScreen()}
       </section>
       <section class="type-bottom-header type-header">
         <div class="wpm-content content">
@@ -67,49 +68,49 @@ export function renderTypeGrid () {
             </div>
           </div>
           <div class="drop-down drop-down-mode js-drop-down-mode js-drop-down-mode-2">
-            <label for="easy" class="js-easy-mode js-easy-mode-2">
+            <label class="js-easy-mode js-easy-mode-2">
               <input type="radio" name="mode" id="easy" checked>
               <span>Easy</span>
             </label>
-            <label for="medium" class="js-medium-mode js-medium-mode-2">
+            <label class="js-medium-mode js-medium-mode-2">
               <input type="radio" name="mode" id="medium">
               <span>Medium</span>
             </label>
-            <label for="hard" class="js-hard-mode js-hard-mode-2">
+            <label class="js-hard-mode js-hard-mode-2">
               <input type="radio" name="mode" id="hard">
               <span>Hard</span>
             </label>
-            <label for="quote" class="js-quote-mode js-quote-mode-2">
+            <label class="js-quote-mode js-quote-mode-2">
               <input type="radio" name="mode" id="quote">
               <span>Quote</span>
             </label>
-            <label for="lyric" class="js-lyrics-mode js-lyrics-mode-2">
+            <label class="js-lyrics-mode js-lyrics-mode-2">
               <input type="radio" name="mode" id="lyrics">
               <span>Lyrics</span>
             </label>
-            <label for="custom" class="js-custom-mode js-custom-mode-2">
+            <label class="js-custom-mode js-custom-mode-2">
               <input type="radio" name="mode" id="custom">
               <span>Custom</span>
             </label>
           </div>
           <div class="drop-down drop-down-time js-drop-down-time">
-            <label for="sec-1" class="js-time-sec js-time-sec-2-1">
+            <label class="js-time-sec js-time-sec-2-1">
               <input type="radio" name="time" id="sec-1">
               <span>Time (15s)</span>
             </label>
-            <label for="sec-2" class="js-time-sec js-time-sec-2-2">
+            <label class="js-time-sec js-time-sec-2-2">
               <input type="radio" name="time" id="sec-2">
               <span>Time (30s)</span>
             </label>
-            <label for="sec" class="js-time-sec js-time-sec-2">
+            <label class="js-time-sec js-time-sec-2">
               <input type="radio" name="time" id="sec" checked>
               <span>Time (60s)</span>
             </label>
-            <label for="sec-3" class="js-time-sec js-time-sec-2-3">
+            <label class="js-time-sec js-time-sec-2-3">
               <input type="radio" name="time" id="sec-3">
               <span>Time (120s)</span>
             </label>
-            <label for="passage" class="medium passage js-time-passage js-time-passage-2">
+            <label class="medium passage js-time-passage js-time-passage-2">
               <input type="radio" name="time" id="passage">
               <span>Passage</span>
             </label>
@@ -142,18 +143,19 @@ export function renderTypeGrid () {
   `
   document.querySelector('main').innerHTML = mainHTML
 
-  let input = document.querySelector('.text-area')
-  let wpmEl = document.querySelector('.wpm-value');
-  let accEl = document.querySelector('.accuracy-value')
+  const input = document.querySelector('.text-area')
+  const textDisplay = document.querySelector('.js-text-to-type');
+  const wpmEl = document.querySelector('.wpm-value');
+  const accEl = document.querySelector('.accuracy-value')
   const timeEl = document.querySelector(".time-value");
-  let restartBtn = document.querySelector(".js-restart-button");
+  const restartBtn = document.querySelector(".js-restart-button");
   let startTime = null;
   let timer = null;
   let finished = false;
   let TEST_DURATION = 60; // default
   const PENALTY_PER_MISTAKE = 1;
   let custom = ''
-  let newCustom = document.getElementById('custom-textarea')
+  const newCustom = document.getElementById('custom-textarea')
 
   document.querySelector('.js-go').addEventListener('click', () => {
     setTimeout(() => {
@@ -195,15 +197,15 @@ export function renderTypeGrid () {
 
   function initialize() {
     let defaultText = getRandomText('easy')
-    document.querySelector('.js-text-to-type').innerHTML = defaultText.text
+    textDisplay.innerHTML = defaultText.text
   }
   function changeMode(difficulty) {
     let newText = getRandomText(difficulty)
     if (difficulty === 'custom') {
-      document.querySelector('.js-text-to-type').innerHTML = custom
+      textDisplay.innerHTML = custom
       return
     }
-    document.querySelector('.js-text-to-type').innerHTML = newText.text
+    textDisplay.innerHTML = newText.text
   }
 
 
@@ -268,7 +270,7 @@ export function renderTypeGrid () {
     }else if(shuffleSum === 'shuffleQuote') {
       shuffleSum = shuffleQuote
     }
-    document.querySelector('.js-text-to-type').innerHTML = shuffleSum[randomNumber].text
+    textDisplay.innerHTML = shuffleSum[randomNumber].text
   }
 
   document.querySelector('.js-easy-mode-2').addEventListener('click', () => {
@@ -435,7 +437,6 @@ export function renderTypeGrid () {
   }
 
 
-  const textDisplay = document.querySelector('.js-text-to-type');
   input.value = '';
 
   input.addEventListener('input', () => {
