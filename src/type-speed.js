@@ -162,6 +162,7 @@ export function renderTypeGrid () {
         custom = newCustom.value
         changeMode('custom')
         document.querySelector('.js-custom-container').style.display = 'none'
+        clearScreen()
         input.focus()
       }else {
         alert('Text must be 50 characters or more')
@@ -442,6 +443,8 @@ export function renderTypeGrid () {
     if (finished) return;
 
     if (!startTime) startTimer();
+
+    document.querySelector('.js-custom-container').style.display = 'none'
 
     typedData = [];
     const typedValue = input.value;
