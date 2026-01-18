@@ -13,6 +13,7 @@ main {
 }
 .pattern-confetti-img {
   width: 100%;
+  animation: glowing 1.5s linear 0.2s infinite alternate;
 }
 
 .middle-section {
@@ -93,9 +94,6 @@ footer {
   background-color: hsl(210, 100%, 65%);
   outline: 0.125rem solid hsl(214, 100%, 55%);
   border: 0.125rem solid hsl(0, 0%, 7%);
-}
-.pattern-confetti-img {
-  animation: glowing 1.5s linear 0.2s infinite alternate;
 }
 
 @keyframes glowing {
