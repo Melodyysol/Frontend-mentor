@@ -250,6 +250,7 @@ export function renderTypeGrid () {
       easyMediumHard('Easy');
       changeMode('easy')
       input.focus()
+      document.querySelector('.arrow1').style.transform = 'rotate(0deg)'
       document.querySelector('footer').style.marginTop = '6em';
     }, 200);
   })
@@ -258,6 +259,7 @@ export function renderTypeGrid () {
       easyMediumHard('Medium')
       changeMode('medium')
       input.focus()
+      document.querySelector('.arrow1').style.transform = 'rotate(0deg)'
       document.querySelector('footer').style.marginTop = '6em';
     }, 200);
   })
@@ -266,6 +268,7 @@ export function renderTypeGrid () {
       easyMediumHard('Hard')
       changeMode('hard')
       input.focus()
+      document.querySelector('.arrow1').style.transform = 'rotate(0deg)'
       document.querySelector('footer').style.marginTop = '11em';
     }, 200);
   })
@@ -275,6 +278,7 @@ export function renderTypeGrid () {
       easyMediumHard('Quote')
       changeMode('quote')
       input.focus()
+      document.querySelector('.arrow1').style.transform = 'rotate(0deg)'
       document.querySelector('footer').style.marginTop = '6em';
     }, 200);
   })
@@ -283,6 +287,7 @@ export function renderTypeGrid () {
       easyMediumHard('Lyrics')
       changeMode('lyrics')
       input.focus()
+      document.querySelector('.arrow1').style.transform = 'rotate(0deg)'
       document.querySelector('footer').style.marginTop = '6em';
     }, 200);
   })
@@ -292,6 +297,7 @@ export function renderTypeGrid () {
       easyMediumHard('Custom')
       document.querySelector('.custom-container').style.display = 'flex'
       input.value = '';
+      document.querySelector('.arrow1').style.transform = 'rotate(0deg)'
       newCustom.focus()
       document.querySelector('footer').style.marginTop = '6em';
     }, 200);
