@@ -249,7 +249,7 @@ export function renderTypeGrid () {
     setTimeout(() => {
       easyMediumHard('Easy');
       changeMode('easy')
-      input.focus()
+      if(clearScreen) input.focus();
       document.querySelector('.arrow1').style.transform = 'rotate(0deg)'
       document.querySelector('footer').style.marginTop = '6em';
     }, 200);
@@ -258,7 +258,7 @@ export function renderTypeGrid () {
     setTimeout(() => {
       easyMediumHard('Medium')
       changeMode('medium')
-      input.focus()
+      if(clearScreen) input.focus();
       document.querySelector('.arrow1').style.transform = 'rotate(0deg)'
       document.querySelector('footer').style.marginTop = '6em';
     }, 200);
@@ -267,7 +267,7 @@ export function renderTypeGrid () {
     setTimeout(() => {
       easyMediumHard('Hard')
       changeMode('hard')
-      input.focus()
+      if(clearScreen) input.focus();
       document.querySelector('.arrow1').style.transform = 'rotate(0deg)'
       document.querySelector('footer').style.marginTop = '11em';
     }, 200);
@@ -277,7 +277,7 @@ export function renderTypeGrid () {
     setTimeout(() => {
       easyMediumHard('Quote')
       changeMode('quote')
-      input.focus()
+      if(clearScreen) input.focus();
       document.querySelector('.arrow1').style.transform = 'rotate(0deg)'
       document.querySelector('footer').style.marginTop = '6em';
     }, 200);
@@ -286,7 +286,7 @@ export function renderTypeGrid () {
     setTimeout(() => {
       easyMediumHard('Lyrics')
       changeMode('lyrics')
-      input.focus()
+      if(clearScreen) input.focus();
       document.querySelector('.arrow1').style.transform = 'rotate(0deg)'
       document.querySelector('footer').style.marginTop = '6em';
     }, 200);
@@ -318,7 +318,7 @@ export function renderTypeGrid () {
       restartBtn.style.display = 'flex'
       document.querySelector('.text-to-type').style.filter = 'blur(0em)'
       // timeSetup()
-      input.focus();
+      input.focus();;
     }, 400);
   }
   let isDropDown = false
@@ -343,7 +343,7 @@ export function renderTypeGrid () {
     clearScreen()
     alert('Passage mode is coming soon!')
     newPassage()
-    input.focus();
+    if(clearScreen) input.focus();
   })
   document.querySelector('.js-time-sec-2-1').addEventListener('click', () => {
     timedPassage('Time (15s)')
@@ -371,7 +371,7 @@ export function renderTypeGrid () {
     timedPassage('Passage')
     alert('Passage mode is coming soon!')
     newPassage()
-    input.focus();
+    if(clearScreen) input.focus();
   })
 
   function newPassage() {
@@ -390,7 +390,7 @@ export function renderTypeGrid () {
 
       input.value = "";
       input.style.caretColor = 'var(--grey)'
-      input.focus()
+      if(clearScreen) input.focus();
 
       wpmEl.textContent = 0;
       accEl.textContent = '100%';
