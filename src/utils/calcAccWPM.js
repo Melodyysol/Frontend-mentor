@@ -8,3 +8,18 @@ export function calculateWPM(correctChars, secondsElapsed) {
 export function calculateAccuracy(correctChars, totalChars) {
   return totalChars ? Math.round((correctChars / totalChars) * 100) : 100;
 }
+
+export function shuffleDifficulty (difficulty) {
+  const difficulties = [...difficulty];
+  for (let i = 0; i < difficulties.length; i++) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [difficulties[i], difficulties[j]] = [difficulties[j], difficulties[i]]
+  }
+  return difficulties;
+}
+
+export function finish(finished, changePageHighWPM, clearInterval) {
+  changePageHighWPM()
+  finished = true;
+  clearInterval(timer);
+}

@@ -1,7 +1,7 @@
 import { data } from './data/data.js';
 import { topScreen } from './share/home-header.js';
 import { currentResult, savedResult, updatePersonalBest } from './share/saved-result-store.js';
-import { calculateAccuracy, calculateWPM } from './utils/calcAccWPM.js';
+import { calculateAccuracy, calculateWPM, shuffleDifficulty, finish } from './utils/calcAccWPM.js';
 
 try {
   renderTypeGrid()
@@ -13,15 +13,6 @@ export function renderTypeGrid () {
 
   let headerHTML = ''
   let mainHTML = ''
-
-  function shuffleDifficulty (difficulty) {
-    const difficulties = [...difficulty];
-    for (let i = 0; i < difficulties.length; i++) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [difficulties[i], difficulties[j]] = [difficulties[j], difficulties[i]]
-    }
-    return difficulties;
-  }
 
   let pools = {
     easy: shuffleDifficulty(data.easy),
@@ -231,7 +222,7 @@ export function renderTypeGrid () {
       document.querySelector('.js-medium-mode').classList.remove('active')
       document.querySelector('.js-hard-mode').classList.remove('active')
       easyMediumHard('Easy');
-      changeMode('easy')
+      // changeMode('easy')
       newPassage()
     }, 200);
   })
@@ -241,7 +232,6 @@ export function renderTypeGrid () {
       document.querySelector('.js-easy-mode').classList.remove('active')
       document.querySelector('.js-hard-mode').classList.remove('active')
       easyMediumHard('Medium')
-      changeMode('medium')
       newPassage()
     }, 200);
   })
@@ -251,7 +241,6 @@ export function renderTypeGrid () {
       document.querySelector('.js-easy-mode').classList.remove('active')
       document.querySelector('.js-medium-mode').classList.remove('active')
       easyMediumHard('Hard')
-      changeMode('hard')
       newPassage()
     }, 200);
   })
@@ -444,7 +433,7 @@ export function renderTypeGrid () {
     updateStats();
 
     if (typedValue.length >= textDisplay.textContent.length) {
-      finish();
+      finish(finished, changePageHighWPM, clearInterval);
     }
   })
 
@@ -485,7 +474,7 @@ export function renderTypeGrid () {
       updateStats();
 
       if(remainingTime <= 0) {
-        finish()
+        finish(finished, changePageHighWPM, clearInterval)
       }
     }, 1000);
   }
@@ -510,14 +499,6 @@ export function renderTypeGrid () {
     currentResult.time = secondsElapsed;
 
     localStorage.setItem('currentResult', JSON.stringify(currentResult));
-  }
-
-
-  // Finish test
-  function finish() {
-    changePageHighWPM()
-    finished = true;
-    clearInterval(timer);
   }
 
   // Restart
