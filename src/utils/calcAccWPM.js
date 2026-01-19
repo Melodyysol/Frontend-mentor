@@ -1,3 +1,4 @@
+import { currentResult, savedResult } from "../share/saved-result-store.js";
 
 export function calculateWPM(correctChars, secondsElapsed) {
   if (secondsElapsed < 5) return 0;
@@ -18,8 +19,23 @@ export function shuffleDifficulty (difficulty) {
   return difficulties;
 }
 
-export function finish(finished, changePageHighWPM, clearInterval) {
+export function finish(finished, timer) {
   changePageHighWPM()
   finished = true;
   clearInterval(timer);
+}
+
+function changePageHighWPM() {
+  if(currentResult.wpm > savedResult.wpm && savedResult.wpm !== 0) {
+    window.location.href = 'second-result.html';
+  } else if(currentResult.wpm === savedResult.wpm && savedResult.wpm !== 0) {
+    if (currentResult.accuracy > savedResult.accuracy) {
+      window.location.href = 'second-result.html';
+      return;
+    } else {
+       window.location.href = 'first-result-test.html';
+    }
+  }else {
+    window.location.href = 'first-result-test.html';
+  }
 }

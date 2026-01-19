@@ -1,6 +1,6 @@
 import { data } from './data/data.js';
 import { topScreen } from './share/home-header.js';
-import { currentResult, savedResult, updatePersonalBest } from './share/saved-result-store.js';
+import { currentResult, updatePersonalBest } from './share/saved-result-store.js';
 import { calculateAccuracy, calculateWPM, shuffleDifficulty, finish } from './utils/calcAccWPM.js';
 
 try {
@@ -439,7 +439,7 @@ export function renderTypeGrid () {
     updateStats();
 
     if (typedValue.length >= textDisplay.textContent.length) {
-      finish(finished, changePageHighWPM, clearInterval);
+      finish(finished, timer);
     }
   })
 
@@ -480,7 +480,7 @@ export function renderTypeGrid () {
       updateStats();
 
       if(remainingTime <= 0) {
-        finish(finished, changePageHighWPM, clearInterval)
+        finish(finished, timer)
       }
     }, 1000);
   }
@@ -513,14 +513,6 @@ export function renderTypeGrid () {
     input.focus()
   });
   updatePersonalBest();
-
-  function changePageHighWPM() {
-    if(currentResult.wpm > savedResult.wpm && savedResult.wpm !== 0) {
-      window.location.href = 'second-result.html';
-    } else {
-      window.location.href = 'first-result-test.html';
-    }
-  }
 
   input.addEventListener('paste', e => e.preventDefault())
 

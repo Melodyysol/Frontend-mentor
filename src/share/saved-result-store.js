@@ -22,11 +22,6 @@ function saveCurrentResult() {
 }
 
 function updatePersonalBest() {
-  // if (savedResult.length === 0) {
-  //   document.querySelector('.high-wpm').textContent = 0;
-  //   document.querySelector('.high-wpm-mobile').textContent = 0;
-  //   return;
-  // }
   saveCurrentResult();
   if (currentResult.wpm > savedResult.wpm) {
     savedResult.wpm = currentResult.wpm;

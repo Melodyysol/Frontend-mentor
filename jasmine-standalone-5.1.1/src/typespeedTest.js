@@ -1,4 +1,6 @@
-import { calculateAccuracy, calculateWPM, shuffleDifficulty } from "../../src/utils/calcAccWPM.js";
+import { calculateAccuracy, calculateWPM, shuffleDifficulty, finish } from "../../src/utils/calcAccWPM.js";
+import { currentResult, savedResult } from "../../src/share/saved-result-store.js";
+
 
 describe('test suite: calculateAccuracy', () => {
   const correctChars = 100;
@@ -58,3 +60,64 @@ describe('test suite: shuffleDifficulties', () => {
   });
 })
 
+// describe('test suite: finish()', () => {
+//   it('', () => {
+//     expect(
+//       input.length
+//     ).toEqual(output.length);
+//   });
+// })
+
+describe('test suite: currentResult()', () => {
+  beforeEach(() => {
+    spyOn(localStorage, 'setItem');
+  });
+
+  it('should save result to local storage', () => {
+    currentResult.wpm = 10;
+    currentResult.accuracy = 100;
+    currentResult.correctChars = 100;
+    currentResult.inCorrectChar = 5;
+    currentResult.time = 25;
+    localStorage.setItem('currentResult', JSON.stringify(currentResult));
+
+    expect(
+      localStorage.setItem
+    ).toHaveBeenCalledWith('currentResult', JSON.stringify(currentResult));
+
+    expect(
+      localStorage.setItem
+    ).toHaveBeenCalledTimes(1);
+
+    expect(
+      currentResult.wpm
+    ).toEqual(10);
+  });
+})
+
+describe('test suite: saveResult()', () => {
+  beforeEach(() => {
+    spyOn(localStorage, 'setItem');
+  });
+
+  it('should save result to local storage', () => {
+    savedResult.wpm = 10;
+    savedResult.accuracy = 100;
+    savedResult.correctChars = 100;
+    savedResult.inCorrectChar = 5;
+    savedResult.time = 25;
+    localStorage.setItem('savedResult', JSON.stringify(savedResult));
+
+    expect(
+      localStorage.setItem
+    ).toHaveBeenCalledWith('savedResult', JSON.stringify(savedResult));
+
+    expect(
+      localStorage.setItem
+    ).toHaveBeenCalledTimes(1);
+
+    expect(
+      savedResult.wpm
+    ).toEqual(10);
+  });
+})
