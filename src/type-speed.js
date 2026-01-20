@@ -2,6 +2,7 @@ import { data } from './data/data.js';
 import { topScreen } from './share/home-header.js';
 import { currentResult, updatePersonalBest } from './share/saved-result-store.js';
 import { calculateAccuracy, calculateWPM, shuffleDifficulty, finish } from './utils/calcAccWPM.js';
+import { clickSound } from './utils/sound.js';
 
 try {
   renderTypeGrid()
@@ -429,12 +430,29 @@ export function renderTypeGrid () {
       if(!d.correct) {
         checkout = d;
       }else {
-        checkout = undefined
-      }
+        checkout = undefined;
+      };
       if (checkout && checkout !== undefined) {
-        inCorrectChars++
+        inCorrectChars++;
       }
-    })
+    });
+
+    // Gives different sound on click wrong key
+
+    let bringCorrect;
+    for (let i = 0; i < typedData.length; i++) {
+      const chars = typedData[i];
+      bringCorrect = chars;
+    }
+    if (bringCorrect.correct) {
+      clickSound(1200);
+    }else if (!bringCorrect.correct) {
+      clickSound (250);
+    }
+
+
+
+
     renderText();
     updateStats();
 
@@ -478,6 +496,13 @@ export function renderTypeGrid () {
       timeEl.textContent = timeLeft;
       
       updateStats();
+
+      if (remainingTime <= 5) {
+        setInterval(() => clickSound(1200), 1000);
+        if (remainingTime <= 1) {
+          setInterval(() => clickSound(600, 0.08), 70);
+        }
+      }
 
       if(remainingTime <= 0) {
         finish(finished, timer)

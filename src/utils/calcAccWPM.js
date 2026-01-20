@@ -29,7 +29,7 @@ function changePageHighWPM() {
   if(currentResult.wpm > savedResult.wpm && savedResult.wpm !== 0) {
     window.location.href = 'second-result.html';
   } else if(currentResult.wpm === savedResult.wpm && savedResult.wpm !== 0) {
-    if (currentResult.accuracy > savedResult.accuracy) {
+    if (currentResult.accuracy > savedResult.accuracy || currentResult.inCorrectChars < savedResult.inCorrectChars) {
       window.location.href = 'second-result.html';
       return;
     } else {
