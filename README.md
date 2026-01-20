@@ -32,7 +32,7 @@ Users should be able to:
 - Type text and real-time feedback
 - See their **WPM**, **accuracy** and typing statistics
 - To enter custom text or pick lyrics or quotes for mobile only.
-- Track best result using local storage which can be viewed in the leaderboard when users beat their high score
+- Track best result using local storage which can be viewed in the leaderboard when users beat their high score.
 
 ### Screenshot
 
@@ -43,7 +43,6 @@ Users should be able to:
 
 - Solution URL: [solution URL is here](https://www.frontendmentor.io/solutions/typing-speed-test-js)
 - Live Site URL(GitHub): (https://melodyysol.github.io/Frontend-mentor/)
-- Live Site URL(Netlify): (https://frontend-typing.netlify.app)
 
 ## My process
 
@@ -76,7 +75,7 @@ In future version of this project, I plan to:
 
 - Add an online leaderboard
 - Improve UI animation and feedback
-- Add sound effect and themes (dark / light mode)
+- Add more sound effect and themes (dark / light mode)
 
 ### Useful resources
 
